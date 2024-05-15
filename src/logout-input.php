@@ -28,7 +28,7 @@ $student_id = $_SESSION['user']['student_id'];
 </div>
 
    <!--商品画面に遷移する-->
-   <form action="top.php" method="post">
+   <form action="home-login.php" method="post">
        <input type="submit" class="back" value="いいえ">
    </form>
 
