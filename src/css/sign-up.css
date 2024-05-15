@@ -1,0 +1,84 @@
+.sign-up-textbox {
+    background-color: gray;
+    border: none;
+    padding: 15px 10px;
+    line-height: 1.2em;
+    font-size: 20px;
+    color: white;
+    width: 300px;
+}
+
+.sign-up-textbox::placeholder {
+    color: white;
+}
+
+.sign-up-form td {
+    padding: 7.5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+    text-align: center;
+}
+
+.signup-button {
+    color: white;
+    background-color: #e5745b;
+    padding: 10px 10px;
+    border: none;
+    width: 10em;
+    border-radius: 30px;
+}
+
+.sign-up-con-form td {
+    padding: 7.5px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.sign-up-select {
+    background-color: gray;
+    border: none;
+    padding: 15px 10px;
+    line-height: 1.2em;
+    font-size: 20px;
+    color: white;
+    width: 320px;
+}
+
+.icon {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    height: auto;
+    max-height: 150px;
+}
+
+.error {
+    background-color: #ffcccc;
+    /* 背景色 */
+    color: #ff0000;
+    /* 文字色 */
+    padding: 10px;
+    /* 内側の余白を大きく設定 */
+    border: 2px solid #ff0000;
+    /* ボーダー */
+    border-radius: 10px;
+    /* 角丸 */
+    font-size: 20px;
+    /* フォントサイズを大きく設定 */
+    margin: auto;
+    /* 上下左右のマージンを自動で調整 */
+    width: 50%;
+    /* 幅を50%に設定 */
+    text-align: center;
+    /* 中央揃え */
+}
+
+h2 {
+    color: #e5745b;
+    font-size: 30px;
+}

@@ -1,0 +1,224 @@
+/* ページ全体を中央揃え */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+/* フォームのスタイル */
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+/* ヘッダーのスタイル */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* アイコンのスタイル */
+#icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  max-width: 100px;
+  max-height: 100px;
+  }
+/* テキスト入力フィールドのスタイル */
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* ボタンのスタイル */
+input[type="submit"],
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color: #0056b3;
+}
+
+/* サインアップボタンのスタイル */
+.signup-button {
+    background-color: #28a745;
+}
+
+.signup-button:hover {
+    background-color: #218838;
+}
+.nav_content {
+    position: absolute; /* fixedからabsoluteに変更 */
+    top: 100px; /* ヘッダーの高さに合わせて調整 */
+    right: 0;
+    text-align: center;
+    background-color: #fff; /* メニューの背景色 */
+    width: 250px; /* メニューの幅 */
+    height: 100vh; /* メニューの高さ */
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  
+  .nav_content.active {
+    transform: translateX(0);
+  }
+   .header {
+    background-color:#A2E7CA;
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+  }
+  
+  .header__inner {
+    padding: 0 20px; /*左右の余白確保*/
+    display: flex; /*ロゴとハンバーガーメニューを横に並べる*/
+    align-items: center;
+    justify-content: space-between;
+    height: inherit; /*親要素の高さを継承*/
+    position: relative;
+  }
+  
+  /* ヘッダーのロゴ部分 */
+  .header__title {
+    width: 11%;
+    height: 100%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  } 
+  
+  .header__title img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #home{
+    position: absolute;
+    top: 0;
+    left: 50%;
+  }
+  /* ヘッダーのナビ部分 */
+  .header__nav {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    transform: translateX(100%); 
+    background-color: rgba(53, 51, 50, 0.5);/*ハンバーガーメニュークリック時のナビゲーションメニュー背景色*/
+    transition: ease .4s; /*ハンバーガーメニュークリック時のナビゲーションメニュー出現を遅延*/
+  }
+  /* ハンバーガーメニューボタン */
+  .header__hamburger {
+    position: absolute;
+    height: 0%;
+    right: 1%;
+    width: 55px;
+    height: 100%;
+  }
+  
+  .hamburger {
+    background-color: transparent; /*buttonタグデフォルトスタイルを打ち消し*/
+    border-color: transparent; /*buttonタグデフォルトスタイルを打ち消し*/
+    z-index: 9999;
+  }
+  /* ハンバーガーメニューの線 */
+.hamburger span {
+   
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    position: relative;
+    transition: ease .4s; /*ハンバーガーメニュークリック時の三本線の動きを遅延*/
+    display: block;
+  }
+  
+  .hamburger span:nth-child(1) {
+    top: 0;
+  }
+  
+  .hamburger span:nth-child(2) {
+    margin: 8px 0;
+  }
+  
+  .hamburger span:nth-child(3) {
+    top: 0;
+  }
+  /* ハンバーガーメニュークリック後のスタイル */
+.header__nav.active {
+    width: 100%; 
+    /* クリック後のスライドの幅↑ */
+  transform: translateX(0%);
+
+  
+}
+
+.hamburger.active span:nth-child(1) {
+  top: 5px;
+  transform: rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  top: -13px;
+  transform: rotate(-45deg);
+}
+#welcom_message{
+  background: #3F5B7C;
+  color: #fff;
+  font-weight: bolder;
+  font-size: larger;
+  text-align: center;
+  margin-bottom: 10px;
+  padding-top: 40px; 
+  padding-bottom: 40px; 
+}
+.nav_content {
+  position: absolute; /* fixedからabsoluteに変更 */
+  top: 100px; /* ヘッダーの高さに合わせて調整 */
+  right: 0;
+  text-align: center;
+  background-color: #fff; /* メニューの背景色 */
+  width: 250px; /* メニューの幅 */
+  height: 100vh; /* メニューの高さ */
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+
+.nav_content.active {
+  transform: translateX(0);
+}

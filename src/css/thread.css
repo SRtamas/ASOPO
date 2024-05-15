@@ -1,0 +1,140 @@
+/* 基本スタイル */
+body {
+ font-family: 'Roboto', sans-serif;
+ margin: 0;
+ box-sizing: border-box;
+}
+
+/* ヘッダー */
+header {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ padding: 10px;
+ background-color: #f2f2f2;
+}
+
+.user-icon, .menu-icon {
+ width: 30px;
+ height: 30px;
+ background-color: #ccc;
+ border-radius: 50%;
+ margin-left: 10px;
+}
+
+/* メインコンテンツ */
+main {
+ padding: 10px;
+}
+
+.home {
+ display: flex;
+ align-items: center;
+ margin-right: 30%;
+ margin-bottom: 10px;
+}
+
+.thread-name {
+ font-weight: bold;
+ margin-bottom: 10px;
+}
+
+.chat-container {
+  max-height: 300px; /* 最大高さを設定 */
+  overflow-y: scroll; /* コンテンツがはみ出した場合にスクロールするように設定 */
+}
+
+
+.message {
+ display: flex;
+ margin-bottom: 10px;
+ max-width: 70%;
+ word-wrap: break-word;
+}
+
+.received {
+ justify-content: flex-start;
+}
+
+.sent {
+ justify-content: flex-end;
+ align-self: flex-end;
+}
+
+.user-avatar {
+ width: 30px;
+ height: 30px;
+ background-color: #ccc;
+ border-radius: 50%;
+ margin-right: 10px;
+}
+
+.message-text {
+ padding: 10px;
+ background-color: #f2f2f2;
+ border-radius: 10px;
+}
+
+.sent .message-text {
+ color: #000000;
+ background-color: #a7f56a;
+}
+
+.input-container {
+ display: flex;
+ margin-top: 10px;
+}
+
+input[type="text"] {
+  flex-grow: 2; /* Adjust the flex-grow value to make it longer */
+  width: auto; /* Set width to auto so it expands to fill available space */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+
+.send-button {
+ width: 40px;
+ height: 40px;
+ font-weight: bold;
+ background-color: rgb(54, 239, 85);
+ color: #fff;
+ border: none;
+ border-radius: 50%;
+ margin-left: 10px;
+ cursor: pointer;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+ .message {
+   max-width: 80%;
+ }
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  height: auto;
+  max-height: 50px;
+}
+.pic{
+  height: 75px;
+  width: auto;
+  max-width: 125px;
+}
+.post_date{
+  font-size: 10px;
+}
+.post_school{
+  font-size: 15px;
+}
+.post_name{
+  font-size: 15px;
+}
+.post_content{
+  font-size: 20px;
+}

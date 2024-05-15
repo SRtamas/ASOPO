@@ -1,0 +1,61 @@
+#topikon{
+    display:block;
+    background-color:#dcdcdc;
+    margin: 0 auto;
+    background-position: no-repeat;
+    position: absolute; /* 絶対位置指定 */
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
+    body {
+        /* background-color: rgb(224, 225, 226); */
+        display: flex;
+        justify-content: center; /* 横方向（左右）の中央配置 */
+        /* align-items: center;  */
+        height: 100vh; /* ビューポートの高さいっぱいにbodyを広げる */
+    }
+    #subikon{
+        margin: auto 0;
+    }
+    h1{
+        text-align: center;
+        margin-bottom: 130px;
+    }
+    .content2{
+        margin: auto 0;
+    }
+    #rogin{
+        height: 50px;
+        width: 250px;
+        margin-bottom: 3px;
+        color: #ffffff;
+        background-color:#A2E7CA;
+        box-shadow: 0px 8px 5px -5px rgba(0,0,0,0.5);
+        border-radius:30px;
+        border: none;
+        margin-bottom: 3px;
+        font-size: larger;
+        position: absolute;
+        top: 41%;
+        left: 41.5%;
+        font-weight: bolder;
+        }
+        
+        #touroku{
+            height: 50px;
+        width: 250px;
+        margin-bottom: 3px;
+        color: black;
+        background-color:#ffffff;
+        box-shadow: 0px 8px 5px -5px rgba(0,0,0,0.5);
+        border-radius:30px;
+        border: none;
+        margin-bottom: 3px;
+        font-size: larger;
+        position: absolute;
+        top: 50%;
+        left: 41.5%; 
+        font-weight: bolder;
+        }
+ 

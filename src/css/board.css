@@ -1,0 +1,388 @@
+  #me {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    left: 90%; /* ハンバーガーメニューの左側に配置 */
+    top: 16%; /* 上端に配置（必要に応じて調整） */
+  }
+  .header {
+    background-color:#A2E7CA;
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+  }
+  
+  .header__inner {
+    padding: 0 20px; /*左右の余白確保*/
+    display: flex; /*ロゴとハンバーガーメニューを横に並べる*/
+    align-items: center;
+    justify-content: space-between;
+    height: inherit; /*親要素の高さを継承*/
+    position: relative;
+  }
+  
+  /* ヘッダーのロゴ部分 */
+  .header__title {
+    width: 11%;
+    height: 100%;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .header__title img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  #home{
+    position: absolute;
+    top: 0;
+    left: 50%;
+  }
+  /* ヘッダーのナビ部分 */
+  .header__nav {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    transform: translateX(100%); 
+    background-color: rgba(53, 51, 50, 0.5);/*ハンバーガーメニュークリック時のナビゲーションメニュー背景色*/
+    transition: ease .4s; /*ハンバーガーメニュークリック時のナビゲーションメニュー出現を遅延*/
+  }
+  /* ハンバーガーメニューボタン */
+  .header__hamburger {
+    position: absolute;
+    height: 0%;
+    right: 1%;
+    width: 55px;
+    height: 100%;
+  }
+  
+  .hamburger {
+    background-color: transparent; /*buttonタグデフォルトスタイルを打ち消し*/
+    border-color: transparent; /*buttonタグデフォルトスタイルを打ち消し*/
+    z-index: 9999;
+  }
+  /* ハンバーガーメニューの線 */
+.hamburger span {
+   
+    width: 100%;
+    height: 1px;
+    background-color: #000;
+    position: relative;
+    transition: ease .4s; /*ハンバーガーメニュークリック時の三本線の動きを遅延*/
+    display: block;
+  }
+  
+  .hamburger span:nth-child(1) {
+    top: 0;
+  }
+  
+  .hamburger span:nth-child(2) {
+    margin: 8px 0;
+  }
+  
+  .hamburger span:nth-child(3) {
+    top: 0;
+  }
+  /* ハンバーガーメニュークリック後のスタイル */
+.header__nav.active {
+    width: 100%; 
+    /* クリック後のスライドの幅↑ */
+  transform: translateX(0%);
+
+  
+}
+
+.hamburger.active span:nth-child(1) {
+  top: 5px;
+  transform: rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  top: -13px;
+  transform: rotate(-45deg);
+}
+#welcom_message{
+  background: #3F5B7C;
+  color: #fff;
+  font-weight: bolder;
+  font-size: larger;
+  text-align: center;
+  margin-bottom: 10px;
+  padding-top: 40px; 
+  padding-bottom: 40px; 
+}
+.nav_content {
+  position: fixed;
+  top: 100px;
+  right: 0;
+  text-align: center;
+  background-color: #fff; /* メニューの背景色 */
+  width: 250px; /* メニューの幅 */
+  height: 100vh; /* メニューの高さ */
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav_content.active {
+  transform: translateX(0);
+}
+.search-container {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    margin: 30px 1%;
+  }
+  
+  .search-container input[type='text'] {
+    font: 15px/24px sans-serif;
+    box-sizing: border-box;
+    width: calc(100% - 40px); /* アイコンの幅を除く */
+    letter-spacing: 1px;
+    padding-left: 4em; /* アイコンの幅 */
+    width: 95%;
+  }
+  
+  .search-container button[type='submit'] {
+    position: absolute;
+    top: 0;
+    right: 11px;
+    height: 90%;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* アイコン付き入力フィールドの追加スタイル */
+  .cp_iptxt input[type='text'] {
+    padding: 7px 13px;
+    transition: 0.4s;
+    border: 1px solid #1b2538;
+    background: transparent;
+  }
+  
+  .cp_iptxt input[type='text']:focus {
+    outline: none;
+  }
+  
+  .cp_iptxt input[type='text']:focus ~ label {
+    font-size: 12px;
+    top: -18px;
+    left: 0;
+    transition: 0.3s;
+    color: #da3c41;
+  }
+  
+  .cp_iptxt label {
+    text-align: center;
+    position: absolute;
+    z-index: -1;
+    top: 10px;
+    left: 13px;
+    width: 100%;
+    transition: 0.3s;
+    letter-spacing: 0.5px;
+    color: #aaaaaa;
+  }
+  
+  .cp_iptxt .focus_line:before,
+  .cp_iptxt .focus_line:after {
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    content: '';
+    transition: 0.4s;
+    background-color: #da3c41;
+  }
+  
+  .cp_iptxt .focus_line:after {
+    top: auto;
+    bottom: 0;
+  }
+  
+  .cp_iptxt .focus_line i:before,
+  .cp_iptxt .focus_line i:after {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 2px;
+    height: 0;
+    content: '';
+    transition: 0.6s;
+    background-color: #da3c41;
+  }
+  
+  
+  .nav-items {
+    list-style: none;
+      padding-top: 250px;
+      padding-bottom: 200px;
+    }
+    
+    /* ナビのリンク */
+    .nav-items__item a {
+      color: black;
+      width: 100%;
+      display: block;
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 20px;
+      margin-top: 20px;
+      text-decoration-line:none; 
+    }
+    
+    .nav-items__item:last-child a {
+      margin-bottom: 0;
+    }
+
+    /* 下記、メインコンテンツのレイアウト */
+   
+      
+.main{
+    position: absolute;
+    top:10%;
+    height: 100%;
+    width:100%;
+    
+}
+.container {
+    display: flex;
+    flex-direction: column; /* コンテンツを縦に配置 */
+     align-items: center; /*コンテンツを中央に配置 */
+     width: 100%;
+     margin:0;
+    /* margin-top: 120px; ヘッダー分の余白 */
+}
+.left_thred{
+text-align: center;
+margin-top: 8.5%;
+}
+.right_thred{
+   margin-left: 4%;
+    }
+    #border{
+        color: #434446;
+    }
+.split{
+    display: table;
+    width: 100%;   
+    max-width: 1200px;
+   
+}
+.split-item{
+    display: table-cell;
+    padding: 3%;
+    width: 50%;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+}
+.split-left{
+    background: #D9D9D9;
+    color: #000;
+    position: relative;
+}
+
+.split-item.split-left {
+    display: table-cell;
+    padding: 0%;
+    width: 40%; /* 例えばここで左側のコンテンツの幅を調整します */
+}
+.split-item.split-right {
+    display: table-cell;
+    padding: 0%;
+   
+}
+.split-left__inner{
+    height: 100%;
+    position: fixed;
+    background: #D9D9D9;
+    width: 26%;
+    /* box-shadow: 10px 10px 10px rgba(139, 137, 137, 0.3); */
+}
+.split-right{
+    background: #faf5f5;
+    color: #000;
+    position: fixed; /* 親要素を固定する */
+    top: 100px; /* ヘッダーの高さに応じて調整 */
+    width: calc(100% - 35%); /* 左側コンテンツの幅を除いた幅 */
+    left: 35%; /* 左側コンテンツの幅 */
+    height: 100vh; /* ビューポートの高さいっぱいにする */
+    overflow-y: auto; /* コンテンツがビューポートを超える場合にスクロールバーを表示 */
+}
+.split-right__inner{
+    height: 100%; /* または必要な高さに応じて設定 */
+    overflow-y: auto; /* コンテンツがビューポートを超える場合にスクロールバーを表示 */
+}
+@media screen and (max-width:1024px) {
+    .split{
+        display: block;
+    }
+    .split-item{
+        display: block;
+        width: auto;
+    }
+    .split-left__inner{
+        position: inherit;
+        width: 30%;
+    }
+}
+.textbox {
+    position: absolute;
+    top:75%;
+    margin-left: 7%;
+    width: 70%; /* 必要な長さに応じて調整 */
+    height: 5%;
+    border: none; /* 下線以外の境界線を消す */
+    outline: none; /* フォーカス時のアウトラインを消す */
+  border-radius: 3%;
+  }
+  .textbox:focus {
+    border-bottom: 3px solid rgb(79, 79, 237); /* フォーカス時の下線を青色にする */
+  }
+  button[name="send"]{
+    position: absolute;
+    top:81%;
+    margin-left: 74.5%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+button[name="uproad"]{
+    position: absolute;
+    top:81%;
+    margin-left: 70%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+  button[name="uproad_photo"]{  
+    position: absolute;
+    top:76%;
+    margin-left: 64%;
+    background-color: #fff;
+    border: none;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    /* background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none; */
+}

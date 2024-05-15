@@ -1,0 +1,58 @@
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  padding: 50px 20px; /* パディングを調整 */
+  font-size: 40px; /* フォントサイズを小さく */
+}
+
+p {
+  text-align: center;
+  padding: 10px; /* パディングを小さく */
+  font-size: 24px; /* フォントサイズを小さく */
+  font-weight: bold; /* 太字にする */
+  color: rgb(247, 109, 109);
+}
+
+.login {
+  position: sticky; /* 位置を固定する */
+  left: 50%; /* 左からの距離 */
+  transform: translateX(-50%); /* 中央に配置 */
+  background-color: #BBBBBB;
+  padding: 8px 60px; /* パディングを小さく */
+  font-size: 24px; /* フォントサイズを小さく */
+  border-radius: 3px;
+  cursor: pointer;
+  border: 3px solid; /* 枠線の太さを小さく */
+}
+
+
+.login:hover {
+  background-color: #555555;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 30px; /* フォントサイズをさらに小さく */
+    padding: 30px 10px; /* パディングを小さく */
+  }
+
+  p {
+    font-size: 18px; /* フォントサイズを小さく */
+    padding: 20px; /* パディングを小さく */
+  }
+
+  .login {
+    position: sticky; /* 位置を固定する */
+    font-size: 18px; /* フォントサイズを小さく */
+    padding: 6px 40px; /* パディングを小さく */
+    border: 2px solid; /* 枠線の太さを小さく */
+    bottom: 30%; /* 下部に移動 */
+  }
+}

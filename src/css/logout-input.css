@@ -1,0 +1,118 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  text-align: center;
+  padding: 50px 20px; /* Adjusted padding */
+  font-size: 40px; /* Reduced font size */
+  color: #333;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  margin-top: -30px; /* Reduced margin-top */
+}
+
+#me {
+  width: 10vw;
+  height: 10vw;
+  text-align: center;
+  position: absolute;
+  top: 30%; /* Moved to top */
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bg_test {
+  color: #333;
+  height: 230px; /* Reduced height */
+  width: 200px; /* Reduced width */
+  text-align: center;
+  font-size: 12px; /* Reduced font size */
+  background-color: rgba(174, 174, 174, 0.225);
+  padding: 30px; /* Reduced padding */
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.useridname {
+  text-align: center;
+  position: absolute;
+  top: 55%; /* Moved lower */
+  left: 50%;
+  font-size: 30px; /* Reduced font size */
+  transform: translate(-50%, -50%);
+}
+
+.back,
+.out {
+  position: fixed;
+  bottom: 10%; /* Positioned 10% from the bottom */
+  padding: 8px 50px; /* Reduced padding */
+  font-size: 24px; /* Reduced font size */
+  border-radius: 3px;
+  cursor: pointer;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+  transition: background-color 0.3s ease;
+}
+
+.back {
+  background-color: #A0DBFC;
+  left: 20%; /* Positioned 20% from the left */
+}
+
+.out {
+  background-color: #FC7474;
+  right: 20%; /* Positioned 20% from the right */
+}
+
+.back:hover {
+  background-color: #555555;
+}
+
+.out:hover {
+  background-color: #880000;
+}
+
+@media (max-width: 768px) {
+  .bg_test {
+    max-width: 80%;
+    padding: 12px;
+    top: 40%;
+  }
+
+  h1 {
+    font-size: 30px; /* Further reduced font size */
+    padding: 30px 10px; /* Reduced padding */
+  }
+
+  #me {
+    width: 20vw; /* Increased width */
+    height: 20vw; /* Increased height */
+    top: 30%; /* Moved to top */
+  }
+
+  .useridname {
+    font-size: 24px; /* Reduced font size */
+    top: 58%; /* Moved lower */
+  }
+
+  .back,
+  .out {
+    font-size: 18px; /* Reduced font size */
+    padding: 16px 30px; /* Reduced padding */
+    bottom: 10%; /* Positioned 10% from the bottom */
+  }
+
+  .back {
+    left: 20%; /* Positioned 20% from the left */
+  }
+
+  .out {
+    right: 20%; /* Positioned 20% from the right */
+  }
+}
