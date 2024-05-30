@@ -29,9 +29,9 @@ if (!(isset($_SESSION['sign_up']))) {
         <p>
             <img id="topikon" src="img/5.png" class="show">
         </p>
-        <h3>
+        <h2 class="title">
             <p>登録が完了しました<br>ASOPOをお楽しみください！！
-        </h3>
+        <h2 class="title">
         </p>
         <a href="login-input.php">
             <h3>ログインへ</h3>

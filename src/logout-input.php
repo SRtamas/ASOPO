@@ -1,6 +1,11 @@
 <?php
 session_start();
 require 'db-connect.php';
+if(empty($_SESSION['user'])){
+    $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/top.php';
+            header("Location: $redirect_url");
+            exit();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -12,6 +17,8 @@ require 'db-connect.php';
 </head>
 <body>
 <h1>ログアウトしますか？</h1>
+
+ 
 <?php
 $student_id = $_SESSION['user']['student_id'];
           $icon_file = "pic/icon/{$student_id}.jpg"; 

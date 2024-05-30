@@ -72,7 +72,7 @@ if (isset($_POST['juge'])) {
 <body>
     <center>
         <img id="topikon" src="img/5.png" class="show">
-        <h3>アカウント新規作成</h3>
+        <h2 class="title">アカウント新規作成</h2>
         <table class="sign-up-con-form">
             <tr>
                 <td><span>学籍番号</span></td>
@@ -95,10 +95,15 @@ if (isset($_POST['juge'])) {
                 <td><span>パスワード</span></td>
                 <?php echo '<td><span>', $password, '</span></td>' ?>
             </tr>
+            <!-- <tr>
+                <td colspan="2" style="text-align: center;"><spna>アイコン</spna></td>
+            </tr> -->
             <tr>
                 <?php
                 if (isset($tmp_icon)) {
                     echo '<td colspan="2" style="text-align: center;"><img class="icon" alt="' . $student_id . '" src="' . $tmp_icon . '"/></td>';
+                }else{
+                    echo '<td colspan="2" style="text-align: center;"><img class="icon" alt="guest.jpg" src="pic/icon/guest.jpg"/></td>';
                 }
                 ?>
             </tr>

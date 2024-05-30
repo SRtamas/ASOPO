@@ -1,6 +1,11 @@
 <?php
 session_start();
-unset($_SESSION);
+if(empty($_SESSION['user'])){
+   $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/top.php';
+           header("Location: $redirect_url");
+           exit();
+ }
+session_destroy();
 ?>
 <!DOCTYPE html>
 <html lang="ja">

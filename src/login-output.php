@@ -2,7 +2,7 @@
 session_start();
 require "db-connect.php";
 
-unset($_SESSION['user']);
+unset($_SESSION['user'], $_SESSION['login']['error']);
 $student_id = $_POST['student_id'];
 $pass = $_POST['pass'];
 $sql = $pdo->prepare('select * from User where student_id=?');
@@ -20,24 +20,15 @@ if ($sql->rowCount() > 0) {
         header("Location: $redirect_url");
         exit();
     } else {
-        echo '<html>
-        <head>
-    <link rel="stylesheet" type="text/css" href="css/login.css">
-    </head>
-    <body>';
-        echo ' <center><form action="login-input.php" method="post"> <div class="error">学籍番号または、パスワードが間違えています。</div>';
-        echo '<a href="login-input.php" class="button">戻る</a>';
+        $_SESSION['login']['error'] = '学籍番号または、パスワードが間違えています';
+        $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/login-input.php';
+        header("Location: $redirect_url");
+        exit();
     }
 } else {
-    echo '<html>
-    <head>
-<link rel="stylesheet" type="text/css" href="css/login.css">
-</head>
-<body>';
-    echo ' <center>
-    <form action="login-input.php" method="post"> <div class="error">学籍番号または、パスワードが間違えています。</div>';
-    echo '<a href="login-input.php" class="button">戻る</a>';
+    $_SESSION['login']['error'] = '学籍番号または、パスワードが間違えています';
+    $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/login-input.php';
+    header("Location: $redirect_url");
+    exit();
 }
 ?>
-
-

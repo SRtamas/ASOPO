@@ -73,7 +73,7 @@ if (isset($_POST['student_id'])) {
 <body>
     <center>
         <img id="topikon" src="img/5.png" class="show">
-        <h2>アカウント新規作成</h2>
+        <h2 class="title">アカウント新規作成</h2>
         <form action="sign-up.php" method="post" enctype="multipart/form-data">
             <table class="sign-up-form">
                 <tr>
@@ -96,6 +96,7 @@ if (isset($_POST['student_id'])) {
                     echo '<tr>';
                     echo '<td colspan="2"><span class="error">', $student_id_error, '</span></td>';
                     echo '</tr>';
+                    unset($student_id_error);
                 }
                 ?>
                 <tr>
@@ -142,6 +143,7 @@ if (isset($_POST['student_id'])) {
                     echo '<tr>';
                     echo '<td colspan="2"><span class="error">', $user_name_error, '</span></td>';
                     echo '</tr>';
+                    unset($user_name_error);
                 }
                 ?>
                 <tr>
@@ -164,6 +166,7 @@ if (isset($_POST['student_id'])) {
                     echo '<tr>';
                     echo '<td colspan="2"><span class="error">', $password_error, '</span></td>';
                     echo '</tr>';
+                    unset($password_error);
                 }
                 ?>
                 <tr>
@@ -176,6 +179,7 @@ if (isset($_POST['student_id'])) {
                     echo '<tr>';
                     echo '<td colspan="2"><span class="error">', $password_con_error, '</span></td>';
                     echo '</tr>';
+                    unset($password_con_error);
                 }
                 ?>
                 <tr>
@@ -190,6 +194,7 @@ if (isset($_POST['student_id'])) {
                     echo '<tr>';
                     echo '<td colspan="2"><span class="error">', $tmp_icon_error, '</span></td>';
                     echo '</tr>';
+                    unset($tmp_icon_error);
                 }
                 ?>
             </table>

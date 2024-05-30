@@ -1,7 +1,150 @@
 <?php
 session_start();
-require 'db-connect.php';
-require 'header.php';
+require "db-connect.php";
+if (empty($_SESSION['user'])) {
+  $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/top.php';
+  header("Location: $redirect_url");
+  exit();
+}
+$board_id = 8;
+$pdo = new PDO($connect, USER, PASS);
+$sql = $pdo->prepare('SELECT * FROM Board WHERE board_id=? ');
+$sql->execute([$board_id]);
+$student_id = $_SESSION['user']['student_id'];
+foreach ($sql as $row) {
+  $board_name = $row['board_name'];
+}
+if (isset($_POST['post_content'])) {
+  if ($_POST['post_content'] != '' && !empty($_FILES['post_pic']['name'])) {
+    // 文字有、画像有
+    $post_content = $_POST['post_content'];
+    $post_date = date("Y/m/d H:i:s");
+    $post_pic = 1;
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $sql_insert = $pdo->prepare('INSERT INTO Post (student_id, post_date, post_content, board_id, post_pic) VALUES (?, ?, ?, ?, ?)');
+      $sql_insert->execute([$student_id, $post_date, $post_content, $board_id, $post_pic]);
+      $post_id_post = $pdo->lastInsertId();
+      $sql_update = $pdo->prepare('UPDATE Board SET board_updatedate = ? WHERE board_id = ?');
+      $sql_update->execute([$post_date, $board_id]);
+    }
+    if (is_uploaded_file($_FILES['post_pic']['tmp_name'])) {
+      // MIMEタイプを取得
+      $fileType = mime_content_type($_FILES['post_pic']['tmp_name']);
+
+      // ディレクトリの設定
+      $image_directory = 'pic/post_pic/';
+      $video_directory = 'movie/post_movie/';
+
+      // 画像の処理
+      if (in_array($fileType, ['image/jpeg', 'image/png'])) {
+        if (!file_exists($image_directory)) {
+          mkdir($image_directory, 0755, true);
+        }
+        // $file_extension = $fileType == 'image/jpeg' ? '.jpg' : '.png';
+        $file = $image_directory . $post_id_post . '.jpg';
+
+        if (!move_uploaded_file($_FILES['post_pic']['tmp_name'], $file)) {
+          // エラー処理
+          echo "画像のアップロードに失敗しました。";
+        }
+      }
+      // 動画の処理
+      elseif ($fileType == 'video/mp4') {
+        if (!file_exists($video_directory)) {
+          mkdir($video_directory, 0755, true);
+        }
+        $file = $video_directory . $post_id_post . '.mp4';
+
+        if (!move_uploaded_file($_FILES['post_pic']['tmp_name'], $file)) {
+          // エラー処理
+          echo "動画のアップロードに失敗しました。";
+        }
+        $post_pic = 2;
+        $sql_update = $pdo->prepare('UPDATE Post SET post_pic = ? WHERE post_id = ?');
+        $sql_update->execute([$post_pic, $post_id_post]);
+      } else {
+        // 対応していないファイルタイプのエラー処理
+        echo "対応していないファイル形式です。";
+      }
+
+      // 成功した場合はリダイレクト
+      header("Location: " . $_SERVER['REQUEST_URI']);
+      exit();
+    }
+  } else if ($_POST['post_content'] != '' && empty($_FILES['post_pic']['name'])) {
+    // 文字有、画像なし
+    $post_content = $_POST['post_content'];
+    $post_date = date("Y/m/d H:i:s");
+    $post_pic = 0;
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $sql_insert = $pdo->prepare('INSERT INTO Post (student_id, post_date, post_content, board_id, post_pic) VALUES (?, ?, ?, ?, ?)');
+      $sql_insert->execute([$student_id, $post_date, $post_content, $board_id, $post_pic]);
+      $sql_update = $pdo->prepare('UPDATE Board SET board_updatedate = ? WHERE board_id = ?');
+      $sql_update->execute([$post_date, $board_id]);
+      header("Location: " . $_SERVER['REQUEST_URI']);
+      exit();
+    }
+  } else if (empty($_POST['post_content']) && !empty($_FILES['post_pic']['name'])) {
+    // 文字なし、画像有
+    $post_content = '';
+    $post_date = date("Y/m/d H:i:s");
+    $post_pic = 1;
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+      $sql_insert = $pdo->prepare('INSERT INTO Post (student_id, post_date, post_content, board_id, post_pic) VALUES (?, ?, ?, ?, ?)');
+      $sql_insert->execute([$student_id, $post_date, $post_content, $board_id, $post_pic]);
+      $post_id_post = $pdo->lastInsertId();
+      $sql_update = $pdo->prepare('UPDATE Board SET board_updatedate = ? WHERE board_id = ?');
+      $sql_update->execute([$post_date, $board_id]);
+    }
+
+    if (is_uploaded_file($_FILES['post_pic']['tmp_name'])) {
+      // MIMEタイプを取得
+      $fileType = mime_content_type($_FILES['post_pic']['tmp_name']);
+
+      // ディレクトリの設定
+      $image_directory = 'pic/post_pic/';
+      $video_directory = 'movie/post_movie/';
+
+      // 画像の処理
+      if (in_array($fileType, ['image/jpeg', 'image/png'])) {
+        if (!file_exists($image_directory)) {
+          mkdir($image_directory, 0755, true);
+        }
+        // $file_extension = $fileType == 'image/jpeg' ? '.jpg' : '.png';
+        $file = $image_directory . $post_id_post . '.jpg';
+
+        if (!move_uploaded_file($_FILES['post_pic']['tmp_name'], $file)) {
+          // エラー処理
+          echo "画像のアップロードに失敗しました。";
+        }
+      }
+      // 動画の処理
+      elseif ($fileType == 'video/mp4') {
+        if (!file_exists($video_directory)) {
+          mkdir($video_directory, 0755, true);
+        }
+        $file = $video_directory . $post_id_post . '.mp4';
+
+        if (!move_uploaded_file($_FILES['post_pic']['tmp_name'], $file)) {
+          // エラー処理
+          echo "動画のアップロードに失敗しました。";
+        }
+        $post_pic = 2;
+        $sql_update = $pdo->prepare('UPDATE Post SET post_pic = ? WHERE post_id = ?');
+        $sql_update->execute([$post_pic, $post_id_post]);
+      } else {
+        // 対応していないファイルタイプのエラー処理
+        echo "対応していないファイル形式です。";
+      }
+
+      // 成功した場合はリダイレクト
+      header("Location: " . $_SERVER['REQUEST_URI']);
+      exit();
+    }
+  }
+  // ここに unset を移動
+  unset($_POST['post_content']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -10,94 +153,130 @@ require 'header.php';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="css/login_top.css">
+  <link rel="stylesheet" type="text/css" href="css/thread.css">
+
   <title>TOPページ/ASOPO</title>
 </head>
 
-<body>  
-  <div class="container">
-    <main>
-      <div class="main">
-        
-        <div class="main_hedder">
-          <strong>タイムライン</strong>
-          <button class="write-button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-              <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-              <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
-            </svg>
-          </button>
-        </div>
-
-        <div id="modalContent" style="display: none;">
-          <button type="button" class="modal_message">キャンセル</button>
-          <?php
-          if (isset($_SESSION['user']) && isset($_SESSION['user']['student_id'])) {
-            $student_id = $_SESSION['user']['student_id'];
-            $icon_file = "pic/icon/{$student_id}.jpg";
-            if (file_exists($icon_file)) {
-              echo '<img id="me1" src="' . $icon_file . '" alt="アイコン">';
-            } else {
-              echo '<img id="me2" src="pic/icon/guest.jpg" alt="デフォルトアイコン">';
-            }
-          }
-          ?>
-          <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-            <textarea class="message" name="message" rows="10" cols="50" required placeholder="今なにしてる？"></textarea>
-            <button class="post" type="submit">投稿</button>
-          </form>
-        </div>
-
-        <!-- データベースからの投稿表示 -->
+<body>
+  <?php
+  require 'header.php';
+  ?>
+  <main>
+    <div class="container">
+      <div class="thread-name"><?php echo $board_name ?></div>
+      <div class="chat-container">
         <?php
-        $sql = "SELECT Timeline.*, User.user_name 
-                FROM Timeline 
-                INNER JOIN User ON Timeline.student_id = User.student_id 
-                ORDER BY Timeline.post_date DESC";
-
-        $stmt = $pdo->query($sql);
-
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-          $content = htmlspecialchars($row['post_content']);
-          $postDate = htmlspecialchars($row['post_date']);
-          $good = htmlspecialchars($row['good']);
-          $comentcount = htmlspecialchars($row['comment_count']);
-          $userName = htmlspecialchars($row['user_name']);
-
-          echo '<div class="timeline_content">';
-          echo '<p>', $content, '</p>';
-          echo '<hr>
-                <div class="g_c">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
-                    <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
-                  </svg>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots-fill" viewBox="0 0 16 16">
-                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                  </svg>
-                </div>
-              </div>';
+        $sql_thread = $pdo->prepare('SELECT * FROM Post WHERE board_id=?');
+        $sql_thread->execute([$board_id]);
+        foreach ($sql_thread as $row_thread) {
+          $post_id_post = $row_thread['post_id'];
+          $student_id_post = $row_thread['student_id'];
+          $post_date_post = $row_thread['post_date'];
+          $post_content_post = $row_thread['post_content'];
+          $post_pic_post = $row_thread['post_pic'];
+          $post_pic_post = $row_thread['post_pic'];
+          $sql_user = $pdo->prepare('SELECT * FROM User WHERE student_id=?');
+          $sql_user->execute([$student_id_post]);
+          foreach ($sql_user as $row_user) {
+            $user_name_post = $row_user['user_name'];
+            $user_school_id = $row_user['School_id'];
+          }
+          $sql_school = $pdo->prepare('SELECT * FROM School WHERE School_id=?');
+          $sql_school->execute([$user_school_id]);
+          foreach ($sql_school as $row_school) {
+            $user_school_naem = $row_school['School_name'];
+          }
+          if ($student_id == $student_id_post) {
+            echo '<div class="message sent">';
+            echo '<div class="message-text">';
+            echo '<span class="post_date">', $post_date_post, '</span><br>';
+            // echo '<span class="post_school">', $user_school_naem, '</span><br>';
+            echo '<span class="post_content">', nl2br($post_content_post), '</span>';
+            if ($post_pic_post == 2) {
+              $video_file = "movie/post_movie/{$post_id_post}.mp4";
+              echo '<a href="' . htmlspecialchars($video_file) . '" target="_blank">動画を再生する</a>';
+            }
+            echo '</div>';
+            if ($post_pic_post == 1) {
+              $pic_file = "pic/post_pic/{$post_id_post}.jpg";
+              echo '<img class="pic" src="' . $pic_file . '" alt="投稿画像">';
+            }
+            echo '</div>';
+          } else {
+            echo '<div class="message received">';
+            $icon_file = "pic/icon/{$student_id_post}.jpg";
+            if (file_exists($icon_file)) {
+              echo '<img class="icon" src="' . $icon_file . '" alt="アイコン">';
+            } else {
+              echo '<img class="icon" src="pic/icon/guest.jpg" alt="デフォルトアイコン">';
+            }
+            echo '<div class="message-text">';
+            echo '<span class="post_date">', $post_date_post, '</span><br>';
+            echo '<span class="post_school">', $user_school_naem, '</span><br>';
+            echo '<span class="post_name">', $user_name_post, '</span><br>';
+            echo '<span class="post_content">', nl2br($post_content_post), '</span>';            if ($post_pic_post == 2) {
+              $video_file = "movie/post_movie/{$post_id_post}.mp4";
+              echo '<a href="' . htmlspecialchars($video_file) . '" target="_blank">動画を再生する</a>';
+            }
+            echo '</div>';
+            if ($post_pic_post == 1) {
+              $pic_file = "pic/post_pic/{$post_id_post}.jpg";
+              echo '<img class="pic" src="' . $pic_file . '" alt="投稿画像">';
+            }
+            echo '</div>';
+          }
         }
         ?>
       </div>
-    </main>
-  </div>
+      <div class="input-container">
+        <form action="home-login.php" method="post" enctype="multipart/form-data" onsubmit="return validateFileSize()">
+          <textarea class="post_text" name="post_content" placeholder="メッセージを入力"></textarea>
+          <button class="send-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-send" viewBox="0 0 16 16">
+              <path
+                d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
+            </svg></button>
+          <!-- <input type="file" name="post_pic" accept=".jpg, .jpeg, .png" /> -->
+          <div class="custom-file-upload">
+            <label for="post_pic" class="custom-file-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-clipboard2" viewBox="0 0 16 16">
+                <path
+                  d="M3.5 2a.5.5 0 0 0-.5.5v12a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-12a.5.5 0 0 0-.5-.5H12a.5.5 0 0 1 0-1h.5A1.5 1.5 0 0 1 14 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-12A1.5 1.5 0 0 1 3.5 1H4a.5.5 0 0 1 0 1h-.5Z" />
+                <path
+                  d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z" />
+              </svg>
+              <!-- 画像を選択 -->
+            </label>
+            <input type="file" id="post_pic" name="post_pic" accept=".jpg, .jpeg, .png,.mp4" />
+            <span id="file-name"></span> <!-- ファイル名を表示するための要素 -->
 
+          </div>
+      </div>
 
-
-  <script src="js/login_top.js"></script>
-  <script>document.addEventListener('DOMContentLoaded', function() {
-  const writeButton = document.querySelector('.write-button');
-  const modalContent = document.getElementById('modalContent');
-
-  writeButton.addEventListener('click', function() {
-    modalContent.style.display = 'block';
-  });
-
-  const modalMessageButton = document.querySelector('.modal_message');
-  modalMessageButton.addEventListener('click', function() {
-    modalContent.style.display = 'none';
-  });
-});
-</script>
+      </form>
+    </div>
+    </div>
+  </main>
 </body>
+<script>
+  document.getElementById('post_pic').addEventListener('change', function () {
+    var fileName = this.files[0].name;
+    document.getElementById('file-name').textContent = fileName;
+  });
+  function validateFileSize() {
+    var fileInput = document.getElementById('post_pic');
+    if (fileInput.files.length > 0) {
+      var maxSizeMB = 10; // 最大許容サイズ（MB）
+      var fileSizeMB = fileInput.files[0].size / (1024 * 1024); // ファイルサイズをMB単位に変換
+      if (fileSizeMB > maxSizeMB) {
+        alert('動画ファイルのサイズは' + maxSizeMB + 'MB以下にしてください。');
+        return false; // アップロードをキャンセル
+      }
+    }
+    return true; // アップロードを許可
+  }
+</script>
 
 </html>

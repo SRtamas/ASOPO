@@ -16,9 +16,7 @@ require "db-connect.php";
         require 'header.php'
     ?>
 
-    <!-- <img id="topikon" src="img/5.png" class="show"> -->
     <center>
-    <h1>アカウント変更</h1>
     
     <?php
     $pdo = new PDO($connect, USER, PASS);
@@ -29,8 +27,10 @@ require "db-connect.php";
     $sql = $pdo->prepare('SELECT * FROM User WHERE student_id=?');
     $sql->execute([$student_id]);
     foreach ($sql as $row) {
-        echo '<form action="profile-fin.php?student_id=' , $student_id , '" method="post" enctype="multipart/form-data">';
+        echo '<form action="profile-fin.php?student_id=' , $student_id , '" method="post" class = "profile-from" enctype="multipart/form-data">';
         echo '<table>';
+        echo '<h1 class = "profileout-h1">アカウント変更</h1>';
+
         
         // アイコンファイルパスを指定
         $icon_file = "pic/icon/{$student_id}.jpg";
@@ -38,39 +38,45 @@ require "db-connect.php";
         // アイコンが存在する場合は表示
         if (file_exists($icon_file)) {
             echo '<tr>';
-            echo '<td align=center><span>現在のアイコン</span></td>';
+            echo '<td align=center class = "icon-out"><h3>アイコン</h3></td>';
             echo '</tr>';
             echo '<tr>';
-            echo '<td align="center"><img id="icon" src="' . $icon_file . '" alt="アイコン"></td>';
+            echo '<td align="center" class = "icon-out"><img id="icon" src="' . $icon_file . '" alt="アイコン"></td>';
             echo '</tr>';
         } else {
             echo '<tr>';
-            echo '<td colspan="2" align="center"><img id="icon" src="pic/icon/guest.jpg" alt="デフォルトアイコン"></td>';
+            echo '<td align="center" class = "icon-out"><img id="icon" src="pic/icon/guest.jpg" alt="デフォルトアイコン"></td>';
             echo '</tr>';
         }
         
         // アイコン選択フォーム
         echo '<tr>';
-        echo '<td align=center><span>アイコン選択</span></td>';
+        echo '<td align=center class = "icon-out"><span>アイコン選択</span></td>';
         echo '</tr>';
         echo '<tr>';
-        echo '<td align="center"><input type="file" name="tmp_icon" accept=".jpg, .jpeg, .png" /></td>';
+        echo '<td align="center" class = "icon-out"><input type="file" name="tmp_icon" class = "icon-choose" accept=".jpg, .jpeg, .png" /></td>';
         echo '</tr>';
-        
-        echo '<tr><td>名前<input type="text" name="user_name" value="' , $row['user_name'] ,'" required></td></tr>';
+        //デフォルトアイコンを選択するフォーム
+        echo '<tr><th>学籍番号</th>';
+        echo '<td>' .$student_id. '</td></tr>';
+        echo '<tr><th>名前</th>';
+        echo '<td><input type="text" name="user_name" class = "name-text" value="' , $row['user_name'] ,'" required></td>';
+        echo '</tr>';
         if (!empty($row['user_profile'])) {
-            echo '<tr><td>説明分<textarea class = "user_profile" name="user_profile" cols="50" rows="5">' . $row['user_profile'] . '</textarea></td></tr>';
+            echo '<tr><th colspan="2">説明分</th></tr>';
+            echo '<tr><td colspan="2"><textarea class = "user_profile" name="user_profile" cols="50" rows="5" placeholder="説明分を入力">' . $row['user_profile'] . '</textarea></td></tr>';
         } else {
-            echo '<tr><td>説明分がありません<textarea class = "user_profile" name="user_profile" cols="50" rows="5"></textarea></td></tr>';
+            echo '<tr><th colspan="2">説明分がありません</th></tr>';
+            echo '<tr><td colspan="2"><textarea class = "user_profile" name="user_profile" cols="50" rows="5" placeholder="説明分を入力"></textarea></td></tr>';
         }
-        echo '<tr><td><input type="submit" value="変更"></td></tr>';
         echo '</table>';
+        echo '<tr><td>';
+        echo '<div class = button-all><a href="profile-input" class="back-button">戻る</a>';
+        echo '<button type="submit" class = "profile-button" >変更</button>';
+        echo '<div></td></tr>';
         echo '</form>';
     }
     ?>
-    <form action="profile-input.php" method="post">
-        <button type="submit" class="signup-button">戻る</button>
-    </form>
     </center>
     <script src="js/login_top.js"></script>
 </body>

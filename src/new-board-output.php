@@ -1,6 +1,11 @@
 <?php
 session_start();
 require "db-connect.php";
+if(empty($_SESSION['user'])){
+    $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/top.php';
+            header("Location: $redirect_url");
+            exit();
+  }
 
 $board_name = $_POST['board'];
 $genre_id = $_POST['genre'];
@@ -14,7 +19,9 @@ if (!empty($_POST['password'])) {
     if ($board_password == $board_password_con) {
         $password_hash = password_hash($board_password, PASSWORD_DEFAULT);
     } else {
-        echo "パスワードが一致しません。";
+        
+        echo "<h1>パスワードが一致しません。</h1>";
+        echo '<a href="new-board.php">戻る</a>';
         exit; // パスワードが一致しない場合は処理を終了
     }
 } else {

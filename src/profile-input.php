@@ -1,6 +1,11 @@
 <?php
 session_start();
 require 'db-connect.php';
+if(empty($_SESSION['user'])){
+    $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/top.php';
+            header("Location: $redirect_url");
+            exit();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -9,7 +14,7 @@ require 'db-connect.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/profile-input.css">
-    <title>Document</title>
+    <title>プロフィール</title>
 </head>
 
 <body>
@@ -17,7 +22,6 @@ require 'db-connect.php';
     require 'header.php';
     ?>
     <center>
-        <h1>プロフィール</h1>
         <?php
         $student_id = $_SESSION['user']['student_id'];
         $user_name = $_SESSION['user']['user_name'];
@@ -28,6 +32,10 @@ require 'db-connect.php';
         }
         ?>
         <table class="profile-input-form">
+            <tr>
+                <th colspan="2" class = "h1-pro">プロフィール</th>
+            </tr>
+
             <tr>
                 <td colspan="2" align="center">
                     <?php
@@ -55,29 +63,68 @@ require 'db-connect.php';
             <tr>
                 <td colspan="2" align="center"><?php
                 if (isset($user_profile)) {
-                    echo $user_profile;
+                    echo nl2br($user_profile);
                 } else {
                     echo '説明文がありません';
                 }
-                ?></td>
+                ?>
             </tr>
-        </table>
-        <div class="button-container">
+            <tr>
+            <td colspan="2" align="center" class = "button-td">
+            <div class="button-container">
 
-    <form action="home-login.php" method="post">
+            <form action="home-login.php" method="post">
         <button type="submit" class="backhome-button">戻る</button>
     </form>
     
     <form action="profile-output.php" method="post">
         <button type="submit" class="signup-button">⇒プロフィール編集画面へ</button>
     </form>
-    <form action="logout-input.php" method="post">
-        <button type="submit" class="logout-button">ログアウト</button>
-    </form>    
-   
-</div>
+    </div>
+            </td>
+            </tr>
+  
+        </table>
         
-        <script src="js/login_top.js"></script>
+   
+    <button id="logoutButton" class="logout-button">ログアウト</button>
+   
+    <div id="logoutModal" class="modal-logout">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>本当にログアウトしますか？</p>
+            <form action="logout-output.php" method="post">
+                <button type="submit" class="confirm-button">はい</button>
+                <button type="button" class="cancel-button">いいえ</button>
+            </form>
+        </div>
+    </div>
+        
+        <script>
+            // ログアウトボタンをクリックしたときの処理
+    const logoutButton = document.getElementById('logoutButton');
+    const logoutModal = document.getElementById('logoutModal');
+    const closeButton = document.querySelector('.close');
+    const cancelButton = document.querySelector('.cancel-button');
+
+    logoutButton.addEventListener('click', function() {
+        logoutModal.style.display = 'block'; // モーダルを表示
+    });
+
+    closeButton.addEventListener('click', function() {
+        logoutModal.style.display = 'none'; // モーダルを非表示
+    });
+
+    cancelButton.addEventListener('click', function() {
+        logoutModal.style.display = 'none'; // モーダルを非表示
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target == logoutModal) {
+            logoutModal.style.display = 'none'; // モーダルを非表示
+        }
+    });
+        </script>
 </body>
 
 </html>

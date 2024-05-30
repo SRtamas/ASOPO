@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="css/login_top.css">
 <header class="header">
     <h1 class="header__title header-title">
-        <img src="img/6.png" alt="ロゴ画像">
+        <a href="home-login.php"><img src="img/6.png" alt="ロゴ画像"></a>
     </h1>
     <?php
     if (isset($_SESSION['user']) && isset($_SESSION['user']['student_id'])) {
@@ -52,7 +52,7 @@
 
                 </div>
                 <!-- <ul> -->
-                    <li class="nav-items__item"><a href="home-login.php">タイムライン</a></li>
+                    <li class="nav-items__item"><a href="home-login.php">トップページ</a></li>
                     <li class="nav-items__item"><a href="rank.php">ランキング</a></li>
                     <li class="nav-items__item"><a href="new-board.php">スレッド作成</a></li>
                     <li class="nav-items__item"><a href="board.php">参加中のスレッド</a></li>

@@ -1,6 +1,11 @@
 <?php
 session_start();
 require "db-connect.php";
+if(empty($_SESSION['user'])){
+    $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/top.php';
+            header("Location: $redirect_url");
+            exit();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -9,10 +14,13 @@ require "db-connect.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/profile-fin.css">
-    <title>プロフィール編集</title>
+    <title>プロフィール完了</title>
 </head>
 
 <body>
+    <?php
+        require 'header.php'
+    ?>
 
     <?php
 
