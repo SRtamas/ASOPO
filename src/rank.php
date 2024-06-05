@@ -57,9 +57,9 @@ require 'header.php';
             $latestPostContent = '投稿がありません';
             if ($latestPost !== false) {
                 if ($latestPost['post_pic'] == 1) {
-                    $latestPostContent = '画像の投稿 <span class="icon">📷</span>';
+                    $latestPostContent = '画像の投稿 📷';
                 } elseif ($latestPost['post_pic'] == 2) {
-                    $latestPostContent = '動画の投稿 <span class="icon">🎥</span>';
+                    $latestPostContent = '動画の投稿 🎥';
                 } else {
                     $latestPostContent = htmlspecialchars($latestPost['post_content']);
                 }
@@ -83,6 +83,10 @@ require 'header.php';
             $genre = $sql6->fetch(PDO::FETCH_ASSOC);
 
             $pass_dis = isset($Board['board_password']) ? '<span class="locked">🔒</span>' : '';
+            if(isset($Board['board_password'])){
+                $latestPostContent = "パスワードが必要";
+            }
+            
 
             echo '<tr>';
             echo '<td>' . $count;
@@ -96,14 +100,16 @@ require 'header.php';
                 echo '位';
             }
             echo '</td>';
-            echo '<td>' . htmlspecialchars($Board['board_name']) . '</td>';
-            echo '<td>' . htmlspecialchars($genre['genre_name']) . '</td>';
-            echo '<td>' . ($poster ? htmlspecialchars($poster['user_name']) : '不明') . '</td>';
+    
+
+            echo '<td class="truncate">'  . htmlspecialchars(mb_strimwidth($Board['board_name'], 0, 15, '...')) .  '</td>';
+            echo '<td class="truncate">' . htmlspecialchars($genre['genre_name']) . '</td>';
+            echo '<td class="truncate">' . ($poster ? htmlspecialchars($poster['user_name']) : '不明') . '</td>';
             echo '<td>' . htmlspecialchars($postCount) . '</td>';
-            echo '<td>' . $latestPostContent . '</td>';
+            echo '<td class="truncate">' .mb_strimwidth($latestPostContent, 0, 20, '...').   '</td>';
             echo '<td>';
             echo '<form action="thread.php?id=' . intval($boardId) . '" method="post">';
-            echo '<button class="button">参加する</button>';
+            echo '<button class="button">参加</button>';
             echo '</form>';
             echo $pass_dis;
             echo '</td>';

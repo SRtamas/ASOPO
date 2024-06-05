@@ -6,7 +6,18 @@ if(empty($_SESSION['user'])){
             header("Location: $redirect_url");
             exit();
   }
+  ?>
+<html>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/new-board-output.css">
+    <title>ASOPO</title>
+</head>
+
+<body>
+    <?php
 $board_name = $_POST['board'];
 $genre_id = $_POST['genre'];
 $student_id = $_SESSION['user']['student_id'];
@@ -19,9 +30,9 @@ if (!empty($_POST['password'])) {
     if ($board_password == $board_password_con) {
         $password_hash = password_hash($board_password, PASSWORD_DEFAULT);
     } else {
-        
-        echo "<h1>パスワードが一致しません。</h1>";
-        echo '<a href="new-board.php">戻る</a>';
+        require 'header.php';
+        echo '<div class="message">パスワードが一致しません。</div>';
+        echo '<button class="back-link" href="javascript:history.back()">戻る</button>';
         exit; // パスワードが一致しない場合は処理を終了
     }
 } else {
@@ -39,15 +50,7 @@ $redirect_url = "https://aso2201203.babyblue.jp/ASOPO/src/thread.php?id=" . $las
 header("Location: " . $redirect_url);
 ?>
 
-<html>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASOPO</title>
-</head>
-
-<body>
     <h2>$_GET['board_name']</h2>
     <a href="thread.php">インプットへ</a>
 </body>

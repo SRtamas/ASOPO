@@ -23,8 +23,8 @@ if(empty($_SESSION['user'])){
     <?php 
     require 'header.php';
     echo '<form action="new-board-output.php" method="post">';
-    echo '<p>スレッド名<input type="text" name="board" class="textbox" required></p>';
-    echo 'ジャンル<select name="genre" required>';
+    echo '<p>スレッド名<input type="text" name="board" class="sign-up-textbox" required></p>';
+    echo 'ジャンル<select class="sign-up-textbox" name="genre" required>';
     $pdo = new PDO($connect, USER, PASS);
     foreach ($pdo->query('select * from Ganre') as $row) {
         echo '<option value=', $row['genre_id'], '>', $row['genre_name'], '</option>';

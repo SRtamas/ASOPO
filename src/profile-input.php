@@ -1,16 +1,21 @@
 <?php
 session_start();
 require 'db-connect.php';
-if(empty($_SESSION['user'])){
+if (empty($_SESSION['user'])) {
     $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/top.php';
-            header("Location: $redirect_url");
-            exit();
-  }
+    header("Location: $redirect_url");
+    exit();
+}
+if (empty($_SESSION['user']['School_id'])) {
+    $School_id = $_SESSION['user']['School_id'];
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
 
-<head>  
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/profile-input.css">
@@ -30,10 +35,16 @@ if(empty($_SESSION['user'])){
         foreach ($sql as $row) {
             $user_profile = $row['user_profile'];
         }
+        $Schoolsql = $pdo->prepare('SELECT * FROM School where School_id = ?');
+        $Schoolsql->execute([$School_id]);
+            foreach($Schoolsql as $row2){
+                $school_name = $row2['School_name'];
+            }
+
         ?>
         <table class="profile-input-form">
             <tr>
-                <th colspan="2" class = "h1-pro">プロフィール</th>
+                <th colspan="2" class="h1-pro">プロフィール</th>
             </tr>
 
             <tr>
@@ -47,15 +58,22 @@ if(empty($_SESSION['user'])){
                     }
                     ?>
                 </td>
-            </tr>
-            <tr>
-                <th>学籍番号</th>
-                <td><?php echo $student_id; ?></td>
-            </tr>
-            <tr>
-                <th>ユーザー名</th>
-                <td><?php echo $user_name; ?></td>
-            </tr>
+    <tr>
+        <th>所属学校</th>
+        <td><?php if(isset($school_name)){
+            echo $school_name;
+        }
+         ?></td>
+    </tr>
+    <tr>
+        <th>学籍番号</th>
+        <td><?php echo $student_id; ?></td>
+    </tr>
+    <tr>
+        <th>ユーザー名</th>
+        <td><?php echo $user_name; ?></td>
+    </tr>
+
 
             <tr>
                 <th colspan="2" align="center">説明文</th>
@@ -70,60 +88,60 @@ if(empty($_SESSION['user'])){
                 ?>
             </tr>
             <tr>
-            <td colspan="2" align="center" class = "button-td">
-            <div class="button-container">
+                <td colspan="2" align="center" class="button-td">
+                    <div class="button-container">
 
-            <form action="home-login.php" method="post">
-        <button type="submit" class="backhome-button">戻る</button>
-    </form>
-    
-    <form action="profile-output.php" method="post">
-        <button type="submit" class="signup-button">⇒プロフィール編集画面へ</button>
-    </form>
-    </div>
-            </td>
+                        <form action="home-login.php" method="post">
+                            <button type="submit" class="backhome-button">戻る</button>
+                        </form>
+
+                        <form action="profile-output.php" method="post">
+                            <button type="submit" class="signup-button">⇒プロフィール編集画面へ</button>
+                        </form>
+                    </div>
+                </td>
             </tr>
-  
+
         </table>
-        
-   
-    <button id="logoutButton" class="logout-button">ログアウト</button>
-   
-    <div id="logoutModal" class="modal-logout">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p>本当にログアウトしますか？</p>
-            <form action="logout-output.php" method="post">
-                <button type="submit" class="confirm-button">はい</button>
-                <button type="button" class="cancel-button">いいえ</button>
-            </form>
+
+
+        <button id="logoutButton" class="logout-button">ログアウト</button>
+
+        <div id="logoutModal" class="modal-logout">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>本当にログアウトしますか？</p>
+                <form action="logout-output.php" method="post">
+                    <button type="submit" class="confirm-button">はい</button>
+                    <button type="button" class="cancel-button">いいえ</button>
+                </form>
+            </div>
         </div>
-    </div>
-        
+
         <script>
             // ログアウトボタンをクリックしたときの処理
-    const logoutButton = document.getElementById('logoutButton');
-    const logoutModal = document.getElementById('logoutModal');
-    const closeButton = document.querySelector('.close');
-    const cancelButton = document.querySelector('.cancel-button');
+            const logoutButton = document.getElementById('logoutButton');
+            const logoutModal = document.getElementById('logoutModal');
+            const closeButton = document.querySelector('.close');
+            const cancelButton = document.querySelector('.cancel-button');
 
-    logoutButton.addEventListener('click', function() {
-        logoutModal.style.display = 'block'; // モーダルを表示
-    });
+            logoutButton.addEventListener('click', function () {
+                logoutModal.style.display = 'block'; // モーダルを表示
+            });
 
-    closeButton.addEventListener('click', function() {
-        logoutModal.style.display = 'none'; // モーダルを非表示
-    });
+            closeButton.addEventListener('click', function () {
+                logoutModal.style.display = 'none'; // モーダルを非表示
+            });
 
-    cancelButton.addEventListener('click', function() {
-        logoutModal.style.display = 'none'; // モーダルを非表示
-    });
+            cancelButton.addEventListener('click', function () {
+                logoutModal.style.display = 'none'; // モーダルを非表示
+            });
 
-    window.addEventListener('click', function(event) {
-        if (event.target == logoutModal) {
-            logoutModal.style.display = 'none'; // モーダルを非表示
-        }
-    });
+            window.addEventListener('click', function (event) {
+                if (event.target == logoutModal) {
+                    logoutModal.style.display = 'none'; // モーダルを非表示
+                }
+            });
         </script>
 </body>
 

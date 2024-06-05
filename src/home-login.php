@@ -165,6 +165,7 @@ if (isset($_POST['post_content'])) {
   <main>
     <div class="container">
       <div class="thread-name"><?php echo $board_name ?></div>
+      <a href="#text">一番下へ移動</a>
       <div class="chat-container">
         <?php
         $sql_thread = $pdo->prepare('SELECT * FROM Post WHERE board_id=?');
@@ -206,16 +207,19 @@ if (isset($_POST['post_content'])) {
           } else {
             echo '<div class="message received">';
             $icon_file = "pic/icon/{$student_id_post}.jpg";
+            echo '<a href="profile_con.php?id=' . intval($student_id_post) . '">';
             if (file_exists($icon_file)) {
               echo '<img class="icon" src="' . $icon_file . '" alt="アイコン">';
             } else {
               echo '<img class="icon" src="pic/icon/guest.jpg" alt="デフォルトアイコン">';
             }
+            echo '</a>';
             echo '<div class="message-text">';
             echo '<span class="post_date">', $post_date_post, '</span><br>';
             echo '<span class="post_school">', $user_school_naem, '</span><br>';
             echo '<span class="post_name">', $user_name_post, '</span><br>';
-            echo '<span class="post_content">', nl2br($post_content_post), '</span>';            if ($post_pic_post == 2) {
+            echo '<span class="post_content">', nl2br($post_content_post), '</span>';
+            if ($post_pic_post == 2) {
               $video_file = "movie/post_movie/{$post_id_post}.mp4";
               echo '<a href="' . htmlspecialchars($video_file) . '" target="_blank">動画を再生する</a>';
             }
@@ -231,7 +235,7 @@ if (isset($_POST['post_content'])) {
       </div>
       <div class="input-container">
         <form action="home-login.php" method="post" enctype="multipart/form-data" onsubmit="return validateFileSize()">
-          <textarea class="post_text" name="post_content" placeholder="メッセージを入力"></textarea>
+          <textarea class="post_text" name="post_content" id="text" placeholder="メッセージを入力"></textarea>
           <button class="send-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-send" viewBox="0 0 16 16">
               <path
@@ -256,26 +260,68 @@ if (isset($_POST['post_content'])) {
       </div>
 
       </form>
-    </div>
-    </div>
+      <!-- モーダルウィンドウ -->
+      <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
+      </div>
   </main>
+
 </body>
 <script>
-  document.getElementById('post_pic').addEventListener('change', function () {
-    var fileName = this.files[0].name;
-    document.getElementById('file-name').textContent = fileName;
-  });
   function validateFileSize() {
-    var fileInput = document.getElementById('post_pic');
-    if (fileInput.files.length > 0) {
-      var maxSizeMB = 10; // 最大許容サイズ（MB）
-      var fileSizeMB = fileInput.files[0].size / (1024 * 1024); // ファイルサイズをMB単位に変換
-      if (fileSizeMB > maxSizeMB) {
-        alert('動画ファイルのサイズは' + maxSizeMB + 'MB以下にしてください。');
-        return false; // アップロードをキャンセル
-      }
+    var input = document.getElementById('post_pic');
+    var file = input.files[0];
+    if (file && file.size > 1024 * 1024 * 5) {
+      alert('ファイルサイズは5MB以下にしてください。');
+      return false;
     }
-    return true; // アップロードを許可
+    return true;
+  }
+  // モーダルウィンドウを取得
+  var modal = document.getElementById("myModal");
+
+  // 画像をクリックしたときの処理
+  var images = document.querySelectorAll(".pic");
+  images.forEach(function (img) {
+    img.onclick = function (event) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("modalImg");
+      modal.style.display = "block"; // モーダルウィンドウを表示する
+
+      // クリックされた画像の位置を取得
+      var rect = img.getBoundingClientRect();
+      var imgTop = rect.top + window.pageYOffset;
+      var imgLeft = rect.left + window.pageXOffset;
+
+      // モーダルウィンドウの表示位置を設定
+      modal.style.top = imgTop - 50 + "px";
+      // modal.style.left = imgLeft + "px";
+      modal.style.left = 0 + "px";
+
+      modalImg.src = this.src; // クリックされた画像をモーダルウィンドウ内のimg要素に表示する
+    }
+  });
+
+
+  // モーダルウィンドウの閉じるボタンを取得
+  var span = document.getElementsByClassName("close")[0];
+
+  // 閉じるボタンがクリックされたときの処理
+  span.onclick = function () {
+    modal.style.display = "none"; // モーダルウィンドウを非表示にする
+  }
+
+  // モーダルウィンドウの外側をクリックしたときの処理
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none"; // モーダルウィンドウを非表示にする
+    }
+  }
+
+  // 画面を開いたときの処理
+  window.onload = function () {
+    modal.style.display = "none"; // モーダルウィンドウを非表示にする
   }
 </script>
 
