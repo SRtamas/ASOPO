@@ -170,6 +170,7 @@ if (isset($_POST['post_content'])) {
         <?php
         $sql_thread = $pdo->prepare('SELECT * FROM Post WHERE board_id=?');
         $sql_thread->execute([$board_id]);
+        $post_cont = 0;
         foreach ($sql_thread as $row_thread) {
           $post_id_post = $row_thread['post_id'];
           $student_id_post = $row_thread['student_id'];
@@ -191,7 +192,12 @@ if (isset($_POST['post_content'])) {
           if ($student_id == $student_id_post) {
             echo '<div class="message sent">';
             echo '<div class="message-text">';
-            echo '<span class="post_date">', $post_date_post, '</span><br>';
+            echo '<span class="post_date" id="post_' . $post_cont . '">', $post_date_post, '</span><br>';
+            $post_cont_m = $post_cont - 1;
+            echo '<form action="thread.php?id=' . intval($board_id) . '#post_' . $post_cont_m . '" method="post">';
+            echo '<input type="hidden" name="delete_id" value="' . $post_id_post . '">';
+            echo '<button type="submit" class="delete-button">削除</button>';
+            echo '</form>';
             // echo '<span class="post_school">', $user_school_naem, '</span><br>';
             echo '<span class="post_content">', nl2br($post_content_post), '</span>';
             if ($post_pic_post == 2) {
@@ -215,7 +221,7 @@ if (isset($_POST['post_content'])) {
             }
             echo '</a>';
             echo '<div class="message-text">';
-            echo '<span class="post_date">', $post_date_post, '</span><br>';
+            echo '<span class="post_date" id="post_' . $post_cont . '">', $post_date_post, '</span><br>';
             echo '<span class="post_school">', $user_school_naem, '</span><br>';
             echo '<span class="post_name">', $user_name_post, '</span><br>';
             echo '<span class="post_content">', nl2br($post_content_post), '</span>';
@@ -234,7 +240,8 @@ if (isset($_POST['post_content'])) {
         ?>
       </div>
       <div class="input-container">
-        <form action="home-login.php" method="post" enctype="multipart/form-data" onsubmit="return validateFileSize()">
+        <form action="home-login.php#text" method="post" enctype="multipart/form-data"
+          onsubmit="return validateFileSize()">
           <textarea class="post_text" name="post_content" id="text" placeholder="メッセージを入力"></textarea>
           <button class="send-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-send" viewBox="0 0 16 16">
@@ -255,10 +262,11 @@ if (isset($_POST['post_content'])) {
             </label>
             <input type="file" id="post_pic" name="post_pic" accept=".jpg, .jpeg, .png,.mp4" />
             <span id="file-name"></span> <!-- ファイル名を表示するための要素 -->
-
           </div>
       </div>
-
+      </form>
+      <form action="thread.php?id=<?php echo intval($board_id); ?>#text" method="post">
+        <button>更新</button>
       </form>
       <!-- モーダルウィンドウ -->
       <div id="myModal" class="modal">

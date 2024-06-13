@@ -13,7 +13,7 @@ if (!(empty($_POST['pass_change']))) {
     $pass_hash = password_hash($pass, PASSWORD_DEFAULT);
     $sql_update = $pdo->prepare('UPDATE Board SET board_password = ? WHERE board_id = ?');
     $sql_update->execute([$pass_hash, $board_id]);
-    $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/thread.php?id='.intval($board_id);
+    $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/thread.php?id=' . intval($board_id);
     header("Location: $redirect_url");
     exit();
 }
@@ -21,7 +21,7 @@ if (!(empty($_POST['pass_delete']))) {
     // パスワード削除
     $sql_update = $pdo->prepare('UPDATE Board SET board_password = ? WHERE board_id = ?');
     $sql_update->execute([null, $board_id]);
-    $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/thread.php?id='.intval($board_id);
+    $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/thread.php?id=' . intval($board_id);
     header("Location: $redirect_url");
     exit();
 }

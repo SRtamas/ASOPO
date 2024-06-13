@@ -14,7 +14,14 @@ if (empty($_SESSION['user'])) {
         $user_school = $row_user['School_id'];
         $user_profile = $row_user['user_profile'];
     }
+    $Schoolsql = $pdo->prepare('SELECT School_name FROM School where School_id = ?');
+    $Schoolsql->execute([$user_school]);
+        foreach($Schoolsql as $row2){
+            $school_name = $row2['School_name'];
+    }
+
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -56,6 +63,10 @@ if (empty($_SESSION['user'])) {
                 <th>ユーザー名</th>
                 <td><?php echo $user_name; ?></td>
             </tr>
+            <tr>
+                <th>所属学校</th>
+                <td><?php echo $school_name; ?></td>
+    </tr>
 
             <tr>
                 <th colspan="2" align="center">説明文</th>
@@ -71,7 +82,9 @@ if (empty($_SESSION['user'])) {
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <button onclick="history.back();">戻る</button>
+                        <form action="home-login.php" method="post">
+                            <button type="submit" class="backhome-con">戻る</button>
+                        </form>
                 </td>
             </tr>
         </table>

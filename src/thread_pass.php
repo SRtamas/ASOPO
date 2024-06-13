@@ -11,6 +11,7 @@ $sql = $pdo->prepare('SELECT * FROM Board WHERE board_id=? ');
 $sql->execute([$board_id]);
 foreach ($sql as $row) {
     $board_pass = $row['board_password'];
+    $board_name = $row['board_name'];
 }
 unset($error);
 if (!(empty($_POST['thread_pass']))) {
@@ -43,19 +44,20 @@ if (!(empty($_POST['thread_pass']))) {
     require 'header.php';
     ?>
     <main>
-        <!-- <div class="main"> -->
         <form class="form-container" action="thread_pass.php" method="post">
-            <span class="form-title">掲示板のパスワードを入力してください</span><br>
-            <input class="form-input" type="text" name="thread_pass" required>
-            <button class="form-button" type="submit">入力</button>
-            <?php
-            if (!empty($error)) {
-                echo '<br><span class="error">' . $error . '</span>';
-            }
-            ?>
+            <center>
+                <span class="form-title">掲示板のパスワードを入力してください</span><br>
+                <span class="form-title"><?php echo $board_name ?></span><br>
+                <input class="form-input" type="text" name="thread_pass" placeholder="パスワードを入力してください" required>
+                <?php
+                if (!empty($error)) {
+                    echo '<br><span class="error">' . $error . '</span>';
+                }
+                ?>
+                <button class="form-button" type="submit">入力</button>
+                <button onclick="history.back();" class="form-button">戻る</button>
+            </center>
         </form>
-        <br>
-        <!-- </div> -->
     </main>
 </body>
 

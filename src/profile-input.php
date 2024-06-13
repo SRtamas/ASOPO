@@ -5,12 +5,22 @@ if (empty($_SESSION['user'])) {
     $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/top.php';
     header("Location: $redirect_url");
     exit();
-}
-if (empty($_SESSION['user']['School_id'])) {
-    $School_id = $_SESSION['user']['School_id'];
+} else {
+    $student_id = $_SESSION['user']['student_id'];
+    $user_name = $_SESSION['user']['user_name'];
+    $sql = $pdo->prepare('SELECT * FROM User WHERE student_id=?');
+    $sql->execute([$student_id]);
+    foreach ($sql as $row) {
+        $user_profile = $row['user_profile'];
+        $School_id = $row['School_id'];
+    }
+    $Schoolsql = $pdo->prepare('SELECT School_name FROM School where School_id = ?');
+    $Schoolsql->execute([$School_id]);
+        foreach($Schoolsql as $row2){
+            $school_name = $row2['School_name'];
+    }
 
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -27,21 +37,6 @@ if (empty($_SESSION['user']['School_id'])) {
     require 'header.php';
     ?>
     <center>
-        <?php
-        $student_id = $_SESSION['user']['student_id'];
-        $user_name = $_SESSION['user']['user_name'];
-        $sql = $pdo->prepare('SELECT * FROM User WHERE student_id=?');
-        $sql->execute([$student_id]);
-        foreach ($sql as $row) {
-            $user_profile = $row['user_profile'];
-        }
-        $Schoolsql = $pdo->prepare('SELECT * FROM School where School_id = ?');
-        $Schoolsql->execute([$School_id]);
-            foreach($Schoolsql as $row2){
-                $school_name = $row2['School_name'];
-            }
-
-        ?>
         <table class="profile-input-form">
             <tr>
                 <th colspan="2" class="h1-pro">プロフィール</th>
@@ -58,13 +53,7 @@ if (empty($_SESSION['user']['School_id'])) {
                     }
                     ?>
                 </td>
-    <tr>
-        <th>所属学校</th>
-        <td><?php if(isset($school_name)){
-            echo $school_name;
-        }
-         ?></td>
-    </tr>
+            </tr>
     <tr>
         <th>学籍番号</th>
         <td><?php echo $student_id; ?></td>
@@ -72,6 +61,10 @@ if (empty($_SESSION['user']['School_id'])) {
     <tr>
         <th>ユーザー名</th>
         <td><?php echo $user_name; ?></td>
+    </tr>
+    <tr>
+        <th>所属学校</th>
+        <td><?php echo $school_name; ?></td>
     </tr>
 
 
