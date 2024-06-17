@@ -26,6 +26,9 @@ require "db-connect.php";
     $sql = $pdo->prepare('SELECT * FROM User WHERE student_id=?');
     $sql->execute([$student_id]);
     foreach ($sql as $row) {
+        $user_profile = $row['user_profile'];
+        $School_id = $row['School_id'];
+
         echo '<form action="profile-fin.php?student_id=' , $student_id , '" method="post" class="profile-from" enctype="multipart/form-data">';
         echo '<table>';
         echo '<h1 class="profileout-h1">アカウント変更</h1>';
@@ -60,11 +63,19 @@ require "db-connect.php";
         echo '<td align="center" class="icon-out"><input type="file" name="tmp_icon" class="icon-choose" accept=".jpg, .jpeg, .png" /></td>';
         echo '</tr>';
 
-        echo '<tr><th>学籍番号</th>';
-        echo '<td>' . $student_id . '</td></tr>';
-        echo '<tr><th>名前</th>';
-        echo '<td><input type="text" name="user_name" class="name-text" value="' . htmlspecialchars($row['user_name']) . '" required></td>';
+        echo '<tr><th class = "th-name">学籍番号</th>';
+        echo '<td align = "center" colspan="2">' . $student_id . '</td></tr>';
+        echo '<tr><th class = "th-name">名前</th>';
+        echo '<td align = "center colspan="2""><input type="text" name="user_name" class="name-text" value="' . htmlspecialchars($row['user_name']) . '" required></td>';
         echo '</tr>';
+        $Schoolsql = $pdo->prepare('SELECT School_name FROM School where School_id = ?');
+        $Schoolsql->execute([$School_id]);
+            foreach($Schoolsql as $row2){
+                $school_name = $row2['School_name'];
+                    echo '<tr><th class = "th-name">所属学校</th>';
+                    $school_name_kai = str_replace(' ', "\n", $school_name);
+                    echo '<td align = "center">' .  nl2br($school_name_kai) . '</td></tr>';
+                }
         if (!empty($row['user_profile'])) {
             echo '<tr><th colspan="2">説明分</th></tr>';
             echo '<tr><td colspan="2"><textarea class="user_profile" name="user_profile" cols="50" rows="5" placeholder="説明分を入力">' . htmlspecialchars($row['user_profile']) . '</textarea></td></tr>';

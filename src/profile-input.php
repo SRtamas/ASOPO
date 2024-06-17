@@ -16,8 +16,8 @@ if (empty($_SESSION['user'])) {
     }
     $Schoolsql = $pdo->prepare('SELECT School_name FROM School where School_id = ?');
     $Schoolsql->execute([$School_id]);
-        foreach($Schoolsql as $row2){
-            $school_name = $row2['School_name'];
+    foreach ($Schoolsql as $row2) {
+        $school_name = $row2['School_name'];
     }
 
 }
@@ -54,18 +54,19 @@ if (empty($_SESSION['user'])) {
                     ?>
                 </td>
             </tr>
-    <tr>
-        <th>学籍番号</th>
-        <td><?php echo $student_id; ?></td>
-    </tr>
-    <tr>
-        <th>ユーザー名</th>
-        <td><?php echo $user_name; ?></td>
-    </tr>
-    <tr>
-        <th>所属学校</th>
-        <td><?php echo $school_name; ?></td>
-    </tr>
+            <tr>
+                <th>学籍番号</th>
+                <td><?php echo $student_id; ?></td>
+            </tr>
+            <tr>
+                <th>ユーザー名</th>
+                <td><?php echo $user_name; ?></td>
+            </tr>
+            <tr>
+                <th>所属学校</th>
+                <td><?php $school_name_kai = str_replace(' ', "\n", $school_name);
+                echo nl2br($school_name_kai); ?></td>
+            </tr>
 
 
             <tr>

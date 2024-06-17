@@ -65,7 +65,8 @@ if (empty($_SESSION['user'])) {
             </tr>
             <tr>
                 <th>所属学校</th>
-                <td><?php echo $school_name; ?></td>
+                <td><?php $school_name_kai = str_replace(' ', "\n", $school_name);
+                echo nl2br($school_name_kai); ?></td>
     </tr>
 
             <tr>
