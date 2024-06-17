@@ -1,0 +1,108 @@
+
+/* General Body Styles */
+body {
+    background-color: #e6f4ea;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Container */
+.main {
+    max-width: 1000px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 3px 10px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow-y: auto;
+}
+
+/* Main Header */
+.main_header {
+    text-align: center;
+    font-weight: bold;
+    padding: 20px;
+    background-color: #72a97e;
+    color: #ffffff;
+    font-size: larger;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Ensures fixed table layout */
+}
+
+th, td {
+    border: 1px solid #72a97e;
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap; /* Prevents text wrapping */
+}
+
+th {
+    background-color: #a3d7b2;
+}
+
+/* Truncate long text */
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px; /* Set a fixed max width */
+    white-space: nowrap;
+}
+
+/* Button Styles */
+.button {
+    background-color: #a3d7b2;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.button:hover {
+    background-color: #90c89a;
+}
+
+/* Locked Icon */
+.locked {
+    color: #FF6347;
+}
+
+/* Medal Icons */
+.medal {
+    margin-left: 5px;
+}
+
+/* Not Found and Error Messages */
+.not-found, .error {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    margin-top: 20px;
+}
+
+.locked {
+    color: #FF6347;
+}
+
+.medal {
+    font-size: 20px;
+    margin-left: 5px;
+}
+
+.icon {
+    font-size: 18px;
+    margin-left: 5px;
+}
+

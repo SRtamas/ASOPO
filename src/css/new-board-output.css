@@ -1,0 +1,36 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #ffffff;
+  text-align: center;
+  margin: 200px;
+  padding-top: 100px;
+   font-size: 30px;
+}
+
+message {
+  font-size: 24px;
+  color: #333333;
+}
+
+back-link {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+back-link:hover {
+  background-color: #45a049;
+}
+
+cat {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 50px;
+  height: auto;
+  opacity: 0.6;
+}

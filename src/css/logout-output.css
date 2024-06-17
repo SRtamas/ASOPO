@@ -16,8 +16,9 @@ p {
   padding: 10px; /* パディングを小さく */
   font-size: 24px; /* フォントサイズを小さく */
   font-weight: bold; /* 太字にする */
-  color: rgb(247, 109, 109);
+  color: #A2E7CA; /* テキストカラーを指定 */
 }
+
 
 .login {
   position: sticky; /* 位置を固定する */
