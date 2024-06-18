@@ -52,20 +52,33 @@
 
                 </div>
                 <!-- <ul> -->
-                    <li class="nav-items__item"><a href="home-login.php">トップページ</a></li>
-                    <li class="nav-items__item"><a href="rank.php">ランキング</a></li>
-                    <li class="nav-items__item"><a href="new-board.php">スレッド作成</a></li>
-                    <li class="nav-items__item"><a href="board.php">参加中のスレッド</a></li>
-                    <hr>
-                    <li class="nav-items__item"><a href=""><b>カテゴリ</b></a></li>
-                    <?php
-                    $pdo = new PDO($connect, USER, PASS);
-                    foreach ($pdo->query('select * from Ganre') as $row) {
-
-                        echo '<li class="nav-items__item"><a href="Genre.php?id=', $row['genre_id'], '">', $row['genre_name'], '</a></li>';
+                <li class="nav-items__item"><a href="home-login.php">トップページ</a></li>
+                <li class="nav-items__item"><a href="rank.php">ランキング</a></li>
+                <li class="nav-items__item"><a href="new-board.php">スレッド作成</a></li>
+                <li class="nav-items__item"><a href="board.php">参加中のスレッド</a></li>
+                <hr>
+                <li class="nav-items__item"><a href=""><b>カテゴリ</b></a></li>
+                <li class="nav-items__item"><a href="genre_list.php">カテゴリ一覧</a></li>
+                <?php
+                $num = 0;
+                $genre_num_sql = $pdo->query('SELECT genre_id, COUNT(*) AS total_posts
+                                            FROM Board
+                                            GROUP BY genre_id
+                                            ORDER BY total_posts DESC;
+                                            ');
+                foreach ($genre_num_sql as $genre_num_row) {
+                    if ($num > 4) {
+                        break;
                     }
-
-                    ?>
+                    $genre_num_id = $genre_num_row['genre_id'];
+                    $genre_sql = $pdo->prepare('SELECT * FROM Ganre where genre_id = ?');
+                    $genre_sql->execute([$genre_num_id]);
+                    foreach ($genre_sql as $genre_row) {
+                        echo '<li class="nav-items__item"><a href="Genre.php?id=', $genre_row['genre_id'], '">', $genre_row['genre_name'], '</a></li>';
+                    }
+                    $num++;
+                }
+                ?>
                 <!-- </ul> -->
             </div>
         </div>

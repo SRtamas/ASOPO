@@ -32,7 +32,8 @@ if (!empty($_POST['password'])) {
     } else {
         require 'header.php';
         echo '<div class="message">パスワードが一致しません。</div>';
-        echo '<button class="back-link" href="javascript:history.back()">戻る</button>';
+        echo '<button onclick="history.back();" class="form-button">戻る</button>';
+        
         exit; // パスワードが一致しない場合は処理を終了
     }
 } else {

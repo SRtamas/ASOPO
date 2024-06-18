@@ -27,35 +27,41 @@ if (empty($_SESSION['user'])) {
             <?php
             if (isset($_GET['id'])) {
                 $genre = intval($_GET['id']);
-                $sql = $pdo->prepare('SELECT * FROM Board WHERE genre_id = ?');
-                $sql->execute([$genre]);
+                $search = isset($_POST['board_search']) ? $_POST['board_search'] : '';
+
+                if ($search) {
+                    echo '<div class="search-result-header">【' . htmlspecialchars($search) . '】の検索結果</div>';
+                }
+                
+                $sql = $pdo->prepare('SELECT * FROM Board WHERE board_name LIKE ? AND genre_id = ?');
+                $sql->execute(["%$search%", $genre]);
+
                 $sql4 = $pdo->prepare('SELECT genre_name FROM Ganre WHERE genre_id = ?');
                 $sql4->execute([$genre]);
                 $row4 = $sql4->fetch(PDO::FETCH_ASSOC);
                 $genre_name = $row4['genre_name'];
                 echo '<div class="main_header">' . htmlspecialchars($genre_name) . '</div><br>';
-                echo '<div class="search-container">
-                        <form action="genre-search.php?id='.$genre.'" method="post">
-                            <input type="hidden" name="genre_id" value="'.$genre.'">
-                            <input type="text" id="board_search" name="board_search" placeholder="掲示板を検索">
-                            <button type="submit" class="search-button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-search" viewBox="0 0 16 16">
-                                    <path
-                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                                </svg>
-                            </button>
-                        </form>
-                      </div>';
+                echo '<form class="search-form" action="genre-search.php?id=' . $genre . '" method="post">
+                    <input type="hidden" name="genre_id" value="' . $genre . '">
+                    <input type="text" id="board_search" name="board_search" value="' . htmlspecialchars($search) . '" placeholder="掲示板を検索">
+                    <button type="submit" class="search-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg>
+                    </button>
+                </form>';
 
                 if ($sql->rowCount() > 0) {
                     foreach ($sql as $row) {
                         $id = $row['board_id'];
                         $stu_id = $row['student_id'];
                         $name = $row['board_name'];
+
                         $sql2 = $pdo->prepare('SELECT post_content, post_pic FROM Post WHERE board_id = ? ORDER BY post_date DESC LIMIT 1');
                         $sql2->execute([$id]);
                         $latestPost = $sql2->fetch(PDO::FETCH_ASSOC);
+
                         $latestPostContent = '投稿がありません';
                         if ($latestPost !== false) {
                             if ($latestPost['post_pic'] == 1) {
@@ -66,10 +72,13 @@ if (empty($_SESSION['user'])) {
                                 $latestPostContent = htmlspecialchars($latestPost['post_content']);
                             }
                         }
+
                         $sql3 = $pdo->prepare('SELECT user_name FROM User WHERE student_id = ?');
                         $sql3->execute([$stu_id]);
                         $row3 = $sql3->fetch(PDO::FETCH_ASSOC);
+
                         $pass_dis = isset($row['board_password']) ? '🔒' : '';
+
                         echo '<div class="board-card">';
                         echo '<h3 class="board-title">' . htmlspecialchars($name) . '</h3>';
                         echo '<p class="board-info">投稿者: ' . htmlspecialchars($row3['user_name']) . '</p>';
@@ -91,3 +100,5 @@ if (empty($_SESSION['user'])) {
 </body>
 
 </html>
+
+

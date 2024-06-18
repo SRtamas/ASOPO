@@ -246,8 +246,10 @@ if (!(empty($_POST['delete_id']))) {
             echo '<a href="profile_con.php?id=' . intval($student_id_post) . '">';
             if (file_exists($icon_file)) {
               echo '<img class="icon" src="' . $icon_file . '" alt="アイコン">';
+              echo $user_name_post;
             } else {
               echo '<img class="icon" src="pic/icon/guest.jpg" alt="デフォルトアイコン">';
+              echo $user_name_post;
             }
             echo '</a>';
             echo '<div class="message-text">';

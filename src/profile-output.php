@@ -29,18 +29,15 @@ require "db-connect.php";
         $user_profile = $row['user_profile'];
         $School_id = $row['School_id'];
 
-        echo '<form action="profile-fin.php?student_id=' , $student_id , '" method="post" class="profile-from" enctype="multipart/form-data">';
         echo '<table>';
-        echo '<h1 class="profileout-h1">アカウント変更</h1>';
+        echo '<form action="profile-fin.php?student_id=' , $student_id , '" method="post" class="profile-from" enctype="multipart/form-data">';
+        echo '<tr><th colspan="2" class="profileout-h1">アカウント変更</th></tr>';
 
         // アイコンファイルパスを指定
         $icon_file = "pic/icon/{$student_id}.jpg";
 
         // アイコンが存在する場合は表示
         if (file_exists($icon_file)) {
-            echo '<tr>';
-            // echo '<td align="center" class="icon-out"><h3>アイコン</h3></td>';
-            echo '</tr>';
             echo '<tr>';
             echo '<td align="center" class="icon-out"><img id="icon" src="' . $icon_file . '" alt="アイコン"></td>';
             echo '</tr>';
@@ -57,25 +54,24 @@ require "db-connect.php";
 
         // アイコン選択フォーム
         echo '<tr>';
-        // echo '<td align="center" class="icon-out"><span class = "icon-select">アイコン選択</span></td>';
         echo '</tr>';
         echo '<tr>';
         echo '<td align="center" class="icon-out"><input type="file" name="tmp_icon" class="icon-choose" accept=".jpg, .jpeg, .png" /></td>';
         echo '</tr>';
 
-        echo '<tr><th class = "th-name">学籍番号</th>';
-        echo '<td align = "center" colspan="2">' . $student_id . '</td></tr>';
-        echo '<tr><th class = "th-name">名前</th>';
-        echo '<td align = "center colspan="2""><input type="text" name="user_name" class="name-text" value="' . htmlspecialchars($row['user_name']) . '" required></td>';
+        echo '<tr><th class="th-name">学籍番号</th>';
+        echo '<td align="center">' . $student_id . '</td></tr>';
+        echo '<tr><th class="th-name">名前</th>';
+        echo '<td align="center"><input type="text" name="user_name" class="name-text" value="' . htmlspecialchars($row['user_name']) . '" required></td>';
         echo '</tr>';
         $Schoolsql = $pdo->prepare('SELECT School_name FROM School where School_id = ?');
         $Schoolsql->execute([$School_id]);
-            foreach($Schoolsql as $row2){
-                $school_name = $row2['School_name'];
-                    echo '<tr><th class = "th-name">所属学校</th>';
-                    $school_name_kai = str_replace(' ', "\n", $school_name);
-                    echo '<td align = "center">' .  nl2br($school_name_kai) . '</td></tr>';
-                }
+        foreach($Schoolsql as $row2){
+            $school_name = $row2['School_name'];
+            echo '<tr><th class="th-name">所属学校</th>';
+            $school_name_kai = str_replace(' ', "\n", $school_name);
+            echo '<td align="center">' . nl2br($school_name_kai) . '</td></tr>';
+        }
         if (!empty($row['user_profile'])) {
             echo '<tr><th colspan="2">説明分</th></tr>';
             echo '<tr><td colspan="2"><textarea class="user_profile" name="user_profile" cols="50" rows="5" placeholder="説明分を入力">' . htmlspecialchars($row['user_profile']) . '</textarea></td></tr>';
@@ -83,12 +79,14 @@ require "db-connect.php";
             echo '<tr><th colspan="2">説明分がありません</th></tr>';
             echo '<tr><td colspan="2"><textarea class="user_profile" name="user_profile" cols="50" rows="5" placeholder="説明分を入力"></textarea></td></tr>';
         }
-        echo '</table>';
-        echo '<tr><td>';
-        echo '<div class="button-all"><a href="profile-input" class="back-button">戻る</a>';
+        echo '<tr><td colspan="2" align="center">';
+        echo '<div class="button-all">';
+        echo '<a href="profile-input" class="back-button">戻る</a>';
         echo '<button type="submit" name="action" value="update_profile" class="profile-button">変更</button>';
-        echo '</div></td></tr>';
+        echo '</div>';
+        echo '</td></tr>';
         echo '</form>';
+        echo '</table>';
     }
     ?>
     </center>
@@ -129,5 +127,4 @@ require "db-connect.php";
     </script>
     <script src="js/login_top.js"></script>
 </body>
-
 </html>
