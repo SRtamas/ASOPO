@@ -184,6 +184,7 @@ if (!(empty($_POST['delete_id']))) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>スレッド</title>
+<link rel="stylesheet" href="css/logn_top.css">
 <link rel="stylesheet" href="css/thread.css">
 </head>
 
@@ -310,12 +311,10 @@ if (!(empty($_POST['delete_id']))) {
     </div>
     <br>
     <?php
-    if ($student_id == $board_create) {
       echo '<form action="pass_change.php" class="pass_change" method="post">';
       echo '<input type="hidden" name="board_id" value=', $board_id, '>';
-      echo '<button>パスワード設定</button>';
+      echo '<button>掲示板情報</button>';
       echo '</form>';
-    }
     ?>
 
     <!-- モーダルウィンドウ -->

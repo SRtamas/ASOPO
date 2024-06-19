@@ -61,7 +61,7 @@ require "db-connect.php";
 
         echo '<tr><th class="th-name">学籍番号</th>';
         echo '<td align="center">' . $student_id . '</td></tr>';
-        echo '<tr><th class="th-name">名前</th>';
+        echo '<tr><th class="th-name">ユーザー名</th>';
         echo '<td align="center"><input type="text" name="user_name" class="name-text" value="' . htmlspecialchars($row['user_name']) . '" required></td>';
         echo '</tr>';
         $Schoolsql = $pdo->prepare('SELECT School_name FROM School where School_id = ?');

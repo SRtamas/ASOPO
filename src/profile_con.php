@@ -23,6 +23,7 @@ if (empty($_SESSION['user'])) {
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 

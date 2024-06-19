@@ -14,7 +14,7 @@ if (empty($_SESSION['user'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ジャンル</title>
-    <link rel="stylesheet" href="css/Genre.css">
+    <link rel="stylesheet" href="css/genre-search.css">
 </head>
 
 <body>
