@@ -106,3 +106,9 @@ th {
     margin-left: 5px;
 }
 
+#panel {
+    width: 300px;
+    height: 200px;
+    background-color: #f0f0f0;
+    display: none; /* 初期状態では非表示 */
+}

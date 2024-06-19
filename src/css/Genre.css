@@ -28,6 +28,48 @@ body {
   border-radius: 8px 8px 0 0;
 }
 
+/* Search Result Header */
+.search-result-header {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Search Form Styles */
+.search-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-form input[type="text"] {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #72a97e;
+  border-radius: 4px 0 0 4px;
+  font-size: 16px;
+}
+
+.search-button {
+  background-color: #72a97e;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  display: flex;
+  align-items: center;
+}
+
+.search-button svg {
+  vertical-align: middle;
+}
+
+.search-button:hover {
+  background-color: #5a8b66;
+}
+
 /* Board Card Styles */
 .board-card {
   background-color: #f9fff8;
@@ -53,7 +95,6 @@ body {
 }
 
 /* Join Button */
-
 .join-button {
   background-color: #a3d7b2;
   border: none;
@@ -68,9 +109,10 @@ body {
   border-radius: 4px;
 }
 
-.join-button:hover  {
+.join-button:hover {
   background-color: #90c89a;
 }
+
 /* Locked Icon */
 .locked {
   color: #FF6347;
@@ -83,4 +125,3 @@ body {
   color: #666;
   margin-top: 20px;
 }
-

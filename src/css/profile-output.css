@@ -2,10 +2,8 @@
 body {
   margin: 0;
   padding: 0;
-  display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   background-color: #f0f0f0;
   box-sizing: border-box;
   padding-top: 150px; /* ヘッダーの高さに合わせて余白を追加 */
@@ -13,16 +11,15 @@ body {
 }
 
 /* フォームのスタイル */
-.profile-from {
+table{
   background-color: #ffff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 800px; /* フォームの最大幅を設定 */
-  width: 100%; /* 幅を100%に設定して親要素にフィット */
-  max-height: 500px; 
-  overflow-y: auto;
+  font-size: larger;
+  box-shadow:5px 5px 5px 5px rgba(3, 5, 5, 0.3);
+  width: 45%;
+  padding: 3%;
+  border-radius: 8% 8% 8% 8%;
 }
+
 
 /* ヘッダーのスタイル */
 .profileout-h1 {
@@ -30,7 +27,7 @@ body {
   font-weight: bold;
   padding: 10px;
   background-color: #72a97e;
-  color: #ffffff;
+  color: #000000;
   border: none;
   border-radius: 8px 8px 0 0;
 }
@@ -50,8 +47,8 @@ body {
 .user_profile {
   background-color: rgb(220, 216, 216);
   width: 100%;
-  max-width: 600px;
-  min-width: 600px;
+  max-width: 500px;
+  min-width: 500px;
   padding: 10px;
   border-radius: 5px;
   box-sizing: border-box;
@@ -111,16 +108,11 @@ th{
   padding: 8px; /* セルのパディングを設定 */
   background-color: #a3d7b2;
 }
-table{
-  font-size: larger;
-}
 td {
-  padding: 5px; /* セル内の余白を10pxに設定 */
-  /* width: 1000px; */ /* セルの幅を150pxに設定 */
-  /* height: 50px; */ /* セルの高さを50pxに設定 */
+  padding: 8px; /* セル内の余白を10pxに設定 */
 }
 .icon-out{
-  transform: translateX(55%);
+  transform: translateX(50%);
 }
 .name-text{
   padding: 5%;
@@ -141,6 +133,10 @@ td {
   font-size: 24px; /* フォントサイズを24pxに設定 */
   font-weight: bold; /* フォントを太字に設定 (オプション) */
 }
+.th-name {
+  white-space: nowrap; /* テキストを折り返さない */
+}
+
 
 #deleteModal {
   display: none;

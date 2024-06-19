@@ -1,6 +1,14 @@
-body{
+body {
+  justify-content: center;
+  align-items: center;
   background-color: #f0f0f0;
+  box-sizing: border-box;
+  padding-top: 50px; /* ヘッダーの高さに合わせて余白を追加 */
 }
+
+  
+
+
 #home{
   position: absolute;
   left: 20%;
@@ -24,17 +32,17 @@ height: 22px; /* アイコンの高さを調整 */
   border-radius: 50%;
   overflow: hidden;
 }
-table{
+.profile-input-form{
   font-size: larger;
   box-shadow:5px 5px 5px 5px rgba(3, 5, 5, 0.3);
-  width: 40%;
+  width: 45%;
   padding: 3%;
   border-radius: 8% 8% 8% 8%;
 }
 tr{
   height: 50px;
   width: 10%;
-  white-space: nowrap;
+/*   white-space: nowrap; */
 }
 center{
   padding-top: 100px;
@@ -68,7 +76,7 @@ td {
   font-size: 20px;
   border: none;
   border-radius: 5%;
-  width: 100%;
+  width:  100%;
   height: 50px;
   white-space: nowrap; /* テキストの折り返しを禁止 */
 }

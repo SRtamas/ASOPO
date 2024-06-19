@@ -1,0 +1,131 @@
+/* css/genre-search.css */
+
+/* General Body Styles */
+body {
+    background-color: #e6f4ea;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+  
+/* Main Container */
+.main {
+    max-width: 1000px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 3px 10px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow-y: auto;
+}
+  
+/* Main Header */
+.main_header {
+    text-align: center;
+    font-weight: bold;
+    padding: 20px;
+    background-color: #72a97e;
+    color: #ffffff;
+    font-size: larger;
+    border-radius: 8px 8px 0 0;
+}
+  
+/* Search Result Header */
+.search-result-header {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+  
+/* Search Form Styles */
+.search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+  
+.search-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #72a97e;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+}
+  
+.search-button {
+    background-color: #72a97e;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: center;
+}
+  
+.search-button svg {
+    vertical-align: middle;
+}
+  
+.search-button:hover {
+    background-color: #5a8b66;
+}
+  
+/* Board Card Styles */
+.board-card {
+    background-color: #f9fff8;
+    border: 1px solid #72a97e;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+}
+  
+/* Board Title */
+.board-title {
+    font-size: 1.2em;
+    color: #355e3b;
+    margin-bottom: 10px;
+}
+  
+/* Board Info */
+.board-info {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 10px;
+}
+  
+/* Join Button */
+.join-button {
+    background-color: #a3d7b2;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+  
+.join-button:hover {
+    background-color: #90c89a;
+}
+  
+/* Locked Icon */
+.locked {
+    color: #FF6347;
+}
+  
+/* Not Found and Error Messages */
+.not-found, .error {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    margin-top: 20px;
+}
+
+  
