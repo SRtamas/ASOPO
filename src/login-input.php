@@ -6,6 +6,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/login.css">
+    <title>ASO PORTAL　|　official</title>
 </head>
 
 <body>
@@ -14,7 +15,7 @@ session_start();
             <div class="login-back">
                 <div class="login">
                     <br>
-                    <img id="topikon" src="img/2.png" class="show">
+                    <img id="topikon" src="img/5.png" class="show">
 
                     <h2>ASOPOにログイン</h2>
 

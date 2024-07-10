@@ -1,5 +1,8 @@
 <?php
 session_start();
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
 require 'db-connect.php';
 if (empty($_SESSION['user'])) {
     $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/top.php';
@@ -29,10 +32,19 @@ if (empty($_SESSION['user'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/profile-input.css">
-    <title>プロフィール</title>
+    <title>ASO PORTAL　|　official</title>
 </head>
+<script>
+    function forceReload() {
+        location.reload(true); // trueを渡すことでキャッシュを無視して強制的に再読み込み
+    }
+
+    // 一定時間ごとに自動的にリロードする例
+    // setTimeout(forceReload, 000); // 5000ミリ秒（5秒）ごとに再読み込み
+</script>
 
 <body>
+
     <?php
     require 'header.php';
     ?>
@@ -51,6 +63,10 @@ if (empty($_SESSION['user'])) {
                     } else {
                         echo '<img id="profile_img" src="pic/icon/guest.jpg" alt="デフォルトアイコン">';
                     }
+                    if (!(empty($_SESSION['message']))) {
+                        echo '<br><span class="image_attention">' . $_SESSION['message'] . '</span>';
+                    }
+                    unset($_SESSION['message']);
                     ?>
                 </td>
             </tr>
@@ -74,8 +90,8 @@ if (empty($_SESSION['user'])) {
             </tr>
             <tr>
                 <td colspan="2" align="center"><?php
-                if (isset($user_profile)) {
-                    echo nl2br($user_profile);
+                if (!(empty($user_profile))) {
+                    echo '<div class="description_form">' . nl2br($user_profile) . '</>';
                 } else {
                     echo '説明文がありません';
                 }
@@ -84,22 +100,26 @@ if (empty($_SESSION['user'])) {
             <tr>
                 <td colspan="2" align="center" class="button-td">
                     <div class="button-container">
-
-                        <form action="home-login.php" method="post">
-                            <button type="submit" class="backhome-button">戻る</button>
+                        <form action="favorite.php" method="post">
+                            <button type="submit" class="signup-button">お気に入り</button>
                         </form>
-
                         <form action="profile-output.php" method="post">
-                            <button type="submit" class="signup-button">⇒プロフィール編集画面へ</button>
+                            <button type="submit" class="signup-button">編集画面</button>
                         </form>
                     </div>
                 </td>
+
             </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <div class="button-container">
+                        <button onclick="location.href='home-login.php';" class="backhome-button">トップへ</button>
 
+                        <button id="logoutButton" class="logout-button">ログアウト</button>
+                    </div>
+                </td>
+            </tr>
         </table>
-
-
-        <button id="logoutButton" class="logout-button">ログアウト</button>
 
         <div id="logoutModal" class="modal-logout">
             <div class="modal-content">
@@ -137,6 +157,7 @@ if (empty($_SESSION['user'])) {
                 }
             });
         </script>
+    </center>
 </body>
 
 </html>

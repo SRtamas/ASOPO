@@ -1,8 +1,7 @@
 <?php
 session_start();
 require 'db-connect.php';
-?>
-<?php
+
 unset($student_id_error);
 unset($user_name_error);
 unset($password_error);
@@ -67,7 +66,7 @@ if (isset($_POST['student_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/sign-up.css">
-    <title>Document</title>
+    <title>ASO PORTAL　|　official</title>
 </head>
 
 <body>
@@ -77,37 +76,32 @@ if (isset($_POST['student_id'])) {
         <form action="sign-up.php" method="post" enctype="multipart/form-data">
             <table class="sign-up-form">
                 <tr>
-                    <!-- <td><span>学籍番号</span></td> -->
                     <?php
                     if (isset($_POST['student_id_con'])) {
                         echo '<td><input type="text" name="student_id" class="sign-up-textbox" placeholder="学籍番号"
                         pattern="^[0-9]{7}$" maxlength="7" value="', $_POST['student_id_con'], '" required></td>';
                     } else if (isset($student_id)) {
                         echo '<td><input type="text" name="student_id" class="sign-up-textbox" placeholder="学籍番号"
-                        pattern="^[0-9]{7}$" maxlength="7" value="', $_POST['student_id'], '" required></td>';
+                        pattern="^[0-9]{7}$" maxlength="7" value="', $student_id, '" required></td>';
                     } else {
                         echo '<td><input type="text" name="student_id" class="sign-up-textbox" placeholder="学籍番号"
                         pattern="^[0-9]{7}$" maxlength="7" required></td>';
                     }
                     ?>
                 </tr>
-                <?php
-                if (isset($student_id_error)) {
-                    echo '<tr>';
-                    echo '<td colspan="2"><span class="error">', $student_id_error, '</span></td>';
-                    echo '</tr>';
-                    unset($student_id_error);
-                }
-                ?>
+                <?php if (isset($student_id_error)): ?>
                 <tr>
-                    <!-- <td><span>ユーザー名<br>表示名</span></td> -->
+                    <td colspan="2"><span class="error"><?php echo $student_id_error; ?></span></td>
+                </tr>
+                <?php unset($student_id_error); endif; ?>
+                <tr>
                     <?php
                     if (isset($_POST['user_name_con'])) {
                         echo '<td><input type="text" name="user_name" class="sign-up-textbox" placeholder="ユーザー名" maxlength="10"
                         required value="', $_POST['user_name_con'], '"></td>';
                     } else if (isset($user_name)) {
                         echo '<td><input type="text" name="user_name" class="sign-up-textbox" placeholder="ユーザー名" maxlength="10"
-                        required value="', $_POST['user_name'], '"></td>';
+                        required value="', $user_name, '"></td>';
                     } else {
                         echo '<td><input type="text" name="user_name" class="sign-up-textbox" placeholder="ユーザー名" maxlength="10"
                             required></td>';
@@ -115,7 +109,6 @@ if (isset($_POST['student_id'])) {
                     ?>
                 </tr>
                 <tr>
-                    <!-- <td><span>所属学校</span></td> -->
                     <td>
                         <select name="school" class="sign-up-select" required>
                             <?php
@@ -135,19 +128,14 @@ if (isset($_POST['student_id'])) {
                             }
                             ?>
                         </select>
-
                     </td>
                 </tr>
-                <?php
-                if (isset($user_name_error)) {
-                    echo '<tr>';
-                    echo '<td colspan="2"><span class="error">', $user_name_error, '</span></td>';
-                    echo '</tr>';
-                    unset($user_name_error);
-                }
-                ?>
+                <?php if (isset($user_name_error)): ?>
                 <tr>
-                    <!-- <td><span>パスワード</span></td> -->
+                    <td colspan="2"><span class="error"><?php echo $user_name_error; ?></span></td>
+                </tr>
+                <?php unset($user_name_error); endif; ?>
+                <tr>
                     <?php
                     if (isset($_POST['password_con'])) {
                         echo '<td><input type="password" name="password" class="sign-up-textbox" placeholder="パスワード"
@@ -161,53 +149,64 @@ if (isset($_POST['student_id'])) {
                     }
                     ?>
                 </tr>
-                <?php
-                if (isset($password_error)) {
-                    echo '<tr>';
-                    echo '<td colspan="2"><span class="error">', $password_error, '</span></td>';
-                    echo '</tr>';
-                    unset($password_error);
-                }
-                ?>
+                <?php if (isset($password_error)): ?>
                 <tr>
-                    <!-- <td><span>パスワード<br>確認用</span></td> -->
+                    <td colspan="2"><span class="error"><?php echo $password_error; ?></span></td>
+                </tr>
+                <?php unset($password_error); endif; ?>
+                <tr>
                     <td><input type="password" name="password_con" class="sign-up-textbox" placeholder="パスワード確認用"
                             maxlength="10" required></td>
                 </tr>
-                <?php
-                if (isset($password_con_error)) {
-                    echo '<tr>';
-                    echo '<td colspan="2"><span class="error">', $password_con_error, '</span></td>';
-                    echo '</tr>';
-                    unset($password_con_error);
-                }
-                ?>
+                <?php if (isset($password_con_error)): ?>
                 <tr>
-                    <td align=center><span>アイコン選択</span></td>
+                    <td colspan="2"><span class="error"><?php echo $password_con_error; ?></span></td>
+                </tr>
+                <?php unset($password_con_error); endif; ?>
+                <tr>
+                    <td align="center"><span>アイコン選択</span></td>
                 </tr>
                 <tr>
-                    <td colspan="2" align="center"><input type="file" name="tmp_icon" accept=".jpg, .jpeg, .png" />
+                    <td colspan="2" align="center">
+                        <input type="file" id="imageInput" name="tmp_icon" accept=".jpg, .jpeg, .png" />
                     </td>
                 </tr>
-                <?php
-                if (isset($tmp_icon_error)) {
-                    echo '<tr>';
-                    echo '<td colspan="2"><span class="error">', $tmp_icon_error, '</span></td>';
-                    echo '</tr>';
-                    unset($tmp_icon_error);
-                }
-                ?>
+                <tr>
+                    <td colspan="2" align="center">
+                        <div>
+                            <img id="preview" src="" alt="画像プレビュー">
+                        </div>
+                    </td>
+                </tr>
+                <?php if (isset($tmp_icon_error)): ?>
+                <tr>
+                    <td colspan="2"><span class="error"><?php echo $tmp_icon_error; ?></span></td>
+                </tr>
+                <?php unset($tmp_icon_error); endif; ?>
             </table>
             <p>
                 <button type="submit" class="signup-button">確認</button>
         </form>
-        </p>
-        <p>
+    </p>
+    <p>
         <form action="top.php" method="post">
             <button type="submit" class="signup-button">戻る</button>
         </form>
-        </p>
-    </center>
+    </p>
+    <script>
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('preview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 </body>
 
 </html>

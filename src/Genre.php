@@ -6,6 +6,22 @@ if (empty($_SESSION['user'])) {
     header("Location: $redirect_url");
     exit();
 }
+if (!empty($_POST['favorite'])) {
+    $genre = intval($_GET['id']);
+    $favorite_sql = $pdo->prepare('SELECT * FROM Favorite WHERE student_id=? AND board_id=?');
+    $student_id_me = $_SESSION['user']['student_id'];
+    $board_id = $_POST['board_id'];
+    $favorite_sql->execute([$student_id_me, $board_id]);
+    if ($favorite_sql->rowCount() > 0) {
+        $favorite_delete = $pdo->prepare('DELETE FROM Favorite WHERE student_id = ? AND board_id = ?');
+        $favorite_delete->execute([$student_id_me, $board_id]);
+    } else {
+        $favorite_insert = $pdo->prepare('INSERT INTO Favorite (student_id, board_id) VALUES (?, ?)');
+        $favorite_insert->execute([$student_id_me, $board_id]);
+    }
+    header("Location: Genre.php?id=".$genre."#board_" . intval($board_id));
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -13,7 +29,7 @@ if (empty($_SESSION['user'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ジャンル</title>
+    <title>ASO PORTAL　|　official</title>
     <link rel="stylesheet" href="css/genre-search.css">
 </head>
 
@@ -32,7 +48,7 @@ if (empty($_SESSION['user'])) {
                 if ($search) {
                     echo '<div class="search-result-header">【' . htmlspecialchars($search) . '】の検索結果</div>';
                 }
-                
+
                 $sql = $pdo->prepare('SELECT * FROM Board WHERE board_name LIKE ? AND genre_id = ?');
                 $sql->execute(["%$search%", $genre]);
 
@@ -56,6 +72,11 @@ if (empty($_SESSION['user'])) {
                     foreach ($sql as $row) {
                         $id = $row['board_id'];
                         $stu_id = $row['student_id'];
+                        if ($stu_id == $_SESSION['user']['student_id']) {
+                            $me_posts = ' board-own';
+                        } else {
+                            $me_posts = '';
+                        }
                         $name = $row['board_name'];
 
                         $sql2 = $pdo->prepare('SELECT post_content, post_pic FROM Post WHERE board_id = ? ORDER BY post_date DESC LIMIT 1');
@@ -79,13 +100,29 @@ if (empty($_SESSION['user'])) {
 
                         $pass_dis = isset($row['board_password']) ? '🔒' : '';
 
-                        echo '<div class="board-card">';
+                        echo '<div class="board-card' . $me_posts . '" id="board_'.$id.'">';
                         echo '<h3 class="board-title">' . htmlspecialchars($name) . '</h3>';
-                        echo '<p class="board-info">投稿者: ' . htmlspecialchars($row3['user_name']) . '</p>';
-                        echo '<p class="board-info">最新の投稿: ' . $latestPostContent . '</p>';
+                        echo '<p class="board-info">作成者：' . htmlspecialchars($row3['user_name']) . '</p>';
+                        echo '<p class="board-info">最新の投稿：' . $latestPostContent . '</p>';
                         echo '<form action="thread.php?id=' . intval($id) . '" method="post">';
                         echo '<button type="submit" class="join-button">参加する</button>';
                         echo '</form>' . $pass_dis;
+                        ?>
+                        <form aciton="Genre.php?id=<?php $genre ?>" method="post">
+                            <input type="hidden" name="board_id" value="<?php echo $id; ?>">
+                            <input type="hidden" name="favorite" value="1">
+                            <?php
+                            $student_id_me = $_SESSION['user']['student_id'];
+                            $favorite_sql = $pdo->prepare('SELECT * FROM Favorite WHERE student_id=? AND board_id=?');
+                            $favorite_sql->execute([$student_id_me, $id]);
+                            if ($favorite_sql->rowCount() > 0) {
+                                echo '<button type="submit" class="join-button">お気に入り登録済み</button>';
+                            } else {
+                                echo '<button type="submit" class="join-button">お気に入り登録</button>';
+                            }
+                            ?>
+                        </form>
+                        <?php
                         echo '</div>';
                     }
                 } else {
@@ -100,4 +137,3 @@ if (empty($_SESSION['user'])) {
 </body>
 
 </html>
-

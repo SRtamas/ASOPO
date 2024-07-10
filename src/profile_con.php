@@ -16,8 +16,8 @@ if (empty($_SESSION['user'])) {
     }
     $Schoolsql = $pdo->prepare('SELECT School_name FROM School where School_id = ?');
     $Schoolsql->execute([$user_school]);
-        foreach($Schoolsql as $row2){
-            $school_name = $row2['School_name'];
+    foreach ($Schoolsql as $row2) {
+        $school_name = $row2['School_name'];
     }
 
 }
@@ -31,7 +31,7 @@ if (empty($_SESSION['user'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/profile-input.css">
-    <title>Document</title>
+    <title>ASO PORTAL　|　official</title>
 </head>
 
 <body>
@@ -68,14 +68,14 @@ if (empty($_SESSION['user'])) {
                 <th>所属学校</th>
                 <td><?php $school_name_kai = str_replace(' ', "\n", $school_name);
                 echo nl2br($school_name_kai); ?></td>
-    </tr>
+            </tr>
 
             <tr>
                 <th colspan="2" align="center">説明文</th>
             </tr>
             <tr>
                 <td colspan="2" align="center"><?php
-                if (isset($user_profile)) {
+                if (!(empty($row_user['user_profile']))) {
                     echo nl2br($user_profile);
                 } else {
                     echo '説明文がありません';
@@ -84,9 +84,7 @@ if (empty($_SESSION['user'])) {
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                        <form action="home-login.php" method="post">
-                            <button type="submit" class="backhome-con">戻る</button>
-                        </form>
+                    <button onclick="history.back();" class="backhome-button">戻る</button>
                 </td>
             </tr>
         </table>

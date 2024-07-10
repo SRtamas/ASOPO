@@ -1,35 +1,19 @@
 <?php
 session_start();
-header('Expires:-1');
-header('Cache-Control:');
-header('Pragma:');
 require "db-connect.php";
 if (empty($_SESSION['user'])) {
   $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/top.php';
   header("Location: $redirect_url");
   exit();
 }
-$board_id = $_GET['id'];
+$board_id = 8;
 $pdo = new PDO($connect, USER, PASS);
 $sql = $pdo->prepare('SELECT * FROM Board WHERE board_id=? ');
-// unset($post_content, $post_date, $post_pic);
 $sql->execute([$board_id]);
 $student_id = $_SESSION['user']['student_id'];
 foreach ($sql as $row) {
   $board_name = $row['board_name'];
-  $board_create = $row['student_id'];
 }
-if (!(empty($row['board_password']))) {
-  if ($row['student_id'] != $student_id) {
-    if (empty($_SESSION['$board_id']['judge']) || $_SESSION['$board_id']['judge'] != $board_id) {
-      $_SESSION['board_id']['board_id'] = $board_id;
-      $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/thread_pass.php';
-      header("Location: $redirect_url");
-      exit();
-    }
-  }
-}
-// パスワードが一致している場合のみ以下のコードを実行する
 if (isset($_POST['post_content'])) {
   if ($_POST['post_content'] != '' && !empty($_FILES['post_pic']['name'])) {
     // 文字有、画像有
@@ -152,7 +136,6 @@ if (isset($_POST['post_content'])) {
         // 対応していないファイルタイプのエラー処理
         echo "対応していないファイル形式です。";
       }
-
       // 成功した場合はリダイレクト
       header("Location: " . $_SERVER['REQUEST_URI']);
       exit();
@@ -161,64 +144,19 @@ if (isset($_POST['post_content'])) {
   // ここに unset を移動
   unset($_POST['post_content']);
 }
-if (!(empty($_POST['delete_id']))) {
-  $delete_id = $_POST['delete_id'];
-  $sql = $pdo->prepare('SELECT * FROM Post WHERE post_id=? ');
-  $sql->execute([$delete_id]);
-  foreach ($sql as $row) {
-    $post_pic = $row['post_pic'];
-  }
-  if ($post_pic == 1) {
-    $pic_file = "pic/post_pic/{$delete_id}.jpg";
-    unlink($pic_file);
-  } else if ($post_pic == 2) {
-    $video_file = "movie/post_movie/{$delete_id}.mp4";
-    unlink($video_file);
-  }
-  $sql_delete = $pdo->prepare('DELETE FROM Post WHERE post_id = ?');
-  $sql_delete->execute([$delete_id]);
-}
-if (!empty($_POST['favorite'])) {
-  $favorite_sql = $pdo->prepare('SELECT * FROM Favorite WHERE student_id=? AND board_id=?');
-  $student_id_me = $_SESSION['user']['student_id'];
-  $favorite_sql->execute([$student_id_me, $board_id]);
-  if ($favorite_sql->rowCount() > 0) {
-    $favorite_delete = $pdo->prepare('DELETE FROM Favorite WHERE student_id = ? AND board_id = ?');
-    $favorite_delete->execute([$student_id_me, $board_id]);
-  } else {
-    $favorite_insert = $pdo->prepare('INSERT INTO Favorite (student_id, board_id) VALUES (?, ?)');
-    $favorite_insert->execute([$student_id_me, $board_id]);
-  }
-}
-
 ?>
-
-<?php
-require 'header.php';
-?>
-
 <!DOCTYPE html>
-<html lang="jp">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASO PORTAL　|　official</title>
-<!-- <link rel="stylesheet" href="css/logn_top.css">
-<link rel="stylesheet" href="css/thread.css"> -->
-<link rel="stylesheet" href="css/sample_homelogin.css">
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/login_top.css">
+  <!-- <link rel="stylesheet" type="text/css" href="css/thread.css"> -->
+  <link rel="stylesheet" type="text/css" href="css/test_thread.css">
+
+  <title>ASO PORTAL　|　official</title>
 </head>
-<script>
-  // // ページ読み込み時のスクロール位置を保存
-  // var initialScroll = window.scrollY;
-
-  // // 5秒ごとにページを自動的に更新する関数
-  // setInterval(function() {
-  //     // リロード前のスクロール位置を復元
-  //     window.scrollTo(0, initialScroll);
-
-  //     // ページを自動的にリロード（キャッシュを無視して強制的に）
-  //     location.reload(true);
-  // }, 3000); // 5000ミリ秒（＝5秒）ごとに実行
-</script>
 
 <body>
   <?php
@@ -226,10 +164,9 @@ require 'header.php';
   ?>
   <main>
     <div class="container">
-      <!-- <a href="board-list.php" class="board-link">ボードリストへ</a> -->
+      <div class="thread-name"><?php echo $board_name ?></div>
+      <a href="#text">一番下へ移動</a>
       <div class="chat-container">
-        <div class="thread-name"><?php echo $board_name ?></div>
-        <!-- <a href="#text">一番下へ移動</a> -->
         <?php
         $sql_thread = $pdo->prepare('SELECT * FROM Post WHERE board_id=?');
         $sql_thread->execute([$board_id]);
@@ -239,6 +176,7 @@ require 'header.php';
           $student_id_post = $row_thread['student_id'];
           $post_date_post = $row_thread['post_date'];
           $post_content_post = $row_thread['post_content'];
+          $post_pic_post = $row_thread['post_pic'];
           $post_pic_post = $row_thread['post_pic'];
           $sql_user = $pdo->prepare('SELECT * FROM User WHERE student_id=?');
           $sql_user->execute([$student_id_post]);
@@ -260,7 +198,6 @@ require 'header.php';
             echo '<input type="hidden" name="delete_id" value="' . $post_id_post . '">';
             echo '<button type="submit" class="delete-button">削除</button>';
             echo '</form>';
-
             // echo '<span class="post_school">', $user_school_naem, '</span><br>';
             echo '<span class="post_content">', nl2br($post_content_post), '</span>';
             if ($post_pic_post == 2) {
@@ -278,16 +215,15 @@ require 'header.php';
             $icon_file = "pic/icon/{$student_id_post}.jpg";
             echo '<a href="profile_con.php?id=' . intval($student_id_post) . '">';
             if (file_exists($icon_file)) {
-              echo '<div class="user-info"><img class="icon" src="' . $icon_file . '" alt="アイコン"><span class="post_name">', $user_name_post, '</span></div>';
-
+              echo '<img class="icon" src="' . $icon_file . '" alt="アイコン">';
             } else {
-              echo '<img class="icon" src="pic/icon/guest.jpg" alt="デフォルトアイコン"><span class="post_name">', $user_name_post, '</span>';
+              echo '<img class="icon" src="pic/icon/guest.jpg" alt="デフォルトアイコン">';
             }
             echo '</a>';
             echo '<div class="message-text">';
             echo '<span class="post_date" id="post_' . $post_cont . '">', $post_date_post, '</span><br>';
             echo '<span class="post_school">', $user_school_naem, '</span><br>';
-            // echo '<span class="post_name">', $user_name_post, '</span><br>';
+            echo '<span class="post_name">', $user_name_post, '</span><br>';
             echo '<span class="post_content">', nl2br($post_content_post), '</span>';
             if ($post_pic_post == 2) {
               $video_file = "movie/post_movie/{$post_id_post}.mp4";
@@ -300,88 +236,46 @@ require 'header.php';
             }
             echo '</div>';
           }
-          $post_cont++;
         }
         ?>
       </div>
       <div class="input-container">
-        <form action="thread.php?id=<?php echo intval($board_id); ?>#text" method="post" enctype="multipart/form-data"
+        <form action="home-login.php#text" method="post" enctype="multipart/form-data"
           onsubmit="return validateFileSize()">
-          <table class="post_table">
-            <td class="post_text">
-              <textarea class="post_text_area" name="post_content" id="text" placeholder="メッセージを入力"></textarea>
-            </td>
-            <!-- <input type="file" name="post_pic" accept=".jpg, .jpeg, .png" /> -->
-            <td class="post_button">
-              <span class="custom-file-upload">
-                <label for="post_pic" class="custom-file-label">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-clipboard2" viewBox="0 0 16 16">
-                    <path
-                      d="M3.5 2a.5.5 0 0 0-.5.5v12a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-12a.5.5 0 0 0-.5-.5H12a.5.5 0 0 1 0-1h.5A1.5 1.5 0 0 1 14 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-12A1.5 1.5 0 0 1 3.5 1H4a.5.5 0 0 1 0 1h-.5Z" />
-                    <path
-                      d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z" />
-                  </svg>
-                  <!-- 画像を選択 -->
-                </label>
-                <input type="file" id="post_pic" name="post_pic" accept=".jpg, .jpeg, .png,.mp4" />
-                <span id="file-name"></span> <!-- ファイル名を表示するための要素 -->
-              </span>
-            </td>
-            <td class="post_fixed">
-              <button class="send-button"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
-                  fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
-                  <path
-                    d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
-                </svg></button>
-            </td>
-          </table>
-        </form>
-        <table class="other_button">
-
-          <td>
-            <form action="thread.php?id=<?php echo intval($board_id); ?>#text" method="post">
-              <button><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                  class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
-                  <path
-                    d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
-                </svg></button>
-            </form>
-          </td>
-          <td>
-            <?php
-            echo '<form action="pass_change.php" class="pass_change" method="post">';
-            echo '<input type="hidden" name="board_id" value=', $board_id, '>';
-            echo '<button class="info_button">掲示板情報</button>';
-            echo '</form>';
-            ?>
-          </td>
-          <td>
-            <form aciton="thread.php?id=<?php echo intval($board_id); ?>#text" method="post">
-              <input type="hidden" name="board_id" value="<?php echo $board_id; ?>">
-              <input type="hidden" name="favorite" value="1">
-              <?php
-              $student_id_me = $_SESSION['user']['student_id'];
-              $favorite_sql = $pdo->prepare('SELECT * FROM Favorite WHERE student_id=? AND board_id=?');
-              $favorite_sql->execute([$student_id_me, $board_id]);
-              if ($favorite_sql->rowCount() > 0) {
-                echo '<button type="submit" class="info_button">お気に入り登録済み</button>';
-              } else {
-                echo '<button type="submit" class="info_button">お気に入り登録</button>';
-              }
-              ?>
-            </form>
-          </td>
-        </table>
+          <textarea class="post_text" name="post_content" id="text" placeholder="メッセージを入力"></textarea>
+          <button class="send-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-send" viewBox="0 0 16 16">
+              <path
+                d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
+            </svg></button>
+          <!-- <input type="file" name="post_pic" accept=".jpg, .jpeg, .png" /> -->
+          <div class="custom-file-upload">
+            <label for="post_pic" class="custom-file-label">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-clipboard2" viewBox="0 0 16 16">
+                <path
+                  d="M3.5 2a.5.5 0 0 0-.5.5v12a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-12a.5.5 0 0 0-.5-.5H12a.5.5 0 0 1 0-1h.5A1.5 1.5 0 0 1 14 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-12A1.5 1.5 0 0 1 3.5 1H4a.5.5 0 0 1 0 1h-.5Z" />
+                <path
+                  d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z" />
+              </svg>
+              <!-- 画像を選択 -->
+            </label>
+            <input type="file" id="post_pic" name="post_pic" accept=".jpg, .jpeg, .png,.mp4" />
+            <span id="file-name"></span> <!-- ファイル名を表示するための要素 -->
+          </div>
       </div>
-    </div>
-
-    <!-- モーダルウィンドウ -->
-    <div id="myModal" class="modal">
-      <span class="close">&times;</span>
-      <img class="modal-content" id="modalImg">
-    </div>
+      </form>
+      <form action="thread.php?id=<?php echo intval($board_id); ?>#text" method="post">
+        <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+  <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+</svg></button>
+      </form>
+      <!-- モーダルウィンドウ -->
+      <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImg">
+      </div>
   </main>
 
 </body>
@@ -435,27 +329,17 @@ require 'header.php';
       modal.style.display = "none"; // モーダルウィンドウを非表示にする
     }
   }
+  function displayFileName() {
+    var input = document.getElementById('post_pic');
+    var fileName = input.files[0].name;
+    var displayElement = document.getElementById('file-name');
+    displayElement.textContent = fileName;
+  }
 
   // 画面を開いたときの処理
   window.onload = function () {
     modal.style.display = "none"; // モーダルウィンドウを非表示にする
   }
-
-  function scrollToPreviousPostAndSubmit(form) {
-    // スクロール処理
-    scrollToPreviousPost();
-
-    // フォームのサブミット
-    form.submit();
-    function displayFileName() {
-      var input = document.getElementById('post_pic');
-      var fileName = input.files[0].name;
-      var displayElement = document.getElementById('file-name');
-      displayElement.textContent = fileName;
-    }
-  }
-
-
 </script>
 
 </html>

@@ -13,8 +13,8 @@ if (empty($_SESSION['user'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ジャンル</title>
-    <link rel="stylesheet" href="css/genre-search.css">
+    <title>ASO PORTAL　|　official</title>
+    <link rel="stylesheet" href="css/genre.css">
 </head>
 
 <body>

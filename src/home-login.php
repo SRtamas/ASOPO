@@ -1,5 +1,8 @@
 <?php
 session_start();
+header('Expires:-1');
+header('Cache-Control:');
+header('Pragma:');
 require "db-connect.php";
 if (empty($_SESSION['user'])) {
   $redirect_url = 'https://aso2201203.babyblue.jp/ASOPO/src/top.php';
@@ -145,6 +148,23 @@ if (isset($_POST['post_content'])) {
   // ここに unset を移動
   unset($_POST['post_content']);
 }
+if (!(empty($_POST['delete_id']))) {
+  $delete_id = $_POST['delete_id'];
+  $sql = $pdo->prepare('SELECT * FROM Post WHERE post_id=? ');
+  $sql->execute([$delete_id]);
+  foreach ($sql as $row) {
+    $post_pic = $row['post_pic'];
+  }
+  if ($post_pic == 1) {
+    $pic_file = "pic/post_pic/{$delete_id}.jpg";
+    unlink($pic_file);
+  } else if ($post_pic == 2) {
+    $video_file = "movie/post_movie/{$delete_id}.mp4";
+    unlink($video_file);
+  }
+  $sql_delete = $pdo->prepare('DELETE FROM Post WHERE post_id = ?');
+  $sql_delete->execute([$delete_id]);
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -152,10 +172,11 @@ if (isset($_POST['post_content'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="css/login_top.css">
-  <link rel="stylesheet" type="text/css" href="css/thread.css">
+  <!-- <link rel="stylesheet" type="text/css" href="css/login_top.css">
+  <link rel="stylesheet" type="text/css" href="css/thread.css"> -->
+  <link rel="stylesheet" type="text/css" href="css/sample_homelogin.css">
 
-  <title>TOPページ/ASOPO</title>
+  <title>ASO PORTAL　|　official</title>
 </head>
 
 <body>
@@ -164,9 +185,9 @@ if (isset($_POST['post_content'])) {
   ?>
   <main>
     <div class="container">
-      <div class="thread-name"><?php echo $board_name ?></div>
-      <a href="#text">一番下へ移動</a>
       <div class="chat-container">
+        <div class="thread-name"><span><?php echo $board_name ?></span></div>
+        <!-- <a href="#text">一番下へ移動</a> -->
         <?php
         $sql_thread = $pdo->prepare('SELECT * FROM Post WHERE board_id=?');
         $sql_thread->execute([$board_id]);
@@ -190,49 +211,49 @@ if (isset($_POST['post_content'])) {
             $user_school_naem = $row_school['School_name'];
           }
           if ($student_id == $student_id_post) {
-            echo '<div class="message sent">';
+            echo '<div class="message-sent">';
             echo '<div class="message-text">';
             echo '<span class="post_date" id="post_' . $post_cont . '">', $post_date_post, '</span><br>';
             $post_cont_m = $post_cont - 1;
-            echo '<form action="thread.php?id=' . intval($board_id) . '#post_' . $post_cont_m . '" method="post">';
-            echo '<input type="hidden" name="delete_id" value="' . $post_id_post . '">';
-            echo '<button type="submit" class="delete-button">削除</button>';
-            echo '</form>';
             // echo '<span class="post_school">', $user_school_naem, '</span><br>';
-            echo '<span class="post_content">', nl2br($post_content_post), '</span>';
+            echo '<hr><span class="post_content">', nl2br($post_content_post), '</span>';
             if ($post_pic_post == 2) {
               $video_file = "movie/post_movie/{$post_id_post}.mp4";
-              echo '<a href="' . htmlspecialchars($video_file) . '" target="_blank">動画を再生する</a>';
+              echo '<br><a href="' . htmlspecialchars($video_file) . '" target="_blank">動画を再生する</a>';
             }
             echo '</div>';
             if ($post_pic_post == 1) {
               $pic_file = "pic/post_pic/{$post_id_post}.jpg";
-              echo '<img class="pic" src="' . $pic_file . '" alt="投稿画像">';
+              echo '<img class="pic expandable" src="' . $pic_file . '" alt="投稿画像">';
             }
+            echo '<form action="home-login.php" method="post">';
+            echo '<input type="hidden" name="delete_id" value="' . $post_id_post . '">';
+            echo '<button type="submit" class="delete-button">✖削除</button>';
+            echo '</form>';
             echo '</div>';
           } else {
-            echo '<div class="message received">';
+            echo '<div class="message-received">';
             $icon_file = "pic/icon/{$student_id_post}.jpg";
             echo '<a href="profile_con.php?id=' . intval($student_id_post) . '">';
             if (file_exists($icon_file)) {
-              echo '<img class="icon" src="' . $icon_file . '" alt="アイコン">';
+              echo '<div class="user-info"><img class="icon" src="' . $icon_file . '" alt="アイコン"><span class="post_name">', $user_name_post, '</span></div>';
             } else {
-              echo '<img class="icon" src="pic/icon/guest.jpg" alt="デフォルトアイコン">';
+              echo '<img class="icon" src="pic/icon/guest.jpg" alt="デフォルトアイコン"><span class="post_name">', $user_name_post, '</span>';
             }
             echo '</a>';
             echo '<div class="message-text">';
             echo '<span class="post_date" id="post_' . $post_cont . '">', $post_date_post, '</span><br>';
-            echo '<span class="post_school">', $user_school_naem, '</span><br>';
-            echo '<span class="post_name">', $user_name_post, '</span><br>';
+            echo '<span class="post_school">', $user_school_naem, '</span><br><hr>';
+            // echo '<span class="post_name">', $user_name_post, '</span><br>';
             echo '<span class="post_content">', nl2br($post_content_post), '</span>';
             if ($post_pic_post == 2) {
               $video_file = "movie/post_movie/{$post_id_post}.mp4";
-              echo '<a href="' . htmlspecialchars($video_file) . '" target="_blank">動画を再生する</a>';
+              echo '<br><a href="' . htmlspecialchars($video_file) . '" target="_blank">動画を再生する</a>';
             }
             echo '</div>';
             if ($post_pic_post == 1) {
               $pic_file = "pic/post_pic/{$post_id_post}.jpg";
-              echo '<img class="pic" src="' . $pic_file . '" alt="投稿画像">';
+              echo '<img class="pic expandable" src="' . $pic_file . '" alt="投稿画像">';
             }
             echo '</div>';
           }
@@ -242,35 +263,51 @@ if (isset($_POST['post_content'])) {
       <div class="input-container">
         <form action="home-login.php#text" method="post" enctype="multipart/form-data"
           onsubmit="return validateFileSize()">
-          <textarea class="post_text" name="post_content" id="text" placeholder="メッセージを入力"></textarea>
-          <button class="send-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-send" viewBox="0 0 16 16">
-              <path
-                d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
-            </svg></button>
-          <!-- <input type="file" name="post_pic" accept=".jpg, .jpeg, .png" /> -->
-          <div class="custom-file-upload">
-            <label for="post_pic" class="custom-file-label">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                class="bi bi-clipboard2" viewBox="0 0 16 16">
-                <path
-                  d="M3.5 2a.5.5 0 0 0-.5.5v12a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-12a.5.5 0 0 0-.5-.5H12a.5.5 0 0 1 0-1h.5A1.5 1.5 0 0 1 14 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-12A1.5 1.5 0 0 1 3.5 1H4a.5.5 0 0 1 0 1h-.5Z" />
-                <path
-                  d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z" />
-              </svg>
-              <!-- 画像を選択 -->
-            </label>
-            <input type="file" id="post_pic" name="post_pic" accept=".jpg, .jpeg, .png,.mp4" />
-            <span id="file-name"></span> <!-- ファイル名を表示するための要素 -->
-          </div>
+          <table class="post_table">
+            <td class="post_text">
+              <textarea class="post_text_area" name="post_content" id="text" placeholder="メッセージを入力"></textarea>
+            </td>
+            <!-- <input type="file" name="post_pic" accept=".jpg, .jpeg, .png" /> -->
+            <td class="post_button">
+              <span class="custom-file-upload">
+                <label for="post_pic" class="custom-file-label">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-clipboard2" viewBox="0 0 16 16">
+                    <path
+                      d="M3.5 2a.5.5 0 0 0-.5.5v12a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-12a.5.5 0 0 0-.5-.5H12a.5.5 0 0 1 0-1h.5A1.5 1.5 0 0 1 14 2.5v12a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-12A1.5 1.5 0 0 1 3.5 1H4a.5.5 0 0 1 0 1h-.5Z" />
+                    <path
+                      d="M10 .5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5.5.5 0 0 1-.5.5.5.5 0 0 0-.5.5V2a.5.5 0 0 0 .5.5h5A.5.5 0 0 0 11 2v-.5a.5.5 0 0 0-.5-.5.5.5 0 0 1-.5-.5Z" />
+                  </svg>
+                  <!-- 画像を選択 -->
+                </label>
+                <input type="file" id="post_pic" name="post_pic" accept=".jpg, .jpeg, .png,.mp4" />
+                <span id="file-name"></span> <!-- ファイル名を表示するための要素 -->
+              </span>
+            </td>
+            <td class="post_fixed">
+              <button class="send-button"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
+                  fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                  <path
+                    d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z" />
+                </svg></button>
+            </td>
+          </table>
+        </form>
+        <table class="other_button">
+
+          <td>
+            <form action="home-login.php#text" method="post">
+              <button><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                  class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                  <path
+                    d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                </svg></button>
+            </form>
+          </td>
+        </table>
       </div>
-      </form>
-      <form action="thread.php?id=<?php echo intval($board_id); ?>#text" method="post">
-        <button><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-  <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
-</svg></button>
-      </form>
+
       <!-- モーダルウィンドウ -->
       <div id="myModal" class="modal">
         <span class="close">&times;</span>

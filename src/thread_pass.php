@@ -36,7 +36,7 @@ if (!(empty($_POST['thread_pass']))) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/thread_pass.css">
-    <title>Document</title>
+    <title>ASO PORTAL　|　official</title>
 </head>
 
 <body>
@@ -44,20 +44,23 @@ if (!(empty($_POST['thread_pass']))) {
     require 'header.php';
     ?>
     <main>
-        <form class="form-container" action="thread_pass.php" method="post">
+        <div class="main">
             <center>
-                <span class="form-title">掲示板のパスワードを入力してください</span><br>
-                <span class="form-title"><?php echo $board_name ?></span><br>
-                <input class="form-input" type="text" name="thread_pass" placeholder="パスワードを入力してください" required>
-                <?php
-                if (!empty($error)) {
-                    echo '<br><span class="error">' . $error . '</span>';
-                }
-                ?>
-                <button class="form-button" type="submit">入力</button>
-                <button onclick="history.back();" class="form-button">戻る</button>
+                <form class="form-container" action="thread_pass.php" method="post">
+
+                    <span class="form-title">掲示板のパスワードを入力してください</span><br>
+                    <span class="form-title"><?php echo $board_name ?></span><br>
+                    <input class="form-input" type="text" name="thread_pass" placeholder="パスワードを入力してください" required>
+                    <?php
+                    if (!empty($error)) {
+                        echo '<br><span class="error">' . $error . '</span>';
+                    }
+                    ?>
+                    <button class="form-button" type="submit">入力</button>
+                    <button onclick="history.back();" class="form-button">戻る</button>
+                </form>
             </center>
-        </form>
+        </div>
     </main>
 </body>
 

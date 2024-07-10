@@ -1,7 +1,7 @@
-<link rel="stylesheet" type="text/css" href="css/login_top.css">
+<link rel="stylesheet" type="text/css" href="css/header.css">
 <header class="header">
     <h1 class="header__title header-title">
-        <a href="home-login.php"><img src="img/6.png" alt="ロゴ画像"></a>
+        <a href="home-login.php" class="rogo"><img src="img/6.png" alt="ロゴ画像"></a>
     </h1>
     <?php
     if (isset($_SESSION['user']) && isset($_SESSION['user']['student_id'])) {
@@ -32,11 +32,7 @@
             <div class="nav_content">
                 <div id="welcom_message"><?php $userName = $_SESSION['user']['user_name'];
                 echo 'ようこそ、' . $userName . 'さん'; ?></div>
-
-
                 <div class="search-container cp_iptxt">
-
-
                     <form action="search.php" method="post">
                         <input type="text" id="board_search" name="board_search">
                         <label>掲示板検索</label>
@@ -52,33 +48,13 @@
 
                 </div>
                 <!-- <ul> -->
-                <li class="nav-items__item"><a href="home-login.php">トップページ</a></li>
-                <li class="nav-items__item"><a href="rank.php">ランキング</a></li>
-                <li class="nav-items__item"><a href="new-board.php">スレッド作成</a></li>
-                <li class="nav-items__item"><a href="board.php">参加中のスレッド</a></li>
-                <hr>
-                <li class="nav-items__item"><a href=""><b>カテゴリ</b></a></li>
-                <li class="nav-items__item"><a href="genre_list.php">カテゴリ一覧</a></li>
-                <?php
-                $num = 0;
-                $genre_num_sql = $pdo->query('SELECT genre_id, COUNT(*) AS total_posts
-                                            FROM Board
-                                            GROUP BY genre_id
-                                            ORDER BY total_posts DESC;
-                                            ');
-                foreach ($genre_num_sql as $genre_num_row) {
-                    if ($num > 4) {
-                        break;
-                    }
-                    $genre_num_id = $genre_num_row['genre_id'];
-                    $genre_sql = $pdo->prepare('SELECT * FROM Ganre where genre_id = ?');
-                    $genre_sql->execute([$genre_num_id]);
-                    foreach ($genre_sql as $genre_row) {
-                        echo '<li class="nav-items__item"><a href="Genre.php?id=', $genre_row['genre_id'], '">', $genre_row['genre_name'], '</a></li>';
-                    }
-                    $num++;
-                }
-                ?>
+                <li class="nav-items__item"><a href="home-login.php">トップページ</a></li><hr>
+                <li class="nav-items__item"><a href="rank.php">ランキング</a></li><hr>
+                <li class="nav-items__item"><a href="new-board.php">掲示板作成</a></li><hr>
+                <li class="nav-items__item"><a href="board-list.php">掲示板一覧</a></li><hr>
+                <li class="nav-items__item"><a href="board.php">参加中の掲示板</a></li><hr>
+                <li class="nav-items__item"><a href="genre_list.php">カテゴリ一覧</a></li><hr>
+               
                 <!-- </ul> -->
             </div>
         </div>

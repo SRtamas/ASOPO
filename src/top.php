@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="css/open.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
     
-    <title>Aso community　|　official</title>
+    <title>ASO PORTAL　|　official</title>
 </head>
 <body>
    
@@ -14,9 +14,9 @@
         <img id="topikon" src="img/5.png" class="show" v-show="showImage" @load="fadeImage">
         <div class="content" v-show="showContent">
 
-            <img id="subikon" src="img/6.png">
+            <img id="subikon" src="img/5.png">
 
-            <h1>ようこそ</h1>
+            <!-- <h1>ようこそ</h1> -->
 
             <a href="sign-up.php"><button id="touroku">新規登録</button></a>
             <a href="login-input.php"><button id="rogin">　ログイン　</button></a>

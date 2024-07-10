@@ -13,7 +13,7 @@ if (empty($_SESSION['user'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ランキング</title>
+    <title>ASO PORTAL　|　official</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="css/rank.css">
 </head>
@@ -63,9 +63,9 @@ if (empty($_SESSION['user'])) {
                 $latestPostContent = '投稿がありません';
                 if ($latestPost !== false) {
                     if ($latestPost['post_pic'] == 1) {
-                        $latestPostContent = '画像の投稿 📷';
+                        $latestPostContent = '📷';
                     } elseif ($latestPost['post_pic'] == 2) {
-                        $latestPostContent = '動画の投稿 🎥';
+                        $latestPostContent = '🎥';
                     } else {
                         $latestPostContent = htmlspecialchars($latestPost['post_content']);
                     }
@@ -88,9 +88,9 @@ if (empty($_SESSION['user'])) {
                 $sql6->execute([$genre_id]);
                 $genre = $sql6->fetch(PDO::FETCH_ASSOC);
 
-                $pass_dis = isset($Board['board_password']) ? '<span class="locked">🔒</span>' : '';
+                $pass_dis = isset($Board['board_password']) ? '<span class="locked"></span>' : '';
                 if (isset($Board['board_password'])) {
-                    $latestPostContent = "パスワードが必要";
+                    $latestPostContent = "🔒";
                 }
 
 
@@ -115,7 +115,7 @@ if (empty($_SESSION['user'])) {
                 echo '<td class="truncate" style="text-align: center">' . mb_strimwidth($latestPostContent, 0, 20, '...') . '</td>';
                 echo '<td>';
                 echo '<form action="thread.php?id=' . intval($boardId) . '" method="post">';
-                echo '<button class="button">参加</button>';
+                echo '<button class="button">閲覧</button>';
                 echo '</form>';
                 echo $pass_dis;
                 echo '</td>';
@@ -174,9 +174,9 @@ if (empty($_SESSION['user'])) {
                     $latestPostContent = '投稿がありません';
                     if ($latestPost !== false) {
                         if ($latestPost['post_pic'] == 1) {
-                            $latestPostContent = '画像の投稿 📷';
+                            $latestPostContent = '📷';
                         } elseif ($latestPost['post_pic'] == 2) {
-                            $latestPostContent = '動画の投稿 🎥';
+                            $latestPostContent = '🎥';
                         } else {
                             $latestPostContent = htmlspecialchars($latestPost['post_content']);
                         }
@@ -199,9 +199,9 @@ if (empty($_SESSION['user'])) {
                     $sql6->execute([$genre_id]);
                     $genre = $sql6->fetch(PDO::FETCH_ASSOC);
 
-                    $pass_dis = isset($Board['board_password']) ? '<span class="locked">🔒</span>' : '';
+                    $pass_dis = isset($Board['board_password']) ? '<span class="locked"></span>' : '';
                     if (isset($Board['board_password'])) {
-                        $latestPostContent = "パスワードが必要";
+                        $latestPostContent = "🔒";
                     }
                     echo '<tr>';
                     echo '<td style="text-align: center">';
@@ -222,7 +222,7 @@ if (empty($_SESSION['user'])) {
                     echo '<td class="truncate" style="text-align: center">' . mb_strimwidth($latestPostContent, 0, 20, '...') . '</td>';
                     echo '<td>';
                     echo '<form action="thread.php?id=' . intval($boardId) . '" method="post">';
-                    echo '<button class="button">参加</button>';
+                    echo '<button class="button">閲覧</button>';
                     echo '</form>';
                     echo $pass_dis;
                     echo '</td>';
@@ -276,9 +276,9 @@ if (empty($_SESSION['user'])) {
                     $latestPostContent = '投稿がありません';
                     if ($latestPost !== false) {
                         if ($latestPost['post_pic'] == 1) {
-                            $latestPostContent = '画像の投稿 📷';
+                            $latestPostContent = '📷';
                         } elseif ($latestPost['post_pic'] == 2) {
-                            $latestPostContent = '動画の投稿 🎥';
+                            $latestPostContent = '🎥';
                         } else {
                             $latestPostContent = htmlspecialchars($latestPost['post_content']);
                         }
@@ -301,9 +301,9 @@ if (empty($_SESSION['user'])) {
                     $sql6->execute([$genre_id]);
                     $genre = $sql6->fetch(PDO::FETCH_ASSOC);
 
-                    $pass_dis = isset($Board['board_password']) ? '<span class="locked">🔒</span>' : '';
+                    $pass_dis = isset($Board['board_password']) ? '<span class="locked"></span>' : '';
                     if (isset($Board['board_password'])) {
-                        $latestPostContent = "パスワードが必要";
+                        $latestPostContent = "🔒";
                     }
 
 
@@ -328,7 +328,7 @@ if (empty($_SESSION['user'])) {
                     echo '<td class="truncate" style="text-align: center">' . mb_strimwidth($latestPostContent, 0, 20, '...') . '</td>';
                     echo '<td>';
                     echo '<form action="thread.php?id=' . intval($boardId) . '" method="post">';
-                    echo '<button class="button">参加</button>';
+                    echo '<button class="button">閲覧</button>';
                     echo '</form>';
                     echo $pass_dis;
                     echo '</td>';
@@ -387,7 +387,7 @@ if (empty($_SESSION['user'])) {
                     echo '<td class="truncate"  style="text-align: center">' . $genre_num_row['total_posts'] . '</td>';
                     echo '<td style="text-align: center">';
                     echo '<form action="Genre.php?id=', $genre_row['genre_id'], '" method="post">';
-                    echo '<button class="button">参加</button>';
+                    echo '<button class="button">閲覧</button>';
                     echo '</form>';
                     echo '</td>';
                     echo '</tr>';

@@ -13,21 +13,28 @@ if (empty($_SESSION['user'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ジャンル一覧</title>
-    <link rel="stylesheet" href="css/genre-list.css">
+    <title>ASO PORTAL | official</title>
+    <link rel="stylesheet" href="css/genre_list.css">
 </head>
 
 <body>
     <?php require 'header.php'; ?>
     <main>
         <div class="main">
-            <h2>ジャンル一覧</h2>
-            <div class="genre-list">
-                <?php include 'genre-list-table.php'; ?>
-            </div>
+            <h2>カテゴリ一覧</h2>
+            <ul class="cp_list">
+                <?php
+                $sql = $pdo->prepare('SELECT * FROM Ganre');
+                $sql->execute();
+                foreach ($sql as $row) {
+                    echo '<li><a href="Genre.php?id=' . intval($row["genre_id"]) . '">' . htmlspecialchars($row["genre_name"]) . '</a></li>';
+                }
+                ?>
+            </ul>
         </div>
     </main>
 </body>
 
 </html>
+
 

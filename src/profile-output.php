@@ -9,7 +9,7 @@ require "db-connect.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/profile-output.css"> 
-    <title>プロフィール編集</title>
+    <title>ASO PORTAL　|　official</title>
 </head>
 <body>
     <?php
@@ -19,7 +19,6 @@ require "db-connect.php";
     <center>
     
     <?php
-    $pdo = new PDO($connect, USER, PASS);
 
     $student_id = $_SESSION['user']['student_id'];
     $user_name = $_SESSION['user']['user_name'];
@@ -73,11 +72,11 @@ require "db-connect.php";
             echo '<td align="center">' . nl2br($school_name_kai) . '</td></tr>';
         }
         if (!empty($row['user_profile'])) {
-            echo '<tr><th colspan="2">説明分</th></tr>';
-            echo '<tr><td colspan="2"><textarea class="user_profile" name="user_profile" cols="50" rows="5" placeholder="説明分を入力">' . htmlspecialchars($row['user_profile']) . '</textarea></td></tr>';
+            echo '<tr><th colspan="2">説明文</th></tr>';
+            echo '<tr><td colspan="2" align = "center"><textarea class="user_profile" name="user_profile" cols="50" rows="5" placeholder="説明文を入力">' . htmlspecialchars($row['user_profile']) . '</textarea></td></tr>';
         } else {
-            echo '<tr><th colspan="2">説明分がありません</th></tr>';
-            echo '<tr><td colspan="2"><textarea class="user_profile" name="user_profile" cols="50" rows="5" placeholder="説明分を入力"></textarea></td></tr>';
+            echo '<tr><th colspan="2">説明文</th></tr>';
+            echo '<tr><td colspan="2" align = "center"><textarea class="user_profile" name="user_profile" cols="50" rows="5" placeholder="説明文を入力"></textarea></td></tr>';
         }
         echo '<tr><td colspan="2" align="center">';
         echo '<div class="button-all">';
@@ -93,7 +92,7 @@ require "db-connect.php";
     <div id="deleteModal" class="modal-delete">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <p>アイコンを削除しますか？</p>
+            <p><span>アイコンを削除しますか？</span></p>
             <form action="profile-fin.php?student_id=<?php echo $student_id; ?>" method="post">
                 <button type="submit" name="action" value="delete_icon" class="confirm-button">はい</button>
                 <button type="button" class="cancel-button">いいえ</button>
