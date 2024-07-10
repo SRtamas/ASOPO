@@ -17,6 +17,9 @@ body {
     box-shadow: 3px 10px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow-y: auto;
+    margin-top: 10%;
+    width: 50%;
+    max-width: 50%;
 }
   
 /* Main Header */
@@ -127,5 +130,7 @@ body {
     color: #666;
     margin-top: 20px;
 }
-
-  
+.board-own {
+    background-color: #f0fff3; /* 自分の掲示板用の背景色 */
+    border: 2px solid #00ff1a; /* 自分の掲示板用の枠線 */
+}

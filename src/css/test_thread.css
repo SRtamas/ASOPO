@@ -1,0 +1,49 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .user-icon,
+  .menu-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-left: 10px;
+  }
+  .home {
+    display: flex;
+    align-items: center;
+    margin-right: 30%;
+    margin-bottom: 10px;
+  }
+  .thread-name {
+    width: 10%;
+    /* margin-top: 3%; */
+    font-size: 30px;
+    font-weight: bolder;
+    padding-left: 26%; /* テキストの左端にパディングを追加 */
+    margin-left: 32%;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    width: 50%;
+    color: #fff;
+    border-radius: 100vh;
+    background-image: -webkit-gradient(linear, right top, left top, from(#9be15d), to(#00e3ae));
+    background-image: -webkit-linear-gradient(right, #9be15d 0%, #00e3ae 100%);
+    background-image: linear-gradient(to left, #9be15d 0%, #00e3ae 100%);
+  }
+  .message-text {
+    padding: 10px;
+    margin-top: 6%;
+    margin-left: 4%;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+  }
+  .user-avatar {
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+  }

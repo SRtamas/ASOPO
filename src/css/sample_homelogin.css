@@ -1,0 +1,100 @@
+.icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .icon img{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  .pic{
+    width: 150px;
+    height: auto;
+  }
+  .message-sent{
+    position: relative;
+    text-align: right;
+    margin-bottom: 10px;
+    color: #fff;
+    padding:2%;
+    margin-left: 60%;
+    background-color:rgb(55, 193, 147);
+    border-radius: 35px;
+    width: 40%;
+  }
+  .message-received{
+    position: relative;
+    color:#fff;
+    text-align: left;
+    margin-bottom: 10px;
+    background-color:#a5a5a5;
+    padding:2%;
+    border-radius: 35px;
+    width: 40%;
+
+  }
+  hr{
+    height: 2px;
+    background-color: #d5d4d4;
+    border:none;
+  }
+  .post_date{
+    font-size: 10px;
+    color:black;
+    font-weight: bold;
+  }
+  .post_school{
+    font-size: 13px;
+    color:black;
+    font-weight: bold;
+  }
+  .post_name{
+    font-size: 15px;
+    font-weight: bold;
+    color:black;
+  }
+  .post_content{
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .input-container{
+    margin-left: 10%;
+  }
+  .post_text_area{
+    width: 95%;
+    height: 50px;
+    font-size: 25px;
+  }
+  .post_table{
+    max-width: 95%;
+  }
+  .post_text{
+    width: 70%;
+  }
+  .post_button{
+    width: 10%;
+  }
+  .post_fixed{
+    width: 10%;
+  }
+  .info_button{
+    background-color: #a3d7b2;
+    color: #fff;
+    font-size: 20px;
+    border: none;
+    border-radius: 5%;
+    width: 200px;
+    height: 40px;
+    white-space: nowrap;
+    margin-left: 10%;
+}
+

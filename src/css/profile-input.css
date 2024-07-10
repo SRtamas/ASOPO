@@ -1,153 +1,200 @@
+
+
 body {
   justify-content: center;
   align-items: center;
   background-color: #f0f0f0;
   box-sizing: border-box;
-  padding-top: 50px; /* ヘッダーの高さに合わせて余白を追加 */
+  padding-top: 50px;
+  /* ヘッダーの高さに合わせて余白を追加 */
 }
 
-  
 
 
-#home{
+
+#home {
   position: absolute;
   left: 20%;
- }
-
-.g_c{
-padding-bottom: 5%;
-padding-left: 75%;
-padding-right: 5%;
-display: flex;
-justify-content: space-between; 
 }
+
+.g_c {
+  padding-bottom: 5%;
+  padding-left: 75%;
+  padding-right: 5%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .g_c svg {
-width: 24px; /* アイコンの幅を調整 */
-height: 22px; /* アイコンの高さを調整 */
+  width: 24px;
+  /* アイコンの幅を調整 */
+  height: 22px;
+  /* アイコンの高さを調整 */
 }
 
-#profile_img{
+#profile_img {
   width: 90px;
   height: 90px;
   border-radius: 50%;
   overflow: hidden;
 }
-.profile-input-form{
+
+.profile-input-form {
   font-size: larger;
-  box-shadow:5px 5px 5px 5px rgba(3, 5, 5, 0.3);
+  box-shadow: 5px 5px 5px 5px rgba(3, 5, 5, 0.3);
   width: 45%;
   padding: 3%;
-  border-radius: 8% 8% 8% 8%;
-}
-tr{
+  border-radius: 5% 5% 5% 5%;
+  min-width: 500px;
+  background-color: #fff;
+  margin-bottom: 1%
+ }
+
+tr {
   height: 50px;
   width: 10%;
-/*   white-space: nowrap; */
+  white-space: nowrap;
 }
-center{
+
+center {
   padding-top: 100px;
 }
-th{
 
-  padding: 8px; /* セルのパディングを設定 */
+th {
+  width: 30%;
+  padding: 8px;
+  /* セルのパディングを設定 */
   background-color: #a3d7b2;
 }
+
 td {
-  padding: 8px; /* セルのパディングを設定 */
+  padding: 8px;
+  /* セルのパディングを設定 */
+  width: 70%;
+  max-width: 100px;
+  word-wrap: break-word;
+  text-wrap: pretty;
 }
-.button-td{
+
+.button-td {
   border: none;
 }
-.h1-pro{
+
+.h1-pro {
   background-color: #72a97e;
   border-radius: 8px 8px 0 0;
 }
 
 .button-container {
-  display: flex; /* Flexbox を使用して要素を横並びにする */
-  justify-content: space-between; /* 要素間のスペースを均等に配置 */
-  max-width: 400px; /* 必要に応じて幅を設定 */
+  display: flex;
+  /* Flexbox を使用して要素を横並びにする */
+  justify-content: space-between;
+  /* 要素間のスペースを均等に配置 */
+  max-width: 400px;
+  /* 必要に応じて幅を設定 */
   margin-top: 10%;
 }
+
 .signup-button {
-  
+
   background-color: #a3d7b2;
   color: #fff;
   font-size: 20px;
   border: none;
   border-radius: 5%;
-  width:  100%;
+  width: 150px;
   height: 50px;
-  white-space: nowrap; /* テキストの折り返しを禁止 */
+  white-space: nowrap;
+  /* テキストの折り返しを禁止 */
 }
-.backhome-button{
+
+.backhome-button {
   font-size: 20px;
   border: none;
-  margin-right: 130px;
+  color: #fff;
+  /* margin-right: 130px; */
   background-color: #5d96d3;
   border-radius: 5%;
-  width:50%;
+  width: 150px;
   height: 50px;
 }
 
-.signup-button:hover{
+.signup-button:hover {
   background-color: #90c89a;
   color: #000000;
 }
-.backhome-button:hover{
-background-color: #080808;
-color: #fff;
+
+.backhome-button:hover {
+  background-color: #5d96d3;
+  color: #000000;
 }
-.logout-button{
+
+.logout-button {
   font-size: larger;
   background-color: #d35d5d;
   color: #fff;
   border: none;
   border-radius: 5%;
   width: 150px;
-  height: 60px;
-  margin-top: 3%;
+  height: 50px;
+  /* margin-top: 3%; */
+  text-align: center;
 }
-.logout-button:hover{
+
+.logout-button:hover {
   background-color: #d44444;
   color: #000;
 }
+
 #logoutModal {
   display: none;
 }
+
 .modal-logout {
-  display: none; /* 初期状態では非表示 */
-  position: fixed; /* 画面全体を覆う */
-  z-index: 1; /* 前面に表示 */
+  display: none;
+  /* 初期状態では非表示 */
+  position: fixed;
+  /* 画面全体を覆う */
+  z-index: 1;
+  /* 前面に表示 */
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; /* スクロール可能 */
-  background-color: rgb(0, 0, 0); /* 背景色を黒 */
-  background-color: rgba(0, 0, 0, 0.4); /* 背景を半透明に */
+  overflow: auto;
+  /* スクロール可能 */
+  background-color: rgb(0, 0, 0);
+  /* 背景色を黒 */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* 背景を半透明に */
 }
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 上下のマージンを自動設定 */
+  margin: 15% auto;
+  /* 上下のマージンを自動設定 */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* 横幅を80%に設定 */
-  max-width: 300px; /* 最大幅を300pxに設定 */
+  width: 80%;
+  /* 横幅を80%に設定 */
+  max-width: 300px;
+  /* 最大幅を300pxに設定 */
   text-align: center;
+  font-size: 20px;
 }
-.backhome-con{
+
+.backhome-con {
   font-size: 20px;
   border: none;
   background-color: #898686;
   border-radius: 5%;
-  width:50%;
+  width: 50%;
   height: 50px;
 }
-.backhome-con:hover{
-background-color: #080808;
-color: #fff;
+
+.backhome-con:hover {
+  background-color: #080808;
+  color: #fff;
 }
 
 .close {
@@ -155,5 +202,9 @@ color: #fff;
   float: right;
   font-size: 28px;
   font-weight: bold;
+}
+
+.image_attention {
+  font-size: 10px;
 }
 

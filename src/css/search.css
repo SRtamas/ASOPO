@@ -8,13 +8,14 @@ body {
 
 /* Main Container */
 .main {
-  max-width: 1000px;
   margin: 20px auto;
+  margin-top: 10%;
   background-color: #ffffff;
   padding: 20px;
   box-shadow: 3px 10px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow-y: auto;
+  max-width: 50%;
 }
 
 /* Search Results Header */
@@ -74,8 +75,8 @@ body {
 /* Not Found Message */
 .not-search {
   text-align: center;
-  font-size: 16px;
-  color: #666;
+  font-size: 20px;
+  color: #000;
   margin-top: 20px;
 }
 
@@ -83,4 +84,62 @@ body {
 .icon {
   font-size: 18px;
   margin-left: 5px;
+}
+
+.search_genre_pull {
+  background-color: #a3d7b2;
+  color: #fff;
+  border: 0.75px solid #000;
+  height: 35px;
+  font-size: 20px;
+  width: 200px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  border-radius: 8px
+}
+
+.search_genre_button {
+  background-color: #a3d7b2;
+  color: #fff;
+  height: 35px;
+  font-size: 20px;
+  width: 60px;
+  border: 0.75px solid #000;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  border-radius: 8px
+}
+
+.search_re_text {
+  background-color: #a3d7b2;
+  color: #fff;
+  border: 0.75px solid #000;
+  height: 35px;
+  font-size: 20px;
+  width: 350px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  border-radius: 8px
+}
+
+.search_re_text::placeholder {
+  color: #fff;
+}
+
+.search_re_button {
+  background-color: #a3d7b2;
+  color: #fff;
+  height: 35px;
+  font-size: 20px;
+  width: 75px;
+  border: 0.75px solid #000;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  border-radius: 8px
+}
+
+.search_re_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

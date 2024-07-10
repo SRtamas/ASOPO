@@ -1,6 +1,6 @@
 /* General Body Styles */
 body {
-  background-color: #e6f4ea;
+  background-color: #f0f0f0;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -10,118 +10,232 @@ body {
 .main {
   max-width: 1000px;
   margin: 20px auto;
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 20px;
-  box-shadow: 3px 10px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  overflow-y: auto;
+  overflow: hidden;
+  margin-top: 10%;
 }
 
 /* Main Header */
-.main_header {
+.main h2 {
   text-align: center;
   font-weight: bold;
   padding: 20px;
   background-color: #72a97e;
-  color: #ffffff;
-  font-size: larger;
+  color: #fff;
+  font-size: 24px;
   border-radius: 8px 8px 0 0;
+  margin: 0;
 }
 
-/* Search Result Header */
-.search-result-header {
-  font-size: 1.2em;
-  margin-bottom: 20px;
-  color: #333;
-  text-align: center;
+/* List Styles */
+ul.cp_list {
+  padding: 0.5em;
+  list-style: none;
 }
 
-/* Search Form Styles */
-.search-form {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.search-form input[type="text"] {
-  flex-grow: 1;
-  padding: 10px;
-  border: 1px solid #72a97e;
-  border-radius: 4px 0 0 4px;
-  font-size: 16px;
-}
-
-.search-button {
-  background-color: #72a97e;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 0 4px 4px 0;
-  display: flex;
-  align-items: center;
-}
-
-.search-button svg {
-  vertical-align: middle;
-}
-
-.search-button:hover {
-  background-color: #5a8b66;
-}
-
-/* Board Card Styles */
-.board-card {
+ul.cp_list li {
+  position: relative;
+  padding: 0.5em 1em;
+  margin-bottom: 5px;
+  border-bottom: 1px solid rgba(255, 143, 0, 1);
   background-color: #f9fff8;
-  border: 1px solid #72a97e;
+  transition: background-color 0.3s;
   border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Board Title */
-.board-title {
-  font-size: 1.2em;
-  color: #355e3b;
-  margin-bottom: 10px;
+ul.cp_list li:hover {
+  background-color: #e6f4ea;
 }
 
-/* Board Info */
-.board-info {
-  font-size: 0.9em;
-  color: #555;
-  margin-bottom: 10px;
-}
-
-/* Join Button */
-.join-button {
-  background-color: #a3d7b2;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
+ul.cp_list li a {
+  display: block;
+  width: 100%;
+  height: 100%;
   text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 4px;
+  color: black;
 }
 
-.join-button:hover {
-  background-color: #90c89a;
+ul.cp_list li:before {
+  content: '';
+  position: absolute;
+  top: 0.7em;
+  left: 0.2em;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 143, 0, 1);
+  transform: rotate(45deg);
 }
 
-/* Locked Icon */
-.locked {
-  color: #FF6347;
+ul.cp_list li:after {
+  content: '';
+  position: absolute;
+  top: 0.9em;
+  left: 0.7em;
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 143, 0, 0.5);
+  transform: rotate(60deg);
+}
+/* General Body Styles */
+body {
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-/* Not Found and Error Messages */
-.not-found, .error {
+/* Main Container */
+.main {
+  max-width: 1000px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Main Header */
+.main h2 {
   text-align: center;
-  font-size: 16px;
-  color: #666;
-  margin-top: 20px;
+  font-weight: bold;
+  padding: 20px;
+  background-color: #72a97e;
+  color: #fff;
+  font-size: 24px;
+  border-radius: 8px 8px 0 0;
+  margin: 0;
+}
+
+/* List Styles */
+ul.cp_list {
+  padding: 0.5em;
+  list-style: none;
+}
+
+ul.cp_list li {
+  position: relative;
+  padding: 0.5em 1em;
+  margin-bottom: 5px;
+  border-bottom: 1px solid rgba(255, 143, 0, 1);
+  background-color: #f9fff8;
+  transition: background-color 0.3s;
+  border-radius: 8px;
+}
+
+ul.cp_list li:hover {
+  background-color: #e6f4ea;
+}
+
+ul.cp_list li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: black;
+}
+
+ul.cp_list li:before {
+  content: '';
+  position: absolute;
+  top: 0.7em;
+  left: 0.2em;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 143, 0, 1);
+  transform: rotate(45deg);
+}
+
+ul.cp_list li:after {
+  content: '';
+  position: absolute;
+  top: 0.9em;
+  left: 0.7em;
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 143, 0, 0.5);
+  transform: rotate(60deg);
+}
+/* General Body Styles */
+body {
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main Container */
+.main {
+  max-width: 1000px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Main Header */
+.main h2 {
+  text-align: center;
+  font-weight: bold;
+  padding: 20px;
+  background-color: #72a97e;
+  color: #fff;
+  font-size: 24px;
+  border-radius: 8px 8px 0 0;
+  margin: 0;
+}
+
+/* List Styles */
+ul.cp_list {
+  padding: 0.5em;
+  list-style: none;
+}
+
+ul.cp_list li {
+  position: relative;
+  padding: 0.5em 1em;
+  margin-bottom: 5px;
+  border-bottom: 1px solid rgba(255, 143, 0, 1);
+  background-color: #f9fff8;
+  transition: background-color 0.3s;
+  border-radius: 8px;
+}
+
+ul.cp_list li:hover {
+  background-color: #e6f4ea;
+}
+
+ul.cp_list li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: black;
+}
+
+ul.cp_list li:before {
+  content: '';
+  position: absolute;
+  top: 0.7em;
+  left: 0.2em;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 143, 0, 1);
+  transform: rotate(45deg);
+}
+
+ul.cp_list li:after {
+  content: '';
+  position: absolute;
+  top: 0.9em;
+  left: 0.7em;
+  width: 14px;
+  height: 14px;
+  background: rgba(255, 143, 0, 0.5);
+  transform: rotate(60deg);
 }

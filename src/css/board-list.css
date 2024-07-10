@@ -2,19 +2,16 @@ body {
     background-color: #e6f4ea;
 }
 
-.boarrd-main {
-    position: fixed;
-    top: 100px;
-    bottom: 0;
-    left: 20%;
-    right: 20%;
-    background-color: #f1f1f1;
-    box-shadow: 3px 10px 10px rgba(0, 0, 0, 0.3);
-    overflow-y: auto;
+.main {
     max-width: 1000px;
     margin: 20px auto;
+    margin-top: 10%;
+    background-color: #ffffff;
     padding: 20px;
+    box-shadow: 3px 10px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    overflow-y: auto;
+    max-width: 50%;
 }
 
 .main_header {
@@ -72,6 +69,47 @@ body {
 .locked {
     color: #FF6347;
 }
+.search-result-header {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+  
+/* Search Form Styles */
+.search-form {
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+  
+.search-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #72a97e;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+}
+  
+.search-button {
+    background-color: #72a97e;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+    display: flex;
+    align-items: center;
+}
+  
+.search-button svg {
+    vertical-align: middle;
+}
+  
+.search-button:hover {
+    background-color: #5a8b66;
+}
 
 .not-found {
     text-align: center;
@@ -84,13 +122,8 @@ body {
     font-size: 16px;
     color: #FF6347;
 }
-.board_class {
+/* css/board-list.css */
+.board-own {
     background-color: #f0fff3; /* 自分の掲示板用の背景色 */
     border: 2px solid #00ff1a; /* 自分の掲示板用の枠線 */
-}
-.own-board {
-    background-color: #f0fff3; /* 自分の掲示板用の背景色 */
-    border: 2px solid #00ff1a; 
-   
-
 }

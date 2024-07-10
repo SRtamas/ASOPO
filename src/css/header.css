@@ -1,0 +1,442 @@
+body{
+  margin:0;
+}
+#home {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#me {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 5%;
+  overflow: hidden;
+  position: absolute;
+  right: 5%;
+  top: 20%;
+}
+
+#me1, #me2 {
+  position: absolute;
+  top: 32%;
+  left: 23%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+/* main {
+  background-color: #f1f1f1;
+  height: 100%;
+  margin-left: 20%;
+  margin-right: 20%;
+} */
+
+.chat-container{
+  background-color: #f1f1f1;
+  height: 100%;
+  margin-top:10%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.main_hedder {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 0%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  width: 100%;
+  background-color: #3F5B7C;
+  color: #ffffff;
+  font-size: larger;
+}
+
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.footer {
+  background-color: #f6f6f6;
+  height: 200px;
+  display: flex;
+}
+
+.footer div {
+  margin: auto;
+}
+
+.header {
+  background-color: #A2E7CA;
+  height: 100px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.header__inner {
+  /* padding: 0 20px; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: inherit;
+  position: relative;
+}
+
+.header__title {
+  width: 100%; /* ヘッダー全体に広がるように調整 */
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0; /* 余白をリセット */
+  padding: 0; /* パディングをリセット */
+}
+
+.header__title img {
+  display: block;
+  width: 13%; /* ヘッダーの幅に合わせる */
+  height: 100%; /* ヘッダーの高さに合わせる */
+  object-fit: cover; /* 画像が枠内に収まるように調整 */
+}
+
+.header__nav {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  padding:none;
+  width: 100%;
+  height: 100vh;
+  transform: translateX(100%);
+  background-color: rgba(53, 51, 50, 0.5);
+  transition: ease .4s;
+}
+.nav-items__item a:hover {
+  color: #ff6347; /* ホバー時の色を設定 (例: トマト色) */
+  font-size: larger;
+}
+.header__hamburger {
+  position: absolute;
+  right: 1.5%;
+  width: 55px;
+  height: 100%;
+}
+
+.hamburger {
+  background-color: transparent;
+  border-color: transparent;
+  z-index: 9999;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 1px;
+  background-color: #000;
+  position: relative;
+  transition: ease .4s;
+  display: block;
+}
+
+.hamburger span:nth-child(1) {
+  top: 0;
+}
+
+.hamburger span:nth-child(2) {
+  margin: 8px 0;
+}
+
+.hamburger span:nth-child(3) {
+  top: 0;
+}
+
+.header__nav.active {
+  width: 100%;
+  transform: translateX(0%);
+}
+
+.hamburger.active span:nth-child(1) {
+  top: 5px;
+  transform: rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  top: -13px;
+  transform: rotate(-45deg);
+}
+
+#welcom_message {
+  background: #3F5B7C;
+  color: #fff;
+  font-weight: bolder;
+  font-size: larger;
+  text-align: center;
+  margin-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.nav_content {
+/*   position: fixed;
+ */  top: 100px;
+  right: 0;
+  text-align: center;
+  background-color: #fff;
+  width: 250px;
+  height: 100vh;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  font: -webkit-control;
+  height: fit-content
+  /* overflow-y: scroll; */
+}
+
+.nav_content.active {
+  transform: translateX(0);
+  position: fixed;
+  margin: 0%;
+  padding-right:0%;
+}
+.nav-items__item {
+  list-style-type: none; /* ドットを消す */
+  padding: 10px 0; /* 適宜調整 */
+}
+
+.nav-items__item a {
+  text-decoration: none; /* 下線を消す */
+  color: inherit; /* リンクの色を継承する */
+}
+
+
+
+.search-container {
+  text-align: center;
+  position: relative;
+  width: 100%;
+  margin: 30px 1%;
+}
+
+.search-container input[type='text'] {
+  font: 15px/24px sans-serif;
+  box-sizing: border-box;
+  width: calc(100% - 50px);
+  letter-spacing: 1px;
+  padding-left: 4em;
+  width: 95%;
+}
+.search-container {
+  text-align: center;
+  position: relative;
+  width: 100%;
+  margin: 30px 1%;
+}
+
+.search-container input[type='text'] {
+  font: 15px/24px sans-serif;
+  box-sizing: border-box;
+  width: calc(100% - 50px);
+  letter-spacing: 1px;
+  padding-left: 4em;
+  margin-top: 4%;
+  padding-right: 20px;
+  width: 40%;
+}
+
+.search-container button[type='submit'] {
+  position: absolute;
+  top: 12%;
+  right: 7%;
+  height: 90%;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.cp_iptxt {
+  /* position: relative; */
+  width: 100%;
+}
+
+.cp_iptxt input[type='text'] {
+  padding: 7px 13px;
+  transition: 0.4s;
+  border: 1px solid #1b2538;
+  background: transparent;
+  width: calc(100% - 26px);
+}
+
+.cp_iptxt input[type='text']:focus {
+  outline: none;
+}
+
+.cp_iptxt input[type='text']:focus~label {
+  font-size: 12px;
+  top: -18px;
+  left: 0;
+  transition: 0.3s;
+  color: #da3c41;
+}
+
+.cp_iptxt label {
+  position: absolute;
+  z-index: 1;  /* ラベルを前面に */
+  top: 30%;
+  left: 30%;
+  transition: 0.2s;
+  color: #999;
+  border:none;
+  pointer-events: none;
+}
+
+.cp_iptxt label::after {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #777;
+  border:none;
+}
+
+.cp_iptxt label.focus {
+  font-size: 10px;
+  top: -40%;
+  left: 0;
+  color: #da3c41;
+}
+
+
+/* 以下、ヘッダー以下の部分のCSS　（threadのページでは,sample_home.cssが適用されないため） */
+
+/* .thread-name {
+  margin:auto 0;
+
+  display: inline-block;
+  padding: 0 55px;
+  font-size: larger;
+  font-weight: bolder;
+  font-size: 30px;
+  background-color: #85e88a;
+} */
+.thread-name {
+  display: block; /* 要素をブロック表示 */
+  /* padding: 0 55px; 左右のパディングを設定 */
+  padding:0.5em 55px; /*上下の余白 左右の余白*/
+ border-top:solid 3px #63d2af; /*線の種類 太さ 色*/
+ border-bottom:solid 3px #63d2af; /*線の種類 太さ 色*/
+  font-size: larger;
+  font-weight: bolder;
+  font-size: 30px;
+  text-align: center; /* テキストを中央に配置 */
+  width: fit-content; /* コンテンツに合わせて幅を調整 */
+  position: relative; /* 位置を相対的に設定 */
+  left: 50%; /* 左から50%の位置に配置 */
+  transform: translateX(-50%); /* 要素を左に50%移動して中央に配置 */
+}
+.icon{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
+
+.icon img{
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+.pic{
+  width: 150px;
+  height: auto;
+}
+a{
+  text-decoration: none;
+}
+user-info {
+  display: flex; 
+  align-items: flex-start;
+}
+
+.user-info .icon {
+  width: 50px; 
+  height: 50px; 
+  margin-right: 10px; 
+}
+
+.user-info .post_name {
+  font-weight: bolder; 
+  color:#000;
+}
+.delete-button{
+  color: #fff;
+  background-color: #bb2a2f;
+height: 3%;
+  font-weight: bolder;
+  border: none;
+}
+
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 60px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.9);
+}
+
+
+
+/* 以下画像拡大のためのCSS */
+/* モーダルの画像 */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* 閉じるボタン */
+.close {
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}

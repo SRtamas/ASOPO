@@ -57,11 +57,20 @@
     height: 150px;
     border-radius: 50%;
     overflow: hidden;
-    height: auto;
+    max-height: 150px;
     max-height: 150px;
 }
 
 h2 {
     color: #A2E7CA;
     font-size: 30px;
+}
+#preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    height: auto;
+    max-height: 150px;
+    display: none;
 }

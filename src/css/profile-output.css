@@ -7,7 +7,7 @@ body {
   background-color: #f0f0f0;
   box-sizing: border-box;
   padding-top: 150px; /* ヘッダーの高さに合わせて余白を追加 */
-  padding-bottom: 50px;
+  padding-bottom: 10px;
 }
 
 /* フォームのスタイル */
@@ -17,7 +17,7 @@ table{
   box-shadow:5px 5px 5px 5px rgba(3, 5, 5, 0.3);
   width: 45%;
   padding: 3%;
-  border-radius: 8% 8% 8% 8%;
+  border-radius: 5% 5% 5% 5%;
 }
 
 
@@ -53,7 +53,9 @@ table{
   border-radius: 5px;
   box-sizing: border-box;
   margin: auto;
-  font-size: large;
+  font-size: 20px;
+  max-height: 200px;
+    min-height: 100px;
 }
 .button-all {
   display: flex; /* Flexbox を使用して要素を横並びにする */
@@ -94,6 +96,7 @@ table{
   cursor: pointer;
   font-size: 1em;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .back-button:hover {
@@ -110,12 +113,14 @@ th{
 }
 td {
   padding: 8px; /* セル内の余白を10pxに設定 */
+  font-size: 20px;
 }
 .icon-out{
   transform: translateX(50%);
 }
 .name-text{
   padding: 5%;
+  font-size: 20px;
 }
 .delete-icon-button {
   background-color: red; /* ボタンの背景色を赤に設定 */
@@ -162,6 +167,7 @@ td {
   width: 80%; /* 横幅を80%に設定 */
   max-width: 300px; /* 最大幅を300pxに設定 */
   text-align: center;
+  font-size: 20px;
 }
 
 .close {
