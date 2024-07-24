@@ -88,7 +88,7 @@ require 'header.php';
                 <tr>
                     <th>掲示板ID</th>
                     <th>掲示板名</th>
-                    <th>ジャンル</th>
+                    <th>カテゴリ</th>
                     <th>作成者</th>
                 </tr>
             </thead>

@@ -47,7 +47,7 @@ if (!empty($_POST['favorite'])) {
         $sql = $pdo->prepare('SELECT * FROM Favorite WHERE student_id=?');
         $sql->execute([$student_id]);
         if ($sql->rowCount() > 0) {
-            echo '<a href="#low" id="bottomLink">一番下へ</a>';
+            echo '<a href="#low" id="bottomLink" class = "low">▼</a>';
             foreach ($sql as $favorite_row) {
                 $board_sql = $pdo->prepare('SELECT * FROM Board WHERE board_id=?');
                 $board_sql->execute([$favorite_row['board_id']]);
@@ -95,7 +95,7 @@ if (!empty($_POST['favorite'])) {
                     $password_protected = isset($board['board_password']) ? '<span class="locked">🔒</span>' : '';
 
                     // 掲示板への参加ボタン
-                    $join_button = '<form action="thread.php method="post">
+                    $join_button = '<form action="thread.php?id=' . intval($board_id) . '" method="post">
                                     <button type="submit" class="button">参加する</button>
                                 </form>';
 
@@ -130,7 +130,7 @@ if (!empty($_POST['favorite'])) {
                 }
             }
             echo '<div id="low">';
-            echo '<a href="#up">一番上へ</a>';
+            echo '<a href="#up" class = "up">▲</a>';
             echo '</div>';
         } else {
             echo '<p class="not-found">掲示板が見つかりません</p>';

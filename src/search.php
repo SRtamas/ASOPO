@@ -38,12 +38,19 @@ if (!empty($_POST['favorite'])) {
     <title>ASO PORTAL　|　official</title>
 </head>
 
+
 <body>
+
     <?php
     require 'header.php';
     ?>
+
     <main>
+
         <div class="main">
+        
+        <div id="up"></div>
+
             <?php
             if (isset($_POST['board_search']) or isset($_SESSION['favorite']['search'])) {
                 if (isset($_POST['board_search'])) {
@@ -64,7 +71,7 @@ if (!empty($_POST['favorite'])) {
                 echo '<form action="search.php" method="post">';
                 echo '<input type="hidden" value="' . $search . '" name="board_search">';
                 echo '<select name="search_genre" class="search_genre_pull">';
-                echo '<option value="">全てのジャンル</option>';
+                echo '<option value="">全てのカテゴリ</option>';
                 $genre_sql = $pdo->query('SELECT * FROM Ganre');
                 foreach ($genre_sql as $genre_row) {
                     $hantei = 1;
@@ -125,7 +132,7 @@ if (!empty($_POST['favorite'])) {
                         echo '<div class="board-card"  id="board_' . $id . '">';
                         echo '<h3 class="board-title">' . htmlspecialchars($name) . $pass_dis . '</h3>';
                         echo '<p class="board-info">作成者：' . htmlspecialchars($row3['user_name']) . '</p>';
-                        echo '<p class="board-info">ジャンル：' . htmlspecialchars($row4['genre_name']) . '</p>';
+                        echo '<p class="board-info">カテゴリ：' . htmlspecialchars($row4['genre_name']) . '</p>';
                         echo '<p class="board-info">最新の投稿：' . $latestPostContent . '</p>';
                         echo '<form action="thread.php?id=' . intval($id) . '" method="post">';
                         echo '<button type="submit" class="join-button">参加する</button>';
@@ -148,8 +155,11 @@ if (!empty($_POST['favorite'])) {
                         }
                         ?>
                         </form>
+                        <a href="#low" id="bottomLink" class = "low">▼</a>
+                        <a href="#up" class = "up">▲</a>
                         <?php
                         echo '</div>';
+            
                     }
                 } else {
                     echo '<h3 class="not-search">掲示板が見つかりません</h3>';
@@ -161,6 +171,9 @@ if (!empty($_POST['favorite'])) {
                     // }
                 }
             }
+            echo '<div id="low">';
+            echo '</div>';
+
             ?>
         </div>
     </main>

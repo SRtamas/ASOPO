@@ -100,12 +100,8 @@ if (empty($_SESSION['user'])) {
             <tr>
                 <td colspan="2" align="center" class="button-td">
                     <div class="button-container">
-                        <form action="favorite.php" method="post">
-                            <button type="submit" class="signup-button">お気に入り</button>
-                        </form>
-                        <form action="profile-output.php" method="post">
-                            <button type="submit" class="signup-button">編集画面</button>
-                        </form>
+                            <button onclick="location.href='favorite.php';" class="favorite-button">お気に入り</button>
+                            <button onclick="location.href='profile-output.php';" class="signup-button">編集画面</button>
                     </div>
                 </td>
 
@@ -114,7 +110,6 @@ if (empty($_SESSION['user'])) {
                 <td colspan="2" align="center">
                     <div class="button-container">
                         <button onclick="location.href='home-login.php';" class="backhome-button">トップへ</button>
-
                         <button id="logoutButton" class="logout-button">ログアウト</button>
                     </div>
                 </td>
@@ -122,7 +117,7 @@ if (empty($_SESSION['user'])) {
         </table>
 
         <div id="logoutModal" class="modal-logout">
-            <div class="modal-content">
+            <div class="modal-pro">
                 <span class="close">&times;</span>
                 <p>本当にログアウトしますか？</p>
                 <form action="logout-output.php" method="post">

@@ -40,7 +40,7 @@ if (empty($_SESSION['user'])) {
             echo '<tr>';
             echo '<th style="text-align: center">順位</th>';
             echo '<th style="text-align: center">タイトル</th>';
-            echo '<th style="text-align: center">ジャンル</th>';
+            echo '<th style="text-align: center">カテゴリ</th>';
             echo '<th style="text-align: center">作成者</th>';
             echo '<th style="text-align: center">投稿数</th>';
             echo '<th style="text-align: center">最新の投稿</th>';
@@ -147,7 +147,7 @@ if (empty($_SESSION['user'])) {
             echo '<tr>';
             echo '<th style="text-align: center">順位</th>';
             echo '<th style="text-align: center">タイトル</th>';
-            echo '<th style="text-align: center">ジャンル</th>';
+            echo '<th style="text-align: center">カテゴリ</th>';
             echo '<th style="text-align: center">作成者</th>';
             echo '<th style="text-align: center">投稿数</th>';
             echo '<th style="text-align: center">最新の投稿</th>';
@@ -251,7 +251,7 @@ if (empty($_SESSION['user'])) {
             echo '<tr>';
             echo '<th style="text-align: center">順位</th>';
             echo '<th style="text-align: center">タイトル</th>';
-            echo '<th style="text-align: center">ジャンル</th>';
+            echo '<th style="text-align: center">カテゴリ</th>';
             echo '<th style="text-align: center">作成者</th>';
             echo '<th style="text-align: center">投稿数</th>';
             echo '<th style="text-align: center">最新の投稿</th>';
@@ -351,13 +351,13 @@ if (empty($_SESSION['user'])) {
             echo '<table>';
             echo '<thead>';
             echo '<tr>';
-            echo '<th colspan="4" id="toggleButton2" style="text-align: center">人気ジャンルランキング</th>';
+            echo '<th colspan="4" id="toggleButton2" style="text-align: center">カテゴリ</th>';
             echo '</tr>';
             echo '</thead>';
             echo '<tbody id="panel2" style="display:none;">';
             echo '<tr>';
             echo '<th style="text-align: center">順位</th>';
-            echo '<th style="text-align: center">ジャンル</th>';
+            echo '<th style="text-align: center">カテゴリ</th>';
             echo '<th style="text-align: center">掲示板数</th>';
             echo '<th></th>';
             echo '</tr>';

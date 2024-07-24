@@ -57,7 +57,7 @@ if (!(empty($_POST['thread_pass']))) {
                     }
                     ?>
                     <button class="form-button" type="submit">入力</button>
-                    <button onclick="history.back();" class="form-button">戻る</button>
+                    <button onclick="location.href='./home-login.php'" class="form-button">戻る</button>
                 </form>
             </center>
         </div>

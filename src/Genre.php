@@ -33,21 +33,28 @@ if (!empty($_POST['favorite'])) {
     <link rel="stylesheet" href="css/genre-search.css">
 </head>
 
+
 <body>
+<li id="up"></li>
+
     <?php
     require 'header.php';
     ?>
     <main>
         <div class="main">
+
             <br>
             <?php
             if (isset($_GET['id'])) {
+
                 $genre = intval($_GET['id']);
                 $search = isset($_POST['board_search']) ? $_POST['board_search'] : '';
 
                 if ($search) {
                     echo '<div class="search-result-header">【' . htmlspecialchars($search) . '】の検索結果</div>';
+
                 }
+
 
                 $sql = $pdo->prepare('SELECT * FROM Board WHERE board_name LIKE ? AND genre_id = ?');
                 $sql->execute(["%$search%", $genre]);
@@ -101,12 +108,12 @@ if (!empty($_POST['favorite'])) {
                         $pass_dis = isset($row['board_password']) ? '🔒' : '';
 
                         echo '<div class="board-card' . $me_posts . '" id="board_'.$id.'">';
-                        echo '<h3 class="board-title">' . htmlspecialchars($name) . '</h3>';
+                        echo '<h3 class="board-title">' . htmlspecialchars($name). $pass_dis . '</h3>';
                         echo '<p class="board-info">作成者：' . htmlspecialchars($row3['user_name']) . '</p>';
                         echo '<p class="board-info">最新の投稿：' . $latestPostContent . '</p>';
                         echo '<form action="thread.php?id=' . intval($id) . '" method="post">';
                         echo '<button type="submit" class="join-button">参加する</button>';
-                        echo '</form>' . $pass_dis;
+                        echo '</form>';
                         ?>
                         <form aciton="Genre.php?id=<?php $genre ?>" method="post">
                             <input type="hidden" name="board_id" value="<?php echo $id; ?>">
@@ -121,9 +128,13 @@ if (!empty($_POST['favorite'])) {
                                 echo '<button type="submit" class="join-button">お気に入り登録</button>';
                             }
                             ?>
+                            <a href="#low" id="bottomLink" class = "low">▼</a>
+                            <a href="#up" class = "up">▲</a>
+
                         </form>
                         <?php
                         echo '</div>';
+            
                     }
                 } else {
                     echo '<h3 class="not-found">掲示板が見つかりません</h3>';
@@ -131,6 +142,10 @@ if (!empty($_POST['favorite'])) {
             } else {
                 echo '<h3 class="error">ジャンルIDが指定されていません</h3>';
             }
+            echo '<div id="low">';
+            echo '</div>';
+
+
             ?>
         </div>
     </main>

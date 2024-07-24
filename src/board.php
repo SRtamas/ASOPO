@@ -36,9 +36,16 @@ if (!empty($_POST['favorite'])) {
     <?php
     require 'header.php';
     ?>
+
     <main>
+
+
         <div class="boarrd-main">
+        <div id="up"></div>
+
             <div class="main_header">参加中の掲示板一覧</div>
+            <a href="#low" id="bottomLink" class = "low">▼</a>
+
             <?php
             if (isset($_SESSION['user']) && isset($_SESSION['user']['student_id'])) {
                 $student_id = $_SESSION['user']['student_id'];
@@ -110,6 +117,7 @@ if (!empty($_POST['favorite'])) {
 
                         <?php
                         echo '</div>';
+            
                     }
                 } else {
                     echo '<h3 class="not-found">掲示板が見つかりません</h3>';
@@ -117,6 +125,10 @@ if (!empty($_POST['favorite'])) {
             } else {
                 echo '<p class="error">ユーザー情報が見つかりません</p>';
             }
+            echo '<div id="low">';
+            echo '<a href="#up" class = "up">▲</a>';
+            echo '</div>';
+
             ?>
         </div>
     </main>

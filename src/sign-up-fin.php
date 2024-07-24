@@ -21,6 +21,7 @@ if (!(isset($_SESSION['sign_up']))) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/sign-up.css">
     <title>ASO PORTAL　|　official</title>
 </head>
 
@@ -30,8 +31,8 @@ if (!(isset($_SESSION['sign_up']))) {
             <img id="topikon" src="img/5.png" class="show">
         </p>
         <h2 class="title">
-            <p>登録が完了しました<br>ASOPOをお楽しみください！！
-        <h2 class="title">
+            <p class = "p-top">登録が完了しました<br>ASOPOをお楽しみください！！
+        </h2>
         </p>
         <a href="login-input.php">
             <h3>ログインへ</h3>

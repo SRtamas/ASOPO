@@ -90,7 +90,7 @@ require "db-connect.php";
     ?>
     </center>
     <div id="deleteModal" class="modal-delete">
-        <div class="modal-content">
+        <div class="modal-pro">
             <span class="close">&times;</span>
             <p><span>アイコンを削除しますか？</span></p>
             <form action="profile-fin.php?student_id=<?php echo $student_id; ?>" method="post">

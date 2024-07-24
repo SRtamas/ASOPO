@@ -64,7 +64,7 @@ if (!empty($_POST['favorite'])) {
             </button>
         </form>
 
-        <a href="#low" id="bottomLink">一番下へ</a>
+        <a href="#low" id="bottomLink" class = "low">▼</a>
 
         <?php
         // 掲示板の情報を取得するクエリ
@@ -142,7 +142,7 @@ if (!empty($_POST['favorite'])) {
                 echo '</div>';
             }
             echo '<div id="low">';
-            echo '<a href="#up">一番上へ</a>';
+            echo '<a href="#up" class = "up">▲</a>';
             echo '</div>';
         } else {
             echo '<p class="not-found">掲示板が見つかりません</p>';

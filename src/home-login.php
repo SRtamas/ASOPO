@@ -307,76 +307,62 @@ if (!(empty($_POST['delete_id']))) {
           </td>
         </table>
       </div>
+    </div>
 
-      <!-- モーダルウィンドウ -->
-      <div id="myModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImg">
-      </div>
+    <!-- モーダルウィンドウ -->
+    <div id="myModal" class="modal">
+      <span class="close">&times;</span>
+      <img class="modal-content" id="modalImg">
+    </div>
+    <a href="#text" class="most_down-button">▼</a>
   </main>
-
-</body>
-<script>
-  function validateFileSize() {
-    var input = document.getElementById('post_pic');
-    var file = input.files[0];
-    if (file && file.size > 1024 * 1024 * 5) {
-      alert('ファイルサイズは5MB以下にしてください。');
-      return false;
+  <script>
+    function validateFileSize() {
+      var input = document.getElementById('post_pic');
+      var file = input.files[0];
+      if (file && file.size > 1024 * 1024 * 10) {
+        alert('ファイルサイズは10MB以下にしてください。');
+        return false;
+      }
+      return true;
     }
-    return true;
-  }
-  // モーダルウィンドウを取得
-  var modal = document.getElementById("myModal");
 
-  // 画像をクリックしたときの処理
-  var images = document.querySelectorAll(".pic");
-  images.forEach(function (img) {
-    img.onclick = function (event) {
+    // モーダルウィンドウを取得
+    document.addEventListener('DOMContentLoaded', function () {
+      // モーダルウィンドウを取得
       var modal = document.getElementById("myModal");
       var modalImg = document.getElementById("modalImg");
-      modal.style.display = "block"; // モーダルウィンドウを表示する
 
-      // クリックされた画像の位置を取得
-      var rect = img.getBoundingClientRect();
-      var imgTop = rect.top + window.pageYOffset;
-      var imgLeft = rect.left + window.pageXOffset;
+      // 画像をクリックしたときの処理
+      var images = document.querySelectorAll(".pic");
+      images.forEach(function (img) {
+        img.onclick = function (event) {
+          if (modal && modalImg) {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+          }
+        }
+      });
 
-      // モーダルウィンドウの表示位置を設定
-      modal.style.top = imgTop - 50 + "px";
-      // modal.style.left = imgLeft + "px";
-      modal.style.left = 0 + "px";
+      // モーダルウィンドウの閉じるボタンを取得
+      var span = document.getElementsByClassName("close")[0];
 
-      modalImg.src = this.src; // クリックされた画像をモーダルウィンドウ内のimg要素に表示する
-    }
-  });
+      // 閉じるボタンがクリックされたときの処理
+      if (span) {
+        span.onclick = function () {
+          modal.style.display = "none";
+        }
+      }
 
+      // モーダルウィンドウの外側をクリックしたときの処理
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    });
 
-  // モーダルウィンドウの閉じるボタンを取得
-  var span = document.getElementsByClassName("close")[0];
-
-  // 閉じるボタンがクリックされたときの処理
-  span.onclick = function () {
-    modal.style.display = "none"; // モーダルウィンドウを非表示にする
-  }
-
-  // モーダルウィンドウの外側をクリックしたときの処理
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none"; // モーダルウィンドウを非表示にする
-    }
-  }
-  function displayFileName() {
-    var input = document.getElementById('post_pic');
-    var fileName = input.files[0].name;
-    var displayElement = document.getElementById('file-name');
-    displayElement.textContent = fileName;
-  }
-
-  // 画面を開いたときの処理
-  window.onload = function () {
-    modal.style.display = "none"; // モーダルウィンドウを非表示にする
-  }
-</script>
+  </script>
+</body>
 
 </html>

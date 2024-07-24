@@ -12,7 +12,6 @@ if (empty($_SESSION['user'])) {
 $board_id = $_GET['id'];
 $pdo = new PDO($connect, USER, PASS);
 $sql = $pdo->prepare('SELECT * FROM Board WHERE board_id=? ');
-// unset($post_content, $post_date, $post_pic);
 $sql->execute([$board_id]);
 $student_id = $_SESSION['user']['student_id'];
 foreach ($sql as $row) {
@@ -192,33 +191,17 @@ if (!empty($_POST['favorite'])) {
 }
 
 ?>
-
-<?php
-require 'header.php';
-?>
-
 <!DOCTYPE html>
 <html lang="jp">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASO PORTAL　|　official</title>
-<!-- <link rel="stylesheet" href="css/logn_top.css">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASO PORTAL　|　official</title>
+  <!-- <link rel="stylesheet" href="css/logn_top.css">
 <link rel="stylesheet" href="css/thread.css"> -->
-<link rel="stylesheet" href="css/sample_homelogin.css">
+  <link rel="stylesheet" type="text/css" href="css/sample_homelogin.css">
 </head>
-<script>
-  // // ページ読み込み時のスクロール位置を保存
-  // var initialScroll = window.scrollY;
-
-  // // 5秒ごとにページを自動的に更新する関数
-  // setInterval(function() {
-  //     // リロード前のスクロール位置を復元
-  //     window.scrollTo(0, initialScroll);
-
-  //     // ページを自動的にリロード（キャッシュを無視して強制的に）
-  //     location.reload(true);
-  // }, 3000); // 5000ミリ秒（＝5秒）ごとに実行
-</script>
 
 <body>
   <?php
@@ -228,7 +211,7 @@ require 'header.php';
     <div class="container">
       <!-- <a href="board-list.php" class="board-link">ボードリストへ</a> -->
       <div class="chat-container">
-        <div class="thread-name"><?php echo $board_name ?></div>
+        <div class="thread-name"><span><?php echo $board_name ?></span></div>
         <!-- <a href="#text">一番下へ移動</a> -->
         <?php
         $sql_thread = $pdo->prepare('SELECT * FROM Post WHERE board_id=?');
@@ -252,58 +235,56 @@ require 'header.php';
             $user_school_naem = $row_school['School_name'];
           }
           if ($student_id == $student_id_post) {
-            echo '<div class="message sent">';
+            echo '<div class="message-sent">';
             echo '<div class="message-text">';
             echo '<span class="post_date" id="post_' . $post_cont . '">', $post_date_post, '</span><br>';
             $post_cont_m = $post_cont - 1;
-            echo '<form action="thread.php?id=' . intval($board_id) . '#post_' . $post_cont_m . '" method="post">';
-            echo '<input type="hidden" name="delete_id" value="' . $post_id_post . '">';
-            echo '<button type="submit" class="delete-button">削除</button>';
-            echo '</form>';
-
             // echo '<span class="post_school">', $user_school_naem, '</span><br>';
-            echo '<span class="post_content">', nl2br($post_content_post), '</span>';
+            echo '<hr><span class="post_content">', nl2br($post_content_post), '</span>';
             if ($post_pic_post == 2) {
               $video_file = "movie/post_movie/{$post_id_post}.mp4";
-              echo '<a href="' . htmlspecialchars($video_file) . '" target="_blank">動画を再生する</a>';
+              echo '<br><a href="' . htmlspecialchars($video_file) . '" target="_blank">動画を再生する</a>';
             }
             echo '</div>';
             if ($post_pic_post == 1) {
               $pic_file = "pic/post_pic/{$post_id_post}.jpg";
-              echo '<img class="pic" src="' . $pic_file . '" alt="投稿画像">';
+              echo '<img class="pic expandable" src="' . $pic_file . '" alt="投稿画像">';
             }
+            echo '<form action="thread.php?id=' . intval($board_id) . '" method="post">';
+            echo '<input type="hidden" name="delete_id" value="' . $post_id_post . '">';
+            echo '<button type="submit" class="delete-button">✖削除</button>';
+            echo '</form>';
             echo '</div>';
           } else {
-            echo '<div class="message received">';
+            echo '<div class="message-received">';
             $icon_file = "pic/icon/{$student_id_post}.jpg";
             echo '<a href="profile_con.php?id=' . intval($student_id_post) . '">';
             if (file_exists($icon_file)) {
               echo '<div class="user-info"><img class="icon" src="' . $icon_file . '" alt="アイコン"><span class="post_name">', $user_name_post, '</span></div>';
-
             } else {
               echo '<img class="icon" src="pic/icon/guest.jpg" alt="デフォルトアイコン"><span class="post_name">', $user_name_post, '</span>';
             }
             echo '</a>';
             echo '<div class="message-text">';
             echo '<span class="post_date" id="post_' . $post_cont . '">', $post_date_post, '</span><br>';
-            echo '<span class="post_school">', $user_school_naem, '</span><br>';
+            echo '<span class="post_school">', $user_school_naem, '</span><br><hr>';
             // echo '<span class="post_name">', $user_name_post, '</span><br>';
             echo '<span class="post_content">', nl2br($post_content_post), '</span>';
             if ($post_pic_post == 2) {
               $video_file = "movie/post_movie/{$post_id_post}.mp4";
-              echo '<a href="' . htmlspecialchars($video_file) . '" target="_blank">動画を再生する</a>';
+              echo '<br><a href="' . htmlspecialchars($video_file) . '" target="_blank">動画を再生する</a>';
             }
             echo '</div>';
             if ($post_pic_post == 1) {
               $pic_file = "pic/post_pic/{$post_id_post}.jpg";
-              echo '<img class="pic" src="' . $pic_file . '" alt="投稿画像">';
+              echo '<img class="pic expandable" src="' . $pic_file . '" alt="投稿画像">';
             }
             echo '</div>';
           }
-          $post_cont++;
         }
         ?>
       </div>
+
       <div class="input-container">
         <form action="thread.php?id=<?php echo intval($board_id); ?>#text" method="post" enctype="multipart/form-data"
           onsubmit="return validateFileSize()">
@@ -382,6 +363,7 @@ require 'header.php';
       <span class="close">&times;</span>
       <img class="modal-content" id="modalImg">
     </div>
+    <a href="#text" class="most_down-button">▼</a>
   </main>
 
 </body>
@@ -389,72 +371,47 @@ require 'header.php';
   function validateFileSize() {
     var input = document.getElementById('post_pic');
     var file = input.files[0];
-    if (file && file.size > 1024 * 1024 * 5) {
-      alert('ファイルサイズは5MB以下にしてください。');
+    if (file && file.size > 1024 * 1024 * 10) {
+      alert('ファイルサイズは10MB以下にしてください。');
       return false;
     }
     return true;
   }
+
   // モーダルウィンドウを取得
-  var modal = document.getElementById("myModal");
+  document.addEventListener('DOMContentLoaded', function () {
+    // モーダルウィンドウを取得
+    var modal = document.getElementById("myModal");
+    var modalImg = document.getElementById("modalImg");
 
-  // 画像をクリックしたときの処理
-  var images = document.querySelectorAll(".pic");
-  images.forEach(function (img) {
-    img.onclick = function (event) {
-      var modal = document.getElementById("myModal");
-      var modalImg = document.getElementById("modalImg");
-      modal.style.display = "block"; // モーダルウィンドウを表示する
+    // 画像をクリックしたときの処理
+    var images = document.querySelectorAll(".pic");
+    images.forEach(function (img) {
+      img.onclick = function (event) {
+        if (modal && modalImg) {
+          modal.style.display = "block";
+          modalImg.src = this.src;
+        }
+      }
+    });
 
-      // クリックされた画像の位置を取得
-      var rect = img.getBoundingClientRect();
-      var imgTop = rect.top + window.pageYOffset;
-      var imgLeft = rect.left + window.pageXOffset;
+    // モーダルウィンドウの閉じるボタンを取得
+    var span = document.getElementsByClassName("close")[0];
 
-      // モーダルウィンドウの表示位置を設定
-      modal.style.top = imgTop - 50 + "px";
-      // modal.style.left = imgLeft + "px";
-      modal.style.left = 0 + "px";
+    // 閉じるボタンがクリックされたときの処理
+    if (span) {
+      span.onclick = function () {
+        modal.style.display = "none";
+      }
+    }
 
-      modalImg.src = this.src; // クリックされた画像をモーダルウィンドウ内のimg要素に表示する
+    // モーダルウィンドウの外側をクリックしたときの処理
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
     }
   });
-
-
-  // モーダルウィンドウの閉じるボタンを取得
-  var span = document.getElementsByClassName("close")[0];
-
-  // 閉じるボタンがクリックされたときの処理
-  span.onclick = function () {
-    modal.style.display = "none"; // モーダルウィンドウを非表示にする
-  }
-
-  // モーダルウィンドウの外側をクリックしたときの処理
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none"; // モーダルウィンドウを非表示にする
-    }
-  }
-
-  // 画面を開いたときの処理
-  window.onload = function () {
-    modal.style.display = "none"; // モーダルウィンドウを非表示にする
-  }
-
-  function scrollToPreviousPostAndSubmit(form) {
-    // スクロール処理
-    scrollToPreviousPost();
-
-    // フォームのサブミット
-    form.submit();
-    function displayFileName() {
-      var input = document.getElementById('post_pic');
-      var fileName = input.files[0].name;
-      var displayElement = document.getElementById('file-name');
-      displayElement.textContent = fileName;
-    }
-  }
-
 
 </script>
 
