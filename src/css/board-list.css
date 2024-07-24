@@ -127,3 +127,29 @@ body {
     background-color: #f0fff3; /* 自分の掲示板用の背景色 */
     border: 2px solid #00ff1a; /* 自分の掲示板用の枠線 */
 }
+.up{
+    position: fixed;
+    bottom: 20%;
+    left: 92%;
+    border-radius: 50%;
+    background-color: #a3d7b2;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    line-height: 87px;
+    font-size: 55px;
+    color: white;
+}
+.low{
+    position: fixed;
+    bottom: 5%;
+    left: 92%;
+    border-radius: 50%;
+    background-color: #a3d7b2;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    line-height: 87px;
+    font-size: 55px;
+    color: white;
+}

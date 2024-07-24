@@ -143,3 +143,29 @@ body {
   flex-direction: column;
   align-items: center;
 }
+.up{
+  position: fixed;
+  bottom: 20%;
+  left: 92%;
+  border-radius: 50%;
+  background-color: #a3d7b2;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  line-height: 80px;
+  font-size: 55px;
+  color: white;
+}
+.low{
+  position: fixed;
+  bottom: 5%;
+  left: 92%;
+  border-radius: 50%;
+  background-color: #a3d7b2;
+  width: 80px;
+  height: 80px;
+  text-align: center;
+  line-height: 87px;
+  font-size: 55px;
+  color: white;
+}

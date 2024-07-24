@@ -1,6 +1,7 @@
-body{
-  margin:0;
+body {
+  margin: 0;
 }
+
 #home {
   position: absolute;
   top: 0;
@@ -19,7 +20,8 @@ body{
   top: 20%;
 }
 
-#me1, #me2 {
+#me1,
+#me2 {
   position: absolute;
   top: 32%;
   left: 23%;
@@ -36,12 +38,13 @@ body{
   margin-right: 20%;
 } */
 
-.chat-container{
+.chat-container {
   background-color: #f1f1f1;
   height: 100%;
-  margin-top:10%;
+  margin-top: 10%;
   margin-left: 10%;
   margin-right: 10%;
+  padding: 1px;
 }
 
 .main_hedder {
@@ -61,6 +64,7 @@ body{
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
@@ -96,20 +100,26 @@ body{
 }
 
 .header__title {
-  width: 100%; /* ヘッダー全体に広がるように調整 */
+  width: 100%;
+  /* ヘッダー全体に広がるように調整 */
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
-  margin: 0; /* 余白をリセット */
-  padding: 0; /* パディングをリセット */
+  margin: 0;
+  /* 余白をリセット */
+  padding: 0;
+  /* パディングをリセット */
 }
 
 .header__title img {
   display: block;
-  width: 13%; /* ヘッダーの幅に合わせる */
-  height: 100%; /* ヘッダーの高さに合わせる */
-  object-fit: cover; /* 画像が枠内に収まるように調整 */
+  width: 13%;
+  /* ヘッダーの幅に合わせる */
+  height: 100%;
+  /* ヘッダーの高さに合わせる */
+  object-fit: cover;
+  /* 画像が枠内に収まるように調整 */
 }
 
 .header__nav {
@@ -117,17 +127,20 @@ body{
   right: 0;
   left: 0;
   top: 0;
-  padding:none;
+  padding: none;
   width: 100%;
   height: 100vh;
   transform: translateX(100%);
   background-color: rgba(53, 51, 50, 0.5);
   transition: ease .4s;
 }
+
 .nav-items__item a:hover {
-  color: #ff6347; /* ホバー時の色を設定 (例: トマト色) */
+  color: #ff6347;
+  /* ホバー時の色を設定 (例: トマト色) */
   font-size: larger;
 }
+
 .header__hamburger {
   position: absolute;
   right: 1.5%;
@@ -193,8 +206,9 @@ body{
 }
 
 .nav_content {
-/*   position: fixed;
- */  top: 100px;
+  /*   position: fixed;
+ */
+  top: 100px;
   right: 0;
   text-align: center;
   background-color: #fff;
@@ -204,23 +218,28 @@ body{
   transition: transform 0.3s ease-in-out;
   font: -webkit-control;
   height: fit-content
-  /* overflow-y: scroll; */
+    /* overflow-y: scroll; */
 }
 
 .nav_content.active {
   transform: translateX(0);
   position: fixed;
   margin: 0%;
-  padding-right:0%;
+  padding-right: 0%;
 }
+
 .nav-items__item {
-  list-style-type: none; /* ドットを消す */
-  padding: 10px 0; /* 適宜調整 */
+  list-style-type: none;
+  /* ドットを消す */
+  padding: 10px 0;
+  /* 適宜調整 */
 }
 
 .nav-items__item a {
-  text-decoration: none; /* 下線を消す */
-  color: inherit; /* リンクの色を継承する */
+  text-decoration: none;
+  /* 下線を消す */
+  color: inherit;
+  /* リンクの色を継承する */
 }
 
 
@@ -240,6 +259,7 @@ body{
   padding-left: 4em;
   width: 95%;
 }
+
 .search-container {
   text-align: center;
   position: relative;
@@ -295,12 +315,13 @@ body{
 
 .cp_iptxt label {
   position: absolute;
-  z-index: 1;  /* ラベルを前面に */
+  z-index: 1;
+  /* ラベルを前面に */
   top: 30%;
   left: 30%;
   transition: 0.2s;
   color: #999;
-  border:none;
+  border: none;
   pointer-events: none;
 }
 
@@ -311,7 +332,7 @@ body{
   width: 100%;
   height: 1px;
   background: #777;
-  border:none;
+  border: none;
 }
 
 .cp_iptxt label.focus {
@@ -335,21 +356,32 @@ body{
   background-color: #85e88a;
 } */
 .thread-name {
-  display: block; /* 要素をブロック表示 */
+  display: block;
+  /* 要素をブロック表示 */
   /* padding: 0 55px; 左右のパディングを設定 */
-  padding:0.5em 55px; /*上下の余白 左右の余白*/
- border-top:solid 3px #63d2af; /*線の種類 太さ 色*/
- border-bottom:solid 3px #63d2af; /*線の種類 太さ 色*/
+  padding: 0.5em 55px;
+  /*上下の余白 左右の余白*/
+  border-top: solid 3px #63d2af;
+  /*線の種類 太さ 色*/
+  border-bottom: solid 3px #63d2af;
+  /*線の種類 太さ 色*/
   font-size: larger;
   font-weight: bolder;
   font-size: 30px;
-  text-align: center; /* テキストを中央に配置 */
-  width: fit-content; /* コンテンツに合わせて幅を調整 */
-  position: relative; /* 位置を相対的に設定 */
-  left: 50%; /* 左から50%の位置に配置 */
-  transform: translateX(-50%); /* 要素を左に50%移動して中央に配置 */
+  text-align: center;
+  /* テキストを中央に配置 */
+  width: fit-content;
+  /* コンテンツに合わせて幅を調整 */
+  position: relative;
+  /* 位置を相対的に設定 */
+  left: 50%;
+  /* 左から50%の位置に配置 */
+  transform: translateX(-50%);
+  /* 要素を左に50%移動して中央に配置 */
+  margin-bottom: 2%;
 }
-.icon{
+
+.icon {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -357,7 +389,7 @@ body{
   position: relative;
 }
 
-.icon img{
+.icon img {
   width: 100%;
   height: auto;
   position: absolute;
@@ -367,32 +399,36 @@ body{
   bottom: 0;
   margin: auto;
 }
-.pic{
+
+.pic {
   width: 150px;
   height: auto;
 }
-a{
+
+a {
   text-decoration: none;
 }
+
 user-info {
-  display: flex; 
+  display: flex;
   align-items: flex-start;
 }
 
 .user-info .icon {
-  width: 50px; 
-  height: 50px; 
-  margin-right: 10px; 
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
 }
 
 .user-info .post_name {
-  font-weight: bolder; 
-  color:#000;
+  font-weight: bolder;
+  color: #000;
 }
-.delete-button{
+
+.delete-button {
   color: #fff;
   background-color: #bb2a2f;
-height: 3%;
+  height: 3%;
   font-weight: bolder;
   border: none;
 }
@@ -408,8 +444,8 @@ height: 3%;
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.9);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 

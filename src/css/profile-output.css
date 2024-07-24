@@ -4,7 +4,7 @@ body {
   padding: 0;
   justify-content: center;
   align-items: center;
-  background-color: #f0f0f0;
+  background-color: #e6f4ea;
   box-sizing: border-box;
   padding-top: 150px; /* ヘッダーの高さに合わせて余白を追加 */
   padding-bottom: 10px;
@@ -159,7 +159,7 @@ td {
   background-color: rgba(0, 0, 0, 0.4); /* 背景を半透明に */
 }
 
-.modal-content {
+.modal-pro {
   background-color: #fefefe;
   margin: 15% auto; /* 上下のマージンを自動設定 */
   padding: 20px;

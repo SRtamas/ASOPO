@@ -1,3 +1,6 @@
+body{
+    background-color: #e6f4ea;
+}
 .sign-up-textbox {
     background-color: gray;
     border: none;
@@ -64,6 +67,12 @@
 h2 {
     color: #A2E7CA;
     font-size: 30px;
+}
+h3{
+    font-size: 20px;
+}
+.p-top {
+    color: black;
 }
 #preview {
     width: 150px;
