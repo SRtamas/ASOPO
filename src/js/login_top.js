@@ -77,4 +77,48 @@ textarea.addEventListener('input', () => {
         postButton.disabled = true;
         postButton.classList.add('disabled');
     }
+});document.addEventListener('DOMContentLoaded', function () {
+    const logoutButton = document.getElementById("logoutButton");
+    const logoutModal = document.getElementById("logoutModal");
+    const closeModalSpan = document.querySelector(".close");
+    const cancelLogoutButton = document.querySelector(".cancel-button");
+
+    logoutButton.addEventListener("click", function() {
+        logoutModal.style.display = "block";
+    });
+
+    closeModalSpan.addEventListener("click", function() {
+        logoutModal.style.display = "none";
+    });
+
+    cancelLogoutButton.addEventListener("click", function() {
+        logoutModal.style.display = "none";
+    });
+
+    window.addEventListener("click", function(event) {
+        if (event.target === logoutModal) {
+            logoutModal.style.display = "none";
+        }
+    });
 });
+document.addEventListener('DOMContentLoaded', function() {
+    // ハンバーガーメニューの要素を取得
+    var hamburgerMenu = document.getElementById('js-hamburger');
+    var body = document.body;
+
+    // ハンバーガーメニューのクリックイベントリスナーを追加
+    hamburgerMenu.addEventListener('click', function() {
+      // ハンバーガーメニューが開いているかどうかをチェック
+      var isOpen = hamburgerMenu.classList.contains('open');
+      
+      if (isOpen) {
+        // メニューが開いている場合、閉じる
+        hamburgerMenu.classList.remove('open');
+        body.classList.remove('no-scroll');
+      } else {
+        // メニューが閉じている場合、開く
+        hamburgerMenu.classList.add('open');
+        body.classList.add('no-scroll');
+      }
+    });
+  });
